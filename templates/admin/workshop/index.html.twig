@@ -1,0 +1,64 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Formations et Ateliers{% endblock %}
+
+{% block pageTitle %}Formations et Ateliers{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="toolbar">
+                            <!--Here you can write extra buttons/actions for the toolbar-->
+                            <a class="btn btn-primary btn-fill btn-wd" href="{{ path('workshop_new') }}">Nouvelle formation</a>
+                        </div>
+
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Titre</th>
+                                            <th>Prix (HTVA)</th>
+                                            <th>Lieu</th>
+                                            <th>Zoom</th>
+                                            <th>Modifié le</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for workshop in workshops %}
+                                        <tr>
+                                            <td>{{ loop.index }}</td>
+                                            <td>{{ workshop.title }}</td>
+                                            <td>{{ workshop.price|number_format(2, '.', ',') }} €</td>
+                                            <td>{{ workshop.location }}</td>
+                                            <td>{{ workshop.remote ? 'Yes' : 'No' }}</td>
+                                            <td>{{ workshop.updatedAt ? workshop.updatedAt|format_datetime('medium', 'medium',locale='fr') : '' }}</td>
+                                            <td>
+                                                <div>
+                                                    <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('workshop_edit', {'id': workshop.id}) }}">
+                                                        <i class="ti-pencil-alt"></i>
+                                                    </a>
+                                                    <form style="display: inline-block;" method="post" action="{{ path('workshop_delete', {'id': workshop.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cette formation');">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ workshop.id) }}">
+                                                        <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="6">Pas de formation</td>
+                                        </tr>
+                                    {% endfor %}
+                                    </tbody>
+                                </table>
+                    </div>
+                </div><!--  end card  -->
+            </div> <!-- end col-md-12 -->
+        </div> <!-- end row -->
+    </div>
+</div>
+{% endblock %}

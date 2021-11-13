@@ -1,0 +1,61 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Gestion des news{% endblock %}
+
+{% block pageTitle %}Gestion des News{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="toolbar">
+                            <!--Here you can write extra buttons/actions for the toolbar-->
+                            <a class="btn btn-primary btn-fill btn-wd" href="{{ path('news_new') }}">Créer une News</a>
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Titre</th>
+                                <th>Créé le</th>
+                                <th>Modifié le</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for news in news %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ news.title }}</td>
+                                    <td>{{ news.createdAt ? news.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>{{ news.updatedAt ? news.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                    <td>
+                                        <div>
+                                            <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('news_edit', {'id': news.id}) }}">
+                                                <i class="ti-pencil-alt"></i>
+                                            </a>
+                                            <form style="display: inline-block;" method="post" action="{{ path('news_delete', {'id': news.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cette news');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ news.id) }}">
+                                                <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">Pas de news</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--  end card  -->
+            </div> <!-- end col-md-12 -->
+        </div> <!-- end row -->
+    </div>
+</div>
+{% endblock %}

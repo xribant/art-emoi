@@ -1,0 +1,21 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Modifier une News{% endblock %}
+
+{% block pageTitle %}Modifier une News{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+
+                {{ include('admin/news/_form.html.twig', {'button_label': 'Modifier'}) }}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

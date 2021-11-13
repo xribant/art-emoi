@@ -1,0 +1,22 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Ajout d'une formation{% endblock %}
+
+{% block pageTitle %}Créer une nouvelle formation{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+
+                        {{ include('admin/workshop/_form.html.twig') }}
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

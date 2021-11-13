@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+
+{% block content %}
+   <section>
+       <div class="container">
+           <div class="row justify-content-start mb-2">
+               <div class="col-md-6 heading-section ftco-animate text-start">
+                   <h1>News</h1>
+               </div>
+           </div>
+           <div class="row ftco-animate">
+               <div class="col-md-6">
+                   <div class="carousel-news owl-carousel">
+                       {% for newsItem in news %}
+                       <div class="item">
+                           <div class="testimony-wrap p-4 pb-5">
+                               <div class="text">
+                                   <div class="line">
+                                       <p class="mb-4 pb-1">{{ newsItem.content }}</p>
+                                       <span class="quote d-flex align-items-center justify-content-center">
+	                                        <i class="icon-quote-left"></i>
+                                       </span>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                       {% else %}
+                           <div class="item">
+                               <div class="testimony-wrap p-4 pb-5">
+                                   <div class="text">
+                                       <div class="line">
+                                           <p class="mb-4 pb-1">Pas de news pur le moment</p>
+                                           <span class="quote d-flex align-items-center justify-content-center">
+	                                        <i class="icon-quote-left"></i>
+                                       </span>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       {% endfor %}
+
+                   </div>
+               </div>
+           </div>
+       </div>
+   </section>
+{% endblock %}
