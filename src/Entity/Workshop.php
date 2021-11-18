@@ -5,10 +5,13 @@ namespace App\Entity;
 use App\Repository\WorkshopRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 /**
  * @ORM\Entity(repositoryClass=WorkshopRepository::class)
+ * @Vich\Uploadable()
  */
 class Workshop
 {
@@ -21,32 +24,24 @@ class Workshop
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez entrer un nom")
      */
     private $title;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(message="Veuillez entrer une description")
      */
     private $description;
 
     /**
-     * @ORM\Column(type="float")
-     */
-    private $price;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $location;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $remote;
-
-    /**
-     * @Vich\UploadableField(mapping="workshops_image", fileNameProperty="imageName", size="imageSize")
-     *
+     * @Vich\UploadableField(mapping="workshops_image", fileNameProperty="imageName")
+     * @Assert\File(
+     *     maxSize="2M",
+     *     maxSizeMessage="La taille du fichier doit être inférieure à 2 Mb",
+     *     mimeTypes={"image/jpeg", "image/jpg", "image/png"},
+     *     mimeTypesMessage = "Fichiers .jpeg ou .png uniquement"
+     * )
      * @var File|null
      */
     private $imageFile;
@@ -65,6 +60,11 @@ class Workshop
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Event::class, mappedBy="workshop", cascade={"persist", "remove"})
+     */
+    private $event;
 
     public function __construct(){
         $this->updated_at = new \DateTime();
@@ -99,41 +99,6 @@ class Workshop
         return $this;
     }
 
-    public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(string $location): self
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
-    public function getRemote(): ?bool
-    {
-        return $this->remote;
-    }
-
-    public function setRemote(bool $remote): self
-    {
-        $this->remote = $remote;
-
-        return $this;
-    }
 
     /**
      * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
@@ -144,15 +109,14 @@ class Workshop
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile(?File $imageFile): Workshop
     {
         $this->imageFile = $imageFile;
 
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+        if ($this->imageFile instanceof UploadedFile) {
+            $this->updated_at = new \DateTime('now');
         }
+        return $this;
     }
 
     public function getImageFile(): ?File
@@ -192,6 +156,28 @@ class Workshop
     public function setUpdatedAt(\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
+
+        return $this;
+    }
+
+    public function getEvent(): ?Event
+    {
+        return $this->event;
+    }
+
+    public function setEvent(?Event $event): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($event === null && $this->event !== null) {
+            $this->event->setWorkshop(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($event !== null && $event->getWorkshop() !== $this) {
+            $event->setWorkshop($this);
+        }
+
+        $this->event = $event;
 
         return $this;
     }

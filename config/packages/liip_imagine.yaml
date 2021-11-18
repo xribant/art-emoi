@@ -5,7 +5,7 @@ liip_imagine:
 
     filter_sets:
         cache: ~
-        worshop_jacket:
+        workshop_jacket:
             quality: 75
             filters:
                 thumbnail: { size: [ 252, 352 ], mode: outbound }

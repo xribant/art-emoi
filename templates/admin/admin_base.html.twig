@@ -89,6 +89,18 @@
                                 <p>Formations</p>
                             </a>
                         </li>
+                        <li>
+                            <a href="{{ path('event_index') }}">
+                                <i class="ti-calendar"></i>
+                                <p>Agenda</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="ti-pencil-alt"></i>
+                                <p>Inscriptions</p>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </div>
@@ -162,8 +174,12 @@
         <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
         <script src="{{ asset('assets/admin/js/moment.min.js') }}"></script>
 
+        <!--  Plugin for Date Time Picker and Full Calendar Plugin-->
+        <script src="{{ asset('assets/admin/js/moment.min.js') }}"></script>
+
         <!--  Date Time Picker Plugin is included in this js file -->
         <script src="{{ asset('assets/admin/js/bootstrap-datetimepicker.js') }}"></script>
+        <script src="{{ asset('assets/admin/js/locales/fr.js') }}"></script>
 
         <!--  Select Picker Plugin -->
         <script src="{{ asset('assets/admin/js/bootstrap-selectpicker.js') }}"></script>
@@ -205,8 +221,12 @@
         <script src="{{ asset('assets/admin/js/paper-dashboard.js') }}"></script>
 
         <script type="text/javascript">
-            $().ready(function(){
-                $('#registerForm').validate();
+
+            $(function () {
+                $('.datepicker').datetimepicker({
+                    locale: 'fr',
+                    format: 'L'
+                });
             });
         </script>
     {% endblock %}

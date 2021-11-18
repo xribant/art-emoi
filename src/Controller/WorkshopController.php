@@ -42,14 +42,6 @@ class WorkshopController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'workshop_show', methods: ['GET'])]
-    public function show(Workshop $workshop): Response
-    {
-        return $this->render('admin/workshop/show.html.twig', [
-            'workshop' => $workshop,
-        ]);
-    }
-
     #[Route('/{id}/edit', name: 'workshop_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Workshop $workshop): Response
     {

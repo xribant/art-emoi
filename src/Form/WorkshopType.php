@@ -6,6 +6,8 @@ use App\Entity\Workshop;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -29,38 +31,18 @@ class WorkshopType extends AbstractType
                 'required' => true,
                 'config' => [
                     'toolbar' => 'basic',
-                ]
-            ])
-            ->add('price', TextType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Prix',
-                    'class' => 'form-control',
-                ]
-            ])
-            ->add('location', TextType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Lieu de formation',
-                    'class' => 'form-control'
-                ]
-            ])
-            ->add('remote', ChoiceType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'class' => 'selectpicker'
                 ],
-                'choices' => [
-                    'Non' => false,
-                    'Oui' => true
+                'attr' => [
+                    'placeholder' => 'Description de l\'activité',
+                    'class' => 'form-control'
                 ]
             ])
             ->add('imageFile', VichImageType::class, [
                 'required' => false,
                 'label' => false,
+                'download_link' => false,
+                'download_uri' => false,
+                'delete_label' => 'Supprimer l\'image courante',
                 'imagine_pattern' => 'workshop_jacket',
             ])
         ;

@@ -21,9 +21,6 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Titre</th>
-                                            <th>Prix (HTVA)</th>
-                                            <th>Lieu</th>
-                                            <th>Zoom</th>
                                             <th>Modifié le</th>
                                             <th>Actions</th>
                                         </tr>
@@ -33,9 +30,6 @@
                                         <tr>
                                             <td>{{ loop.index }}</td>
                                             <td>{{ workshop.title }}</td>
-                                            <td>{{ workshop.price|number_format(2, '.', ',') }} €</td>
-                                            <td>{{ workshop.location }}</td>
-                                            <td>{{ workshop.remote ? 'Yes' : 'No' }}</td>
                                             <td>{{ workshop.updatedAt ? workshop.updatedAt|format_datetime('medium', 'medium',locale='fr') : '' }}</td>
                                             <td>
                                                 <div>

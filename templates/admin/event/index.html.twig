@@ -1,0 +1,65 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Calendrier formations/ateliers{% endblock %}
+
+{% block pageTitle %}Calendrier des formations et ateliers{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="toolbar">
+                            <!--Here you can write extra buttons/actions for the toolbar-->
+                            <a class="btn btn-primary btn-fill btn-wd" href="{{ path('event_new') }}">Nouvel évènement</a>
+                        </div>
+
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Du</th>
+                                    <th>Au</th>
+                                    <th>Prix</th>
+                                    <th>Lieu</th>
+                                    <th>Formation</th>
+                                    <th>actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for event in events %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ event.startDate ? event.startDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
+                                    <td>{{ event.endDate ? event.endDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
+                                    <td>{{ event.price|format_currency('EUR') }}</td>
+                                    <td>{{ event.location }}</td>
+                                    <td>{{ event.workshop.title }}</td>
+                                    <td>
+                                        <div>
+                                            <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_edit', {'id': event.id}) }}">
+                                                <i class="ti-pencil-alt"></i>
+                                            </a>
+                                            <form style="display: inline-block;" method="post" action="{{ path('event_delete', {'id': event.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet évènement?');">
+                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                                                <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="6">Pas d'évènement en cours...</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div><!--  end card  -->
+            </div> <!-- end col-md-12 -->
+        </div> <!-- end row -->
+    </div>
+</div>
+{% endblock %}
