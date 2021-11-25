@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WorkshopRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -31,6 +33,12 @@ class Workshop
     /**
      * @ORM\Column(type="text")
      * @Assert\NotBlank(message="Veuillez entrer une description")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 200,
+     *      minMessage = "Entrez au moins {{ limit }} caractères",
+     *      maxMessage = "!!! Maximum {{ limit }} caractères !!!"
+     * )
      */
     private $description;
 
@@ -62,13 +70,15 @@ class Workshop
     private $updated_at;
 
     /**
-     * @ORM\OneToOne(targetEntity=Event::class, mappedBy="workshop", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="workshop")
      */
-    private $event;
+    private $events;
 
-    public function __construct(){
-        $this->updated_at = new \DateTime();
+    public function __construct()
+    {
+        $this->events = new ArrayCollection();
     }
+
 
     public function getId(): ?int
     {
@@ -160,24 +170,32 @@ class Workshop
         return $this;
     }
 
-    public function getEvent(): ?Event
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
     {
-        return $this->event;
+        return $this->events;
     }
 
-    public function setEvent(?Event $event): self
+    public function addEvent(Event $event): self
     {
-        // unset the owning side of the relation if necessary
-        if ($event === null && $this->event !== null) {
-            $this->event->setWorkshop(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($event !== null && $event->getWorkshop() !== $this) {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
             $event->setWorkshop($this);
         }
 
-        $this->event = $event;
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getWorkshop() === $this) {
+                $event->setWorkshop(null);
+            }
+        }
 
         return $this;
     }

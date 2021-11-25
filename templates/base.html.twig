@@ -23,6 +23,9 @@
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=EB+Garamond:400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
 
+        <!-- Font Awesome Icones -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('build/apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('build/favicon-32x32.png') }}">
@@ -51,13 +54,12 @@
     </head>
     <body>
         {% block body %}
-
             <!-- Start NavBar -->
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
                 <div class="container">
                     <div class="row m-auto">
                         <div class="col-12 w-100 text-center">
-                            <a class="navbar-brand w-100" href="{{ path('home') }}"><img src="{{ asset('build/logo-art-emoi.png') }}" alt=""></a>
+                            <a class="navbar-brand w-100" href="{{ path('home') }}"><img src="{{ asset('build/logo-art-emoi.png') }}" style="height:6rem;" alt=""></a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="oi oi-menu"></span> Menu
                             </button>
@@ -66,9 +68,9 @@
                             <div class="collapse navbar-collapse" id="ftco-nav">
                                 <ul class="navbar-nav m-auto">
                                     <li class="nav-item {% if current_menu == 'home' %}active{% endif %}"><a href="{{ path('home') }}" class="nav-link">Accueil</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Presentation</a></li>
+                                    <li class="nav-item {% if current_menu == 'about' %}active{% endif %}"><a href="{{ path('about') }}" class="nav-link">Presentation</a></li>
                                     <li class="nav-item"><a href="#" class="nav-link">Partenaires</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Ouvrages</a></li>
+                                    <li class="nav-item {% if current_menu == 'books' %}active{% endif %}"><a href="{{ path('books') }}" class="nav-link">Ouvrages</a></li>
                                     <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
                                 </ul>
                             </div>
@@ -88,46 +90,42 @@
                     <div class="row d-flex">
                         <div class="col-md">
                             <div class="ftco-footer-widget mb-4">
-                                <h2 class="ftco-heading-2">Meditative</h2>
+                                <h2 class="ftco-heading-2">Art Émoi</h2>
                                 <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
                                 <ul class="ftco-footer-social list-unstyled float-lft mt-3">
-                                    <li class="ftco-animate"><a href="#"><span class="icon-twitter"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-facebook"></span></a></li>
-                                    <li class="ftco-animate"><a href="#"><span class="icon-instagram"></span></a></li>
+                                    <li class="ftco-animate"><a href="https://www.facebook.com/art.emoi" target="_blank"><span class="icon-facebook"></span></a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="ftco-footer-widget mb-4 ml-md-4">
-                                <h2 class="ftco-heading-2">Popular Links</h2>
+                                <h2 class="ftco-heading-2">Formations</h2>
                                 <ul class="list-unstyled">
-                                    <li><a href="#">Yoga for Beginners</a></li>
-                                    <li><a href="#">Yoga for Pregnant</a></li>
-                                    <li><a href="#">Yoga Barre</a></li>
-                                    <li><a href="#">Yoga Advance</a></li>
+                                    {% for worshop in workshops %}
+                                        <li><a href="#">{{ worshop.title }}</a></li>
+                                    {% endfor %}
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="ftco-footer-widget mb-4">
-                                <h2 class="ftco-heading-2">Quick Links</h2>
+                                <h2 class="ftco-heading-2">Sections</h2>
                                 <ul class="list-unstyled">
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Classes</a></li>
-                                    <li><a href="#">Schedule</a></li>
+                                    <li><a href="{{ path('home') }}">Accueil</a></li>
+                                    <li><a href="#">Présentation</a></li>
+                                    <li><a href="#">Partenaires</a></li>
+                                    <li><a href="#">Ouvrages</a></li>
                                     <li><a href="#">Contact</a></li>
                                 </ul>
                             </div>
                         </div>
                         <div class="col-md">
                             <div class="ftco-footer-widget mb-4">
-                                <h2 class="ftco-heading-2">Have a Questions?</h2>
+                                <h2 class="ftco-heading-2">Contact</h2>
                                 <div class="block-23 mb-3">
                                     <ul>
-                                        <li><span class="icon icon-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                                        <li><a href="#"><span class="icon icon-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                                        <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@yourdomain.com</span></a></li>
+                                        <li><span class="icon icon-map-marker"></span><span class="text">10 Rue Alphonse Minique, 1450 Saint-Géry, Belgique</span></li>
+                                        <li><a href="#"><span class="icon icon-envelope"></span><span class="text">info@art-emoi.be</span></a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -137,13 +135,10 @@
                         <div class="col-md-12 text-center">
 
                             <p class="mb-0">
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                                 Copyright &copy;<script>
                                     document.write(new Date().getFullYear());
-
-                                </script> All rights reserved | This template is made with <i class="icon-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                                <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                            </p>
+                                </script> Tous droits réservés | Art Émoi | <a href="mailto:info@art-emoi.be">info@art-émoi.be</a>
+                            <p>Conception web: <a href="https://www.mywebcreation.be" target="_blank">www.mywebcreation.be</a></p>
                         </div>
                     </div>
                 </div>

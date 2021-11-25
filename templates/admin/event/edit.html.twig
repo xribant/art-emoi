@@ -1,13 +1,21 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/admin_base.html.twig' %}
 
-{% block title %}Edit Event{% endblock %}
+{% block title %}Modifier un évènement{% endblock %}
 
-{% block body %}
-    <h1>Edit Event</h1>
+{% block pageTitle %}Modifier un évènement{% endblock %}
 
-    {{ include('event/_form.html.twig', {'button_label': 'Update'}) }}
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
 
-    <a href="{{ path('event_index') }}">back to list</a>
+                        {{ include('admin/event/_form.html.twig', {'button_label': 'Modifier'}) }}
 
-    {{ include('event/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}

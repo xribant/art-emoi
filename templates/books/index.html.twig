@@ -1,0 +1,79 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ouvrages{% endblock %}
+
+{% block content %}
+
+    <section class="hero-wrap hero-wrap-2" style="background-image: url('{{ asset('build/pink_landscape.png') }}');" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-3 bread">Publications</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 d-flex ftco-animate">
+                    <div class="coach align-items-stretch">
+                        <div class="img" style="background-image: url({{ asset('build/cover_le_tarot_creatif.png') }});"></div>
+                        <div class="text bg-white p-4 ftco-animate">
+                            <span class="subheading">Nathalie Hanot</span>
+                            <h3><a href="#">Le Tarot Créatif</a></h3>
+                            <p>
+                                Libérez votre plein potentiel grâce à la symbolique du tarot !<br />
+                            </p>
+                            <ul class="ftco-social-media d-flex mt-4">
+                                <li class="ftco-animate"><a href="https://www.amazon.fr/tarot-cr%C3%A9atif-Nathalie-Hanot/dp/2890448967" target="_blank" class="mr-2 d-flex justify-content-center align-items-center" title="Le livre sur Amazon"><span class="icon-amazon"></span></a></li>
+                                <li class="ftco-animate"><a href="https://www.fr.fnac.be/a11118050/Nathalie-Hanot-Le-tarot-creatif?oref=00000000-0000-0000-0000-000000000000&origin=SEA_GO_PLA_SMABOOKFR&gclid=CjwKCAiAnO2MBhApEiwA8q0HYQFJN7Dk9KiG36-IYc_tXAgLfGGgXW9SCRosrzJ9EiVKk18KIEmy5BoCk8sQAvD_BwE&gclsrc=aw.ds" target="_blank" class="mr-2 d-flex justify-content-center align-items-center" title="Le livre à la Fnac"><img src="{{ asset('build/fnac_logo.png') }}" alt="" style="height: 2rem;"></a></li>
+                                <li class="ftco-animate"><a href="https://www.club.be/p/le-tarot-creatif-9782890448964" target="_blank" class="mr-2 d-flex justify-content-center align-items-center" title="Le livre chez Club"><img src="{{ asset('build/logo_club.png') }}" alt="" style="height: 2rem;"></a></li>
+                            </ul>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-flex ftco-animate">
+                    <div class="coach align-items-stretch">
+                        <div class="img" style="background-image: url({{ asset('build/cover_carnet_deuil.png') }});"></div>
+                        <div class="text bg-white p-4 ftco-animate">
+                            <span class="subheading">Nathalie Hanot</span>
+                            <h3><a href="#">Carnet de deuil</a></h3>
+                            <p>
+                                Traverser le processus de deuil par la créativité.
+                            </p>
+                            <ul class="ftco-social-media d-flex mt-4">
+                                <li class="ftco-animate"><a href="https://www.amazon.fr/Carnet-deuil-Nathalie-Hanot/dp/2890449130" target="_blank" class="mr-2 d-flex justify-content-center align-items-center" title="Le livre sur Amazon"><span class="icon-amazon"></span></a></li>
+                                <li class="ftco-animate"><a href="https://www.fr.fnac.be/a13195994/Nathalie-Hanot-Carnet-de-deuil" target="_blank" class="mr-2 d-flex justify-content-center align-items-center" title="Le livre à la Fnac"><img src="{{ asset('build/fnac_logo.png') }}" alt="" style="height: 2rem;"></a></li>
+                            </ul>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 d-flex ftco-animate">
+                    <div class="coach align-items-stretch">
+                        <div class="img" style="background-image: url({{ asset('build/cover_burn_out.png') }});"></div>
+                        <div class="text bg-white p-4 ftco-animate">
+                            <span class="subheading">Nathalie Hanot</span>
+                            <h3><a href="#">Le journal créatif du burnout</a></h3>
+                            <p>
+                                Une pratique innovatrice pour sortir du burnout et retrouver le goût du travail !
+                            </p>
+                            <ul class="ftco-social-media d-flex mt-4">
+                                <li class="ftco-animate"><a href="https://www.amazon.fr/journal-cr%C3%A9atif-burn-out/dp/276195632X" target="_blank" class="mr-2 d-flex justify-content-center align-items-center" title="Le livre sur Amazon"><span class="icon-amazon"></span></a></li>
+                                <li class="ftco-animate"><a href="https://livre.fnac.com/a15922406/Nathalie-Hanot-Le-journal-creatif-du-burn-out" target="_blank" class="mr-2 d-flex justify-content-center align-items-center" title="Le livre à la Fnac"><img src="{{ asset('build/fnac_logo.png') }}" alt="" style="height: 2rem;"></a></li>
+                            </ul>
+                            <p></p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+

@@ -8453,10 +8453,10 @@ h1, h2, h3, h4, h5,
         .owl-carousel.home-slider .slider-item .slider-text .text {
           position: relative; }
         .owl-carousel.home-slider .slider-item .slider-text h1 {
-          font-size: 60px;
-          color: #fff;
+          font-size: 70px;
+          color: #2c396b;
           line-height: 1.2;
-          font-weight: 400;
+          font-weight: 600;
           font-family: "EB Garamond", serif; }
           .owl-carousel.home-slider .slider-item .slider-text h1 span {
             display: block;
@@ -8958,7 +8958,7 @@ h1, h2, h3, h4, h5,
   .coach .img, .coach .text {
     width: 100%; }
   .coach .img {
-    height: 380px;
+    height: 480px;
     background-position: top center !important; }
   .coach .text .subheading {
     font-size: 13px;
@@ -8990,11 +8990,12 @@ h1, h2, h3, h4, h5,
           color: #fff; }
 
 .testimony-section {
+  margin-top: -100px;
+  margin-bottom: -200px;
   position: relative; }
   .testimony-section .owl-carousel {
     margin: 0; }
   .testimony-section .owl-carousel .owl-stage-outer {
-    padding-bottom: 2em;
     position: relative; }
   .testimony-section .owl-nav {
     position: absolute;
@@ -9071,14 +9072,15 @@ h1, h2, h3, h4, h5,
   .testimony-wrap .position {
     font-size: 13px; }
   .testimony-wrap .line p {
-    font-size: 18px;
+    font-size: 30px;
+    color: #2c396b;
     font-family: "EB Garamond", serif; }
   .testimony-wrap .quote {
     position: absolute;
     top: 0;
     left: 0;
-    width: 40px;
-    height: 40px;
+    width: 100px;
+    height: 100px;
     background: #ffb5b5;
     z-index: -1;
     -webkit-border-radius: 50%;

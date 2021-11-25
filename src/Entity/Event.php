@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\EventRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -17,10 +19,6 @@ class Event
      */
     private $id;
 
-    /**
-     * @ORM\OneToOne(targetEntity=Workshop::class, inversedBy="event", cascade={"persist", "remove"})
-     */
-    private $workshop;
 
     /**
      * @ORM\Column(type="datetime")
@@ -42,21 +40,25 @@ class Event
      */
     private $location;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Workshop::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $workshop;
+
+    /**
+     * @ORM\OneToMany(targetEntity=EventRegistration::class, mappedBy="event", orphanRemoval=true)
+     */
+    private $eventRegistrations;
+
+    public function __construct()
+    {
+        $this->eventRegistrations = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getWorkshop(): ?Workshop
-    {
-        return $this->workshop;
-    }
-
-    public function setWorkshop(?Workshop $workshop): self
-    {
-        $this->workshop = $workshop;
-
-        return $this;
     }
 
     public function getStartDate(): ?\DateTimeInterface
@@ -103,6 +105,48 @@ class Event
     public function setLocation(string $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getWorkshop(): ?Workshop
+    {
+        return $this->workshop;
+    }
+
+    public function setWorkshop(?Workshop $workshop): self
+    {
+        $this->workshop = $workshop;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventRegistration[]
+     */
+    public function getEventRegistrations(): Collection
+    {
+        return $this->eventRegistrations;
+    }
+
+    public function addEventRegistration(EventRegistration $eventRegistration): self
+    {
+        if (!$this->eventRegistrations->contains($eventRegistration)) {
+            $this->eventRegistrations[] = $eventRegistration;
+            $eventRegistration->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventRegistration(EventRegistration $eventRegistration): self
+    {
+        if ($this->eventRegistrations->removeElement($eventRegistration)) {
+            // set the owning side to null (unless already changed)
+            if ($eventRegistration->getEvent() === $this) {
+                $eventRegistration->setEvent(null);
+            }
+        }
 
         return $this;
     }

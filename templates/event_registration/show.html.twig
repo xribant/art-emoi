@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}EventRegistration{% endblock %}
+
+{% block body %}
+    <h1>EventRegistration</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ event_registration.id }}</td>
+            </tr>
+            <tr>
+                <th>FirstName</th>
+                <td>{{ event_registration.firstName }}</td>
+            </tr>
+            <tr>
+                <th>LastName</th>
+                <td>{{ event_registration.LastName }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ event_registration.email }}</td>
+            </tr>
+            <tr>
+                <th>Address</th>
+                <td>{{ event_registration.address }}</td>
+            </tr>
+            <tr>
+                <th>PostalCode</th>
+                <td>{{ event_registration.postalCode }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ event_registration.city }}</td>
+            </tr>
+            <tr>
+                <th>Phone</th>
+                <td>{{ event_registration.phone }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('event_registration_index') }}">back to list</a>
+
+    <a href="{{ path('event_registration_edit', {'id': event_registration.id}) }}">edit</a>
+
+    {{ include('event_registration/_delete_form.html.twig') }}
+{% endblock %}
