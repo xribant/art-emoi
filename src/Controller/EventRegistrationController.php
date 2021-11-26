@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/event/registration')]
+#[Route('/admin/formation/inscription')]
 class EventRegistrationController extends AbstractController
 {
     #[Route('/', name: 'event_registration_index', methods: ['GET'])]
