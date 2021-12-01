@@ -1,0 +1,19 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Nouvelle inscription{% endblock %}
+
+{% block pageTitle %}Nouvelle inscription{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        {{ include('admin/event_registration/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

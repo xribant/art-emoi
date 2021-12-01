@@ -25,7 +25,7 @@ class EventRegistrationType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('LastName',TextType::class, [
+            ->add('lastName',TextType::class, [
                 'required' => true,
                 'label' => false,
                 'attr' => [

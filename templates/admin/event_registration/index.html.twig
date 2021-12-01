@@ -1,0 +1,71 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Inscriptions{% endblock %}
+
+{% block pageTitle %}Gestion des inscriptions aux ateliers{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="toolbar">
+                                <!--Here you can write extra buttons/actions for the toolbar-->
+                                <a class="btn btn-primary btn-fill btn-wd" href="{{ path('event_registration_new') }}">Nouvelle inscription</a>
+                            </div>
+
+                            <table id="workshopTable" class="table table-striped table-no-bordered table-hover" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>E-Mail</th>
+                                    <th>Ville</th>
+                                    <th>Formation</th>
+                                    <th>Créé</th>
+                                    <th>Modifié</th>
+                                    <th>Statut</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for registration in event_registrations %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ registration.firstName }}</td>
+                                        <td>{{ registration.lastName }}</td>
+                                        <td>{{ registration.email }}</td>
+                                        <td>{{ registration.city }}</td>
+                                        <td>{{ registration.event.workshop.title }}</td>
+                                        <td>{{ registration.createdAt|format_datetime('medium', 'none',locale='fr') }}</td>
+                                        <td>{{ registration.updatedAt|format_datetime('medium', 'none',locale='fr') }}</td>
+                                        <td>{{ registration.status }}</td>
+                                        <td>
+                                            <div>
+                                                <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_registration_edit', {'id': registration.id}) }}">
+                                                    <i class="ti-pencil-alt"></i>
+                                                </a>
+                                                <form style="display: inline-block;" method="post" action="{{ path('event_registration_delete', {'id': registration.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cette inscription?');">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ registration.id) }}">
+                                                    <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="9">Pas d'inscription actuellement..</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--  end card  -->
+                </div> <!-- end col-md-12 -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+{% endblock %}

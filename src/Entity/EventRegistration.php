@@ -82,7 +82,7 @@ class EventRegistration
      */
     private $status;
 
-    public function __contructor() {
+    public function __construct() {
         $this->updated_at = new \DateTime();
         $this->created_at = new \DateTime();
     }

@@ -16,7 +16,7 @@ class EventRegistrationController extends AbstractController
     #[Route('/', name: 'event_registration_index', methods: ['GET'])]
     public function index(EventRegistrationRepository $eventRegistrationRepository): Response
     {
-        return $this->render('event_registration/index.html.twig', [
+        return $this->render('admin/event_registration/index.html.twig', [
             'event_registrations' => $eventRegistrationRepository->findAll(),
         ]);
     }
@@ -30,23 +30,16 @@ class EventRegistrationController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
+            $eventRegistration->setStatus('new');
             $entityManager->persist($eventRegistration);
             $entityManager->flush();
 
             return $this->redirectToRoute('event_registration_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('event_registration/new.html.twig', [
+        return $this->renderForm('admin/event_registration/new.html.twig', [
             'event_registration' => $eventRegistration,
             'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'event_registration_show', methods: ['GET'])]
-    public function show(EventRegistration $eventRegistration): Response
-    {
-        return $this->render('event_registration/show.html.twig', [
-            'event_registration' => $eventRegistration,
         ]);
     }
 
@@ -62,7 +55,7 @@ class EventRegistrationController extends AbstractController
             return $this->redirectToRoute('event_registration_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('event_registration/edit.html.twig', [
+        return $this->renderForm('admin/event_registration/edit.html.twig', [
             'event_registration' => $eventRegistration,
             'form' => $form,
         ]);
