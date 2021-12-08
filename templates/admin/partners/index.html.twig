@@ -1,0 +1,66 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Gestion des partenaires{% endblock %}
+
+{% block pageTitle %}Gestion des Partenaires{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="toolbar">
+                                <!--Here you can write extra buttons/actions for the toolbar-->
+                                <a class="btn btn-primary btn-fill btn-wd" href="{{ path('partners_new') }}">Ajouter un partenaire</a>
+                            </div>
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>E-Mail</th>
+                                    <th>Site Web</th>
+                                    <th>Ville</th>
+                                    <th>Pays</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for partner in partners %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ partner.firstName }}</td>
+                                        <td>{{ partner.lastName }}</td>
+                                        <td>{{ partner.email }}</td>
+                                        <td>{{ partner.url }}</td>
+                                        <td>{{ partner.city }}</td>
+                                        <td>{{ partner.country }}</td>
+                                        <td>
+                                            <div>
+                                                <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('partners_edit', {'id': partner.id}) }}">
+                                                    <i class="ti-pencil-alt"></i>
+                                                </a>
+                                                <form style="display: inline-block;" method="post" action="{{ path('partners_delete', {'id': partner.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer ce partenaire);">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ partner.id) }}">
+                                                    <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Pas de partenaires</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--  end card  -->
+                </div> <!-- end col-md-12 -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+{% endblock %}

@@ -4,16 +4,19 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\EventRegistration;
+use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
+use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EventRegistrationType extends AbstractType
+class FrontRegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -32,23 +35,23 @@ class EventRegistrationType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Nom',
                     'class' => 'form-control'
-                    ]
-                ])
+                ]
+            ])
             ->add('email', EmailType::class, [
-                    'required' => true,
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'E-Mail',
-                        'class' => 'form-control'
-                    ]
+                'required' => true,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'E-Mail',
+                    'class' => 'form-control'
+                ]
             ])
             ->add('address', TextType::class, [
-                    'required' => true,
-                    'label' => false,
-                    'attr' => [
-                        'placeholder' => 'Rue + Numéro',
-                        'class' => 'form-control'
-                    ]
+                'required' => true,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Rue + Numéro',
+                    'class' => 'form-control'
+                ]
             ])
             ->add('postalCode', NumberType::class, [
                 'required' => true,
@@ -68,6 +71,7 @@ class EventRegistrationType extends AbstractType
             ])
             ->add('country', ChoiceType::class, [
                 'required' => true,
+                'label' => false,
                 'choices' => [
                     'Belgique' => 'BE',
                     'France' => 'FR',
@@ -96,24 +100,12 @@ class EventRegistrationType extends AbstractType
                     return $event->getWorkshop()->getTitle().' du '.$event->getStartDate()->format('d/m/Y');
                 },
                 'attr' => [
-                    'placeholder' => 'Formation',
                     'class' => 'form-control'
                 ]
             ])
-            ->add('status', ChoiceType::class, [
-                'required' => true,
-                'label' => false,
-                'multiple' => false,
-                'expanded' => false,
-                'choices' => [
-                    'A confirmer' => 'new',
-                    'Payée' => 'paid',
-                    'Clôturée' => 'closed',
-                    'Annulée' => 'canceled'
-                ],
-                'attr' => [
-                    'class' => 'form-control'
-                ]
+            ->add('captcha', Recaptcha3Type::class, [
+                'constraints' => new Recaptcha3(),
+                'action_name' => 'homepage'
             ])
         ;
     }

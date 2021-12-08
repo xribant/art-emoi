@@ -1,4 +1,5 @@
 var AOS = require('aos');
+
 AOS.init({
  	duration: 800,
  	easing: 'slide'
@@ -294,7 +295,6 @@ AOS.init({
     mainClass: 'mfp-fade',
     removalDelay: 160,
     preloader: false,
-
     fixedContentPos: false
   });
 
@@ -305,7 +305,6 @@ AOS.init({
 	});
 
 	$('.appointment_time').timepicker();
-
 
 })(jQuery);
 

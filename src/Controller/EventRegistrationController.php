@@ -50,7 +50,11 @@ class EventRegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $eventRegistration->setUpdatedAt(new \DateTime('NOW'));
+            $entityManager->persist($eventRegistration);
+            $entityManager->flush();
 
             return $this->redirectToRoute('event_registration_index', [], Response::HTTP_SEE_OTHER);
         }

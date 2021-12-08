@@ -40,18 +40,24 @@
                                         <td>{{ registration.email }}</td>
                                         <td>{{ registration.city }}</td>
                                         <td>{{ registration.event.workshop.title }}</td>
-                                        <td>{{ registration.createdAt|format_datetime('medium', 'none',locale='fr') }}</td>
-                                        <td>{{ registration.updatedAt|format_datetime('medium', 'none',locale='fr') }}</td>
-                                        <td>{{ registration.status }}</td>
+                                        <td>{{ registration.createdAt|format_datetime('medium', 'short',locale='fr') }}</td>
+                                        <td>{{ registration.updatedAt|format_datetime('medium', 'short',locale='fr') }}</td>
+                                        <td>
+                                            {% if registration.status == 'new' %}
+                                                <button class="btn btn-xs btn-fill btn-warning">A confirmer</button>
+                                            {% elseif registration.status == 'paid' %}
+                                                <button class="btn btn-xs btn-fill btn-success">Payée</button>
+                                            {% elseif registration.status == 'closed' %}
+                                                <button class="btn btn-xs btn-fill">Clôturée</button>
+                                            {% elseif registration.status == 'canceled' %}
+                                                <button class="btn btn-xs btn-fill btn-danger">Annulée</button>
+                                            {% endif %}
+                                        </td>
                                         <td>
                                             <div>
                                                 <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_registration_edit', {'id': registration.id}) }}">
                                                     <i class="ti-pencil-alt"></i>
                                                 </a>
-                                                <form style="display: inline-block;" method="post" action="{{ path('event_registration_delete', {'id': registration.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cette inscription?');">
-                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ registration.id) }}">
-                                                    <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
-                                                </form>
                                             </div>
                                         </td>
                                     </tr>

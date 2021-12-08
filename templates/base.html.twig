@@ -53,6 +53,7 @@
 
     </head>
     <body>
+    {{ flasher_render() }}
         {% block body %}
             <!-- Start NavBar -->
             <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
@@ -71,7 +72,7 @@
                                     <li class="nav-item {% if current_menu == 'about' %}active{% endif %}"><a href="{{ path('about') }}" class="nav-link">Presentation</a></li>
                                     <li class="nav-item"><a href="#" class="nav-link">Partenaires</a></li>
                                     <li class="nav-item {% if current_menu == 'books' %}active{% endif %}"><a href="{{ path('books') }}" class="nav-link">Ouvrages</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+                                    <li class="nav-item {% if current_menu == 'contact' %}active{% endif %}"><a href="{{ path('contact_form') }}" class="nav-link">Contact</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -91,7 +92,7 @@
                         <div class="col-md">
                             <div class="ftco-footer-widget mb-4">
                                 <h2 class="ftco-heading-2">Art Émoi</h2>
-                                <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
+                                <p>Lieu d'ateliers, de thérapie, de formation et de ressourcement.</p>
                                 <ul class="ftco-footer-social list-unstyled float-lft mt-3">
                                     <li class="ftco-animate"><a href="https://www.facebook.com/art.emoi" target="_blank"><span class="icon-facebook"></span></a></li>
                                 </ul>
@@ -115,7 +116,7 @@
                                     <li><a href="#">Présentation</a></li>
                                     <li><a href="#">Partenaires</a></li>
                                     <li><a href="#">Ouvrages</a></li>
-                                    <li><a href="#">Contact</a></li>
+                                    <li><a href="{{ path('contact_form') }}">Contact</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -150,7 +151,6 @@
 
         {% endblock %}
 
-        {% block javascripts %}
             <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
             <script src="{{ asset('assets/js/jquery-migrate-3.0.1.min.js') }}"></script>
             <script src="{{ asset('assets/js/popper.min.js') }}"></script>
@@ -165,8 +165,11 @@
             <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
             <script src="{{ asset('assets/js/jquery.timepicker.min.js') }}"></script>
             <script src="{{ asset('assets/js/scrollax.min.js') }}"></script>
+
+        {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
         {% endblock %}
+
 
     </body>
 </html>

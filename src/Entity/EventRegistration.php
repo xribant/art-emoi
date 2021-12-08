@@ -34,7 +34,7 @@ class EventRegistration
      * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank(message="Veuillez entrer votre nom")
      */
-    private $LastName;
+    private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -82,6 +82,12 @@ class EventRegistration
      */
     private $status;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Merci de choisir un pays")
+     */
+    private $country;
+
     public function __construct() {
         $this->updated_at = new \DateTime();
         $this->created_at = new \DateTime();
@@ -118,12 +124,12 @@ class EventRegistration
 
     public function getLastName(): ?string
     {
-        return $this->LastName;
+        return $this->lastName;
     }
 
-    public function setLastName(string $LastName): self
+    public function setLastName(string $lastName): self
     {
-        $this->LastName = $LastName;
+        $this->lastName = $lastName;
 
         return $this;
     }
@@ -220,6 +226,18 @@ class EventRegistration
     public function setStatus(string $status): self
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

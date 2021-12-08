@@ -74,16 +74,14 @@
                             {% if event.workshop.title == 'Formation au carnet de deuil' %}
                                 <div class="block-21 mb-4 d-flex">
                                     <div class="text">
-                                        <h3 class="heading">Pour tous - Zoom</h3>
                                         <div class="meta">
-                                            <div><a class="btn btn-xs btn-primary" href="#">S'inscrire</a></div>
-                                            <div><a href="#"><span class="icon-calendar"></span> Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }}</a></div>
+                                            <span class="icon-calendar"></span> Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }}
                                         </div>
                                     </div>
                                 </div>
                             {% endif %}
                         {% endfor %}
-
+                        <a href="{{ path('front_registration') }}" class="btn btn-primary px-4 py-3">Inscriptions</a>
                     </div>
 
 
