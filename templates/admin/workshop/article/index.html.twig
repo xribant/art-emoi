@@ -1,0 +1,43 @@
+
+<div class="card-content">
+    <div class="toolbar">
+        <!--Here you can write extra buttons/actions for the toolbar-->
+        <a class="btn btn-sm btn-primary btn-fill" href="{{ path('workshop_article_new', {workshop_id: workshop.id}) }}">Nouvel article</a>
+    </div>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>#</th>
+            <th>Titre</th>
+            <th>Modifié le</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for article in workshop.articles %}
+            <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.updatedAt ? article.updatedAt|format_datetime('medium', 'medium',locale='fr') : '' }}</td>
+            <td>
+                <div>
+                    <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('workshop_article_edit', {'id': article.id, 'workshop_id': workshop.id }) }}">
+                        <i class="ti-pencil-alt"></i>
+                    </a>
+                    <form style="display: inline-block;" method="post" action="{{ path('workshop_article_delete', {'id': article.id, 'workshop_id': workshop.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet article');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                        <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                    </form>
+                </div>
+            </td>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas d'article</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+

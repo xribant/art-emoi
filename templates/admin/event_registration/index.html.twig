@@ -24,6 +24,7 @@
                                     <th>Nom</th>
                                     <th>E-Mail</th>
                                     <th>Ville</th>
+                                    <th>Pays</th>
                                     <th>Formation</th>
                                     <th>Créé</th>
                                     <th>Modifié</th>
@@ -39,6 +40,7 @@
                                         <td>{{ registration.lastName }}</td>
                                         <td>{{ registration.email }}</td>
                                         <td>{{ registration.city }}</td>
+                                        <td>{{ registration.country }}</td>
                                         <td>{{ registration.event.workshop.title }}</td>
                                         <td>{{ registration.createdAt|format_datetime('medium', 'short',locale='fr') }}</td>
                                         <td>{{ registration.updatedAt|format_datetime('medium', 'short',locale='fr') }}</td>

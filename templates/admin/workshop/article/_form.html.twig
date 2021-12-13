@@ -1,0 +1,40 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+ {{ form_row(form._token) }}
+<form id="addWorshopArticleForm" action="" method="post">
+    <div class="card-content">
+        <div class="form-group {% if form_errors(form.title) %}has-error{% endif %}">
+            <label class="control-label">
+                Titre <star>*</star>
+            </label>
+            {{ form_row(form.title) }}
+        </div>
+        <div class="form-group {% if form_errors(form.text) %}has-error{% endif %}">
+            <label class="control-label">
+                Texte<star>*</star>
+            </label>
+            {{ form_row(form.text) }}
+        </div>
+        <div class="form-group {% if form_errors(form.imageFile) %}has-error{% endif %}">
+            <div class="input-group">
+                <label class="control-label">
+                    Image actuelle:
+                </label>
+            </div>
+            {% if article.imageName %}
+                <img id="imgPreview" src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('article_jacket') }}" alt="Cover" style="height: 200px; width: 150px; margin-bottom: 2rem;border: solid #66615B 2px; border-radius: 5px;">
+            {% else %}
+                <img id="imgPreview" src="{{ asset('build/no_photo.png') }}" style="height: 200px; width: 150px;border: solid #66615B 2px; margin-bottom: 2rem; border-radius: 5px;" alt="Cover">
+            {% endif %}
+            <div class="input-group">
+                {{ form_row(form.imageFile) }}
+            </div>
+        </div>
+        <div class="category"><star>*</star> Champs obligatoires</div>
+        <div class="card-footer">
+            <a class="btn btn-danger btn-fill pull-right" href="{{ path('workshop_edit', {'id': workshop.id}) }}" style="margin-left: 1rem;">Annuler</a>
+            <button class="btn btn-info btn-fill pull-right">{{ button_label|default('Enregistrer') }}</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</form>
+{{ form_end(form) }}

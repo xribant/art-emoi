@@ -22,9 +22,9 @@
                                     <th>#</th>
                                     <th>Du</th>
                                     <th>Au</th>
-                                    <th>Prix</th>
                                     <th>Lieu</th>
                                     <th>Formation</th>
+                                    <th>Active</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
@@ -34,9 +34,11 @@
                                     <td>{{ loop.index }}</td>
                                     <td>{{ event.startDate ? event.startDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
                                     <td>{{ event.endDate ? event.endDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
-                                    <td>{{ event.price|format_currency('EUR') }}</td>
                                     <td>{{ event.location }}</td>
                                     <td>{{ event.workshop.title }}</td>
+                                    <td>
+                                        <input type="checkbox" class="switch" checked>
+                                    </td>
                                     <td>
                                         <div>
                                             <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_edit', {'id': event.id}) }}">

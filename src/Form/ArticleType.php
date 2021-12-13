@@ -2,15 +2,15 @@
 
 namespace App\Form;
 
-use App\Entity\Workshop;
+use App\Entity\Article;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 
-class WorkshopType extends AbstractType
+class ArticleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -23,11 +23,14 @@ class WorkshopType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('description', TextareaType::class, [
-                'label' => false,
+            ->add('text', CKEditorType::class, [
                 'required' => true,
+                'label' => false,
+                'config' => [
+                    'toolbar' => 'standard'
+                ],
                 'attr' => [
-                    'placeholder' => 'Description de l\'activité',
+                    'placeholder' => 'Texte',
                     'class' => 'form-control'
                 ]
             ])
@@ -37,7 +40,7 @@ class WorkshopType extends AbstractType
                 'download_link' => false,
                 'download_uri' => false,
                 'delete_label' => 'Supprimer l\'image courante',
-                'imagine_pattern' => 'workshop_jacket',
+                'imagine_pattern' => 'article_jacket',
                 'attr' => [
                     'class' => 'imageField'
                 ]
@@ -48,7 +51,7 @@ class WorkshopType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Workshop::class,
+            'data_class' => Article::class,
         ]);
     }
 }

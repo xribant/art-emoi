@@ -9,3 +9,8 @@ liip_imagine:
             quality: 75
             filters:
                 thumbnail: { size: [ 252, 352 ], mode: outbound }
+
+        article_jacket:
+            quality: 75
+            filters:
+                thumbnail: { size: [ 252, 352 ], mode: outbound }

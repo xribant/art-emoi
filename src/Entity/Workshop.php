@@ -74,9 +74,15 @@ class Workshop
      */
     private $events;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Article::class, mappedBy="workshop", orphanRemoval=true)
+     */
+    private $articles;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
+        $this->articles = new ArrayCollection();
     }
 
 
@@ -194,6 +200,36 @@ class Workshop
             // set the owning side to null (unless already changed)
             if ($event->getWorkshop() === $this) {
                 $event->setWorkshop(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Article[]
+     */
+    public function getArticles(): Collection
+    {
+        return $this->articles;
+    }
+
+    public function addArticle(Article $article): self
+    {
+        if (!$this->articles->contains($article)) {
+            $this->articles[] = $article;
+            $article->setWorkshop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeArticle(Article $article): self
+    {
+        if ($this->articles->removeElement($article)) {
+            // set the owning side to null (unless already changed)
+            if ($article->getWorkshop() === $this) {
+                $article->setWorkshop(null);
             }
         }
 

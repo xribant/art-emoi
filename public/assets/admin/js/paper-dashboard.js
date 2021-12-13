@@ -348,7 +348,7 @@ function debounce(func, wait, immediate) {
 };
 
 $(document).ready(() => {
-    $("#workshop_imageFile_file").change(function () {
+    $(".imageField").change(function () {
         const file = this.files[0];
         if (file) {
             let reader = new FileReader();

@@ -75,7 +75,10 @@
                                 <div class="block-21 mb-4 d-flex">
                                     <div class="text">
                                         <div class="meta">
-                                            <span class="icon-calendar"></span> Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }}
+                                            <span class="icon-calendar"></span>
+                                            Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }} |
+                                            <span class="icon-map-marker"></span>
+                                            {{ event.location }}
                                         </div>
                                     </div>
                                 </div>
