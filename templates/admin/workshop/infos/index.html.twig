@@ -1,0 +1,63 @@
+
+<div class="card-content">
+    <table class="table">
+        <tbody>
+        {% for info in workshop.infos %}
+            <tr>
+            <td>{{ loop.index }}</td>
+            <td>{{ article.title }}</td>
+            <td>{{ article.updatedAt ? article.updatedAt|format_datetime('medium', 'medium',locale='fr') : '' }}</td>
+            <td>
+                <div>
+                    <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('workshop_article_edit', {'id': article.id, 'workshop_id': workshop.id }) }}">
+                        <i class="ti-pencil-alt"></i>
+                    </a>
+                    <form style="display: inline-block;" method="post" action="{{ path('workshop_article_delete', {'id': article.id, 'workshop_id': workshop.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet article');">
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ article.id) }}">
+                        <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                    </form>
+                </div>
+            </td>
+        {% else %}
+            <tr>
+                <td colspan="6">Pas d'article</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Location</th>
+                <th>Days</th>
+                <th>Start_at</th>
+                <th>Stop_at</th>
+                <th>Price</th>
+                <th>Animator</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for workshop_info in workshop_infos %}
+            <tr>
+                <td>{{ workshop_info.id }}</td>
+                <td>{{ workshop_info.location ? workshop_info.location|json_encode : '' }}</td>
+                <td>{{ workshop_info.days }}</td>
+                <td>{{ workshop_info.startAt ? workshop_info.startAt|date('H:i:s') : '' }}</td>
+                <td>{{ workshop_info.stopAt ? workshop_info.stopAt|date('H:i:s') : '' }}</td>
+                <td>{{ workshop_info.price }}</td>
+                <td>{{ workshop_info.animator }}</td>
+                <td>
+                    <a href="{{ path('workshop_infos_show', {'id': workshop_info.id}) }}">show</a>
+                    <a href="{{ path('workshop_infos_edit', {'id': workshop_info.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>

@@ -79,6 +79,11 @@ class Workshop
      */
     private $articles;
 
+    /**
+     * @ORM\OneToOne(targetEntity=WorkshopInfos::class, mappedBy="workshop", cascade={"persist", "remove"})
+     */
+    private $workshopInfos;
+
     public function __construct()
     {
         $this->events = new ArrayCollection();
@@ -232,6 +237,23 @@ class Workshop
                 $article->setWorkshop(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getWorkshopInfos(): ?WorkshopInfos
+    {
+        return $this->workshopInfos;
+    }
+
+    public function setWorkshopInfos(WorkshopInfos $workshopInfos): self
+    {
+        // set the owning side of the relation if necessary
+        if ($workshopInfos->getWorkshop() !== $this) {
+            $workshopInfos->setWorkshop($this);
+        }
+
+        $this->workshopInfos = $workshopInfos;
 
         return $this;
     }

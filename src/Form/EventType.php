@@ -40,14 +40,6 @@ class EventType extends AbstractType
                     'placeholder' => 'Date de fin'
                 ]
             ])
-            ->add('price', NumberType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => '€ 0.00',
-                    'class' => 'form-control'
-                ]
-            ])
             ->add('location', ChoiceType::class, [
                 'label' => false,
                 'expanded' => true,
