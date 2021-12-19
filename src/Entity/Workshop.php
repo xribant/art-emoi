@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * @ORM\Entity(repositoryClass=WorkshopRepository::class)
@@ -83,6 +84,12 @@ class Workshop
      * @ORM\OneToOne(targetEntity=WorkshopInfos::class, mappedBy="workshop", cascade={"persist", "remove"})
      */
     private $workshopInfos;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct()
     {
@@ -256,5 +263,10 @@ class Workshop
         $this->workshopInfos = $workshopInfos;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 }

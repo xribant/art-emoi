@@ -34,27 +34,48 @@
                                 <div class="card-content">
                                     <h5 class="card-title">Infos pratiques</h5>
                                     <table class="table">
-                                        <tr>
-                                            <td>Lieu: </td><td>{% for value in workshop.workshopinfos.location %} {{ value }} | {% endfor %}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Début: </td><td>{{ workshop.workshopinfos.startAt|format_datetime('none', 'short',locale='fr') }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Fin: </td><td>{{ workshop.workshopinfos.stopAt|format_datetime('none', 'short',locale='fr') }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td>Prix </td><td>{{ workshop.workshopinfos.price|format_currency('EUR') }} </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Animatrice/Animateur </td><td>{{ workshop.workshopinfos.animator }} </td>
-                                        </tr>
+                                        {% if workshop.workshopinfos %}
+                                            <tr>
+                                                <td>
+                                                    Lieu(x):
+                                                </td>
+                                                <td>
+                                                    {% for value in workshop.workshopinfos.location %}
+                                                        {% if value == 'SG' %}
+                                                            Saint-Géry |
+                                                        {% elseif value == 'LO' %}
+                                                            Lorcé |
+                                                        {% elseif value == 'ZO' %}
+                                                            Zoom |
+                                                        {% endif %}
+                                                    {% endfor %}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Début: </td><td>{{ workshop.workshopinfos.startAt|format_datetime('none', 'short',locale='fr') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fin: </td><td>{{ workshop.workshopinfos.stopAt|format_datetime('none', 'short',locale='fr') }}</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Prix </td><td>{{ workshop.workshopinfos.price|format_currency('EUR') }} </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Animatrice/Animateur </td><td>{{ workshop.workshopinfos.animator }} </td>
+                                            </tr>
+                                        {% else %}
+                                            <tr>
+                                                <td>Pas d'infos actuellement </td>
+                                            </tr>
+                                        {% endif %}
                                     </table>
                                 </div>
+                                {% if workshop.workshopinfos %}
                                 <div class="card-footer">
-                                    <a class="btn btn-info btn-fill pull-right" href="{{ path('workshop_infos_edit', {'id': workshop.workshopinfos.id, 'workshop_id': workshop.id}) }}" style="margin-left: 1rem;">Modifier</a>
+                                    <a class="btn btn-info btn-fill pull-right" href="{{ path('workshop_infos_edit', {'id': workshop.workshopinfos.id, 'workshop_slug': workshop.slug}) }}" style="margin-left: 1rem;">Modifier</a>
                                     <div class="clearfix"></div>
                                 </div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

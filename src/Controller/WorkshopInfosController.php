@@ -12,13 +12,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/workshop/{workshop_id}/infos')]
+#[Route('/admin/workshop/{workshop_slug}/infos')]
 class WorkshopInfosController extends AbstractController
 {
     #[Route('/new', name: 'workshop_infos_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_id): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_slug): Response
     {
-        $workshop = $workshopRepository->findOneBy(['id' => $workshop_id]);
+        $workshop = $workshopRepository->findOneBy(['slug' => $workshop_slug]);
         $workshopInfo = new WorkshopInfos();
         $form = $this->createForm(WorkshopInfosType::class, $workshopInfo);
         $form->handleRequest($request);
@@ -29,7 +29,7 @@ class WorkshopInfosController extends AbstractController
             $entityManager->persist($workshopInfo);
             $entityManager->flush();
 
-            return $this->redirectToRoute('workshop_edit', ['id' => $workshop->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('workshop_edit', ['slug' => $workshop->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/workshop/infos/new.html.twig', [
@@ -40,16 +40,16 @@ class WorkshopInfosController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'workshop_infos_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, WorkshopInfos $workshopInfo, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_id): Response
+    public function edit(Request $request, WorkshopInfos $workshopInfo, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_slug): Response
     {
-        $workshop = $workshopRepository->findOneBy(['id' => $workshop_id]);
+        $workshop = $workshopRepository->findOneBy(['slug' => $workshop_slug]);
         $form = $this->createForm(WorkshopInfosType::class, $workshopInfo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('workshop_edit', ['id' => $workshop->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('workshop_edit', ['slug' => $workshop->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/workshop/infos/edit.html.twig', [
@@ -60,13 +60,13 @@ class WorkshopInfosController extends AbstractController
     }
 
     #[Route('/{id}', name: 'workshop_infos_delete', methods: ['POST'])]
-    public function delete(Request $request, WorkshopInfos $workshopInfo, EntityManagerInterface $entityManager, $workshop_id): Response
+    public function delete(Request $request, WorkshopInfos $workshopInfo, EntityManagerInterface $entityManager, $workshop_slug): Response
     {
         if ($this->isCsrfTokenValid('delete'.$workshopInfo->getId(), $request->request->get('_token'))) {
             $entityManager->remove($workshopInfo);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('workshop_edit', ['id' => $workshop_id], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('workshop_edit', ['slug' => $workshop_slug], Response::HTTP_SEE_OTHER);
     }
 }

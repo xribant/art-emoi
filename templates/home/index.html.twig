@@ -27,7 +27,7 @@
                                 <h3 class="mb-4">{{ workshop.title }}</h3>
                                 <p class="mb-1" style="height: 8rem;">{{ workshop.description|raw }}</p>
                                 <p>
-                                    <a href="{{ path('front_workshop_deuil') }}" class="btn btn-primary mr-3 mt-3" style="width: 6rem;">Infos</a>
+                                    <a href="{{ path('front_workshop_infos', {'slug': workshop.slug}) }}" class="btn btn-primary mr-3 mt-3" style="width: 6rem;">Infos</a>
                                     <a href="{{ path('front_registration') }}" class="btn btn-primary mt-3" style="width: 6rem;">Inscription</a>
                                 </p>
                             </div>

@@ -20,4 +20,5 @@ return [
     Flasher\Symfony\FlasherSymfonyBundle::class => ['all' => true],
     Flasher\Toastr\Symfony\FlasherToastrSymfonyBundle::class => ['all' => true],
     Karser\Recaptcha3Bundle\KarserRecaptcha3Bundle::class => ['all' => true],
+    Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
 ];

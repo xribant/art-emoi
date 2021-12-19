@@ -68,6 +68,7 @@ class EventRegistrationType extends AbstractType
             ])
             ->add('country', ChoiceType::class, [
                 'required' => true,
+                'label' => false,
                 'choices' => [
                     'Belgique' => 'BE',
                     'France' => 'FR',

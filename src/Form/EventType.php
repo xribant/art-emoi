@@ -7,11 +7,11 @@ use App\Entity\Workshop;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class EventType extends AbstractType
 {
@@ -38,6 +38,20 @@ class EventType extends AbstractType
                 'attr' => [
                     'class' => 'datepicker',
                     'placeholder' => 'Date de fin'
+                ],
+                'constraints' => [
+                    new Constraints\Callback(function($object, ExecutionContextInterface $context) {
+                        $start = $context->getRoot()->getData()->getStartDate();
+                        $stop = $object;
+
+                        if (is_a($start, \DateTime::class) && is_a($stop, \DateTime::class)) {
+                            if ($stop->format('U') - $start->format('U') < 0) {
+                                $context
+                                    ->buildViolation('La date de fin doit être postérieure à la date de début')
+                                    ->addViolation();
+                            }
+                        }
+                    })
                 ]
             ])
             ->add('location', ChoiceType::class, [

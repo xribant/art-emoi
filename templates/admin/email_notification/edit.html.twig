@@ -1,16 +1,18 @@
 {% extends 'admin/admin_base.html.twig' %}
 
-{% block title %}Nouvelle inscription{% endblock %}
+{% block title %}Modifier une notification{% endblock %}
 
-{% block pageTitle %}Nouvelle inscription{% endblock %}
+{% block pageTitle %}Modifier une notification{% endblock %}
 
 {% block content %}
     <div class="content">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <div class="card">
-                        {{ include('admin/event_registration/_form.html.twig') }}
+
+                        {{ include('admin/email_notification/_form.html.twig', {'button_label': 'Modifier'}) }}
+
                     </div>
                 </div>
             </div>

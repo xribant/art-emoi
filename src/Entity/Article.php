@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ArticleRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -64,6 +65,12 @@ class Article
      * @ORM\Column(type="datetime")
      */
     private $updated_at;
+
+    /**
+     * @Gedmo\Slug(fields={"title"})
+     * @ORM\Column(type="string", length=255)
+     */
+    private $slug;
 
     public function __construct() {
         $this->created_at = new \DateTime();
@@ -169,5 +176,10 @@ class Article
         $this->updated_at = $updated_at;
 
         return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
     }
 }

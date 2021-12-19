@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/event')]
+#[Route('/admin/event')]
 class EventController extends AbstractController
 {
     #[Route('/', name: 'event_index', methods: ['GET'])]
@@ -29,6 +29,8 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $event->setActive(true);
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
@@ -79,4 +81,19 @@ class EventController extends AbstractController
 
         return $this->redirectToRoute('event_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{id}/activate', name: 'event_activate')]
+    public function activate(Event $event)
+    {
+        $status = $event->getActive();
+
+        if($status == true) { $event->setActive(false); } else { $event->setActive(true); }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($event);
+        $em->flush();
+
+        return new Response("true");
+    }
+
 }

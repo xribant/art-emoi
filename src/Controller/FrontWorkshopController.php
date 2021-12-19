@@ -8,34 +8,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-/*
- * @Route("/formation")
- */
+#[Route('/formation')]
 class FrontWorkshopController extends AbstractController
 {
-    #[Route('/carnet-de-deuil', name: 'front_workshop_deuil')]
-    public function deuil(WorkshopRepository $workshopRepository, EventRepository $eventRepository): Response
+    #[Route('/{slug}', name: 'front_workshop_infos')]
+    public function index(WorkshopRepository $workshopRepository, EventRepository $eventRepository, $slug): Response
     {
-        return $this->render('front_workshop/deuil.html.twig', [
+        $workshop = $workshopRepository->findOneBy(['slug' => $slug]);
+
+        return $this->render('front_workshop/index.html.twig', [
             'current_menu' => '',
+            'events' => $eventRepository->findBy(['workshop' => $workshop]),
             'workshops' => $workshopRepository->findAll(),
-            'events' => $eventRepository->findAll()
+            'workshop' => $workshop,
         ]);
     }
 
-    #[Route('/tarot-creatif', name: 'front_workshop_tarot')]
-    public function tarot(): Response
-    {
-        return $this->render('front_workshop/tarot.html.twig');
-    }
-    #[Route('/burnout', name: 'front_workshop_burnout')]
-    public function burnout(): Response
-    {
-        return $this->render('front_workshop/tarot.html.twig');
-    }
-    #[Route('/accompagnement-individuel', name: 'front_workshop_accompagnement')]
-    public function accompagnement(): Response
-    {
-        return $this->render('front_workshop/accompagnement.html.twig');
-    }
 }

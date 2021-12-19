@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ workshop.title }}{% endblock %}
+
+{% block content %}
+
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-7 ftco-animate">
+                    <h2 class="mb-3" style="font-size: 3rem;">{{ workshop.title }}</h2>
+
+                    {% for article in workshop.articles %}
+                        <h2 class="mb-3 mt-5">
+                            {{ article.title }}
+                        </h2>
+                        <p>
+                            {{ article.text|raw }}
+                        </p>
+                        <p>
+                            <img src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('article_image') }}" alt="" class="img-fluid">
+                        </p>
+                    {% endfor %}
+
+                </div> <!-- .col-md-8 -->
+
+                <div class="col-lg-5 sidebar ftco-animate">
+                    <div class="sidebar-box ftco-animate">
+                        <div class="categories">
+                            <h3 class="heading-2">Infos pratiques</h3>
+                            <li>
+                                {% for value in workshop.workshopinfos.location %}
+                                    {% if value == 'SG' %}
+                                        Saint-Géry |
+                                    {% elseif value == 'LO' %}
+                                        Lorcé |
+                                    {% elseif value == 'ZO' %}
+                                        Zoom |
+                                    {% endif %}
+                                {% endfor %}
+                            </li>
+                            <li>{{ workshop.workshopinfos.days }} journées</li>
+                            <li>De {{ workshop.workshopinfos.startAt|format_datetime('none', 'short',locale='fr') }} à {{ workshop.workshopinfos.stopAt|format_datetime('none', 'short',locale='fr') }}</li>
+                            <li>{{ workshop.workshopinfos.price|format_currency('EUR') }} TTC</li>
+                            <li>Animé par {{ workshop.workshopinfos.animator }}</li>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-box ftco-animate">
+                        <h3 class="heading-2">Prochaines sessions</h3>
+                            {% for event in events %}
+                                <div class="block-21 mb-4 d-flex">
+                                    <div class="text">
+                                        <div class="meta">
+                                            <span class="icon-calendar"></span>
+                                            Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }} |
+                                            <span class="icon-map-marker"></span>
+                                            {{ event.location }}
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        <a href="{{ path('front_registration') }}" class="btn btn-primary px-4 py-3">Inscriptions</a>
+                    </div>
+
+
+                </div>
+
+            </div>
+        </div>
+    </section> <!-- .section -->
+{% endblock %}

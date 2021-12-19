@@ -11,7 +11,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-content">
-                        <div class="toolbar">
+                        <div class="toolbar" style="margin-bottom: 2rem;">
                             <!--Here you can write extra buttons/actions for the toolbar-->
                             <a class="btn btn-primary btn-fill btn-wd" href="{{ path('event_new') }}">Nouvel évènement</a>
                         </div>
@@ -37,7 +37,9 @@
                                     <td>{{ event.location }}</td>
                                     <td>{{ event.workshop.title }}</td>
                                     <td>
-                                        <input type="checkbox" class="switch" checked>
+                                        <div class="custom-control custom-switch">
+                                            <input type="checkbox" class="custom-control-input" {{ (event.active) ? 'checked' : '' }} data-id="{{event.id}}">
+                                        </div>
                                     </td>
                                     <td>
                                         <div>
@@ -64,4 +66,22 @@
         </div> <!-- end row -->
     </div>
 </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        window.onload = () => {
+            var checkboxes = document.querySelectorAll("input[type=checkbox]")
+
+            for(let checkbox of checkboxes) {
+                checkbox.addEventListener('click', function () {
+                    console.log(checkbox)
+                    var xmlhttp = new XMLHttpRequest;
+
+                    xmlhttp.open("get", `/admin/event/${this.dataset.id}/activate`)
+                    xmlhttp.send()
+                })
+            }
+        };
+    </script>
 {% endblock %}

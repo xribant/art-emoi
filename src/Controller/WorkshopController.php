@@ -42,7 +42,7 @@ class WorkshopController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'workshop_edit', methods: ['GET','POST'])]
+    #[Route('/{slug}/edit', name: 'workshop_edit', methods: ['GET','POST'])]
     public function edit(Request $request, Workshop $workshop): Response
     {
         $form = $this->createForm(WorkshopType::class, $workshop);
@@ -60,7 +60,7 @@ class WorkshopController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'workshop_delete', methods: ['POST'])]
+    #[Route('/{slug}', name: 'workshop_delete', methods: ['POST'])]
     public function delete(Request $request, Workshop $workshop): Response
     {
         if ($this->isCsrfTokenValid('delete'.$workshop->getId(), $request->request->get('_token'))) {

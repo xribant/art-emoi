@@ -33,11 +33,11 @@
                                             <td>{{ workshop.updatedAt ? workshop.updatedAt|format_datetime('medium', 'medium',locale='fr') : '' }}</td>
                                             <td>
                                                 <div>
-                                                    <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('workshop_edit', {'id': workshop.id}) }}">
+                                                    <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('workshop_edit', {'slug': workshop.slug}) }}">
                                                         <i class="ti-pencil-alt"></i>
                                                     </a>
-                                                    <form style="display: inline-block;" method="post" action="{{ path('workshop_delete', {'id': workshop.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cette formation');">
-                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ workshop.id) }}">
+                                                    <form style="display: inline-block;" method="post" action="{{ path('workshop_delete', {'slug': workshop.slug}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cette formation');">
+                                                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ workshop.slug) }}">
                                                         <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
                                                     </form>
                                                 </div>

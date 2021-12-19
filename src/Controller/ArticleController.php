@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/admin/workshop/{workshop_id}/article')]
+#[Route('/admin/workshop/{workshop_slug}/article')]
 class ArticleController extends AbstractController
 {
     #[Route('/', name: 'workshop_article_index', methods: ['GET'])]
@@ -24,12 +24,12 @@ class ArticleController extends AbstractController
     }
 
     #[Route('/new', name: 'workshop_article_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_id): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_slug): Response
     {
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
-        $workshop = $workshopRepository->findOneBy(['id' => $workshop_id]);
+        $workshop = $workshopRepository->findOneBy(['slug' => $workshop_slug]);
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -37,7 +37,7 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('workshop_edit', ['id' => $workshop->getId() ], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('workshop_edit', ['slug' => $workshop->getSlug() ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/workshop/article/new.html.twig', [
@@ -47,17 +47,17 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'workshop_article_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Article $article, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_id): Response
+    #[Route('/{slug}/edit', name: 'workshop_article_edit', methods: ['GET', 'POST'])]
+    public function edit(Request $request, Article $article, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_slug): Response
     {
-        $workshop = $workshopRepository->findOneBy(['id' => $workshop_id]);
+        $workshop = $workshopRepository->findOneBy(['slug' => $workshop_slug]);
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('workshop_edit', ['id' => $workshop->getId()], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('workshop_edit', ['slug' => $workshop->getSlug()], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('admin/workshop/article/edit.html.twig', [
@@ -67,14 +67,14 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'workshop_article_delete', methods: ['POST'])]
-    public function delete(Request $request, Article $article, EntityManagerInterface $entityManager, $workshop_id): Response
+    #[Route('/{slug}', name: 'workshop_article_delete', methods: ['POST'])]
+    public function delete(Request $request, Article $article, EntityManagerInterface $entityManager, $workshop_slug): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$article->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$article->getSlug(), $request->request->get('_token'))) {
             $entityManager->remove($article);
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('workshop_edit', ['id' => $workshop_id], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('workshop_edit', ['slug' => $workshop_slug], Response::HTTP_SEE_OTHER);
     }
 }
