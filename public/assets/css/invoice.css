@@ -1,0 +1,26 @@
+body {
+    font-family: "EB Garamond", serif;
+}
+
+.address-header {
+    font-weight: bolder;
+    font-size: 1.25rem;
+}
+
+.invoice-number {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.75rem;
+}
+
+.invoice-number .num {
+    color: #999999;
+}
+
+.total-amount {
+    font-size: 1.5rem;
+    font-weight: bolder;
+}
+
+.merci {
+    font-size: 1.25rem;
+}
