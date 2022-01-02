@@ -88,6 +88,21 @@ class EventRegistration
      */
     private $country;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $uid;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $company;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $tva;
+
     public function __construct() {
         $this->updated_at = new \DateTime();
         $this->created_at = new \DateTime();
@@ -238,6 +253,42 @@ class EventRegistration
     public function setCountry(string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getUid(): ?string
+    {
+        return $this->uid;
+    }
+
+    public function setUid(string $uid): self
+    {
+        $this->uid = $uid;
+
+        return $this;
+    }
+
+    public function getCompany(): ?string
+    {
+        return $this->company;
+    }
+
+    public function setCompany(?string $company): self
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    public function getTva(): ?string
+    {
+        return $this->tva;
+    }
+
+    public function setTva(?string $tva): self
+    {
+        $this->tva = $tva;
 
         return $this;
     }

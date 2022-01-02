@@ -22,6 +22,24 @@
         </div>
         <div class="row">
             <div class="col-md-6">
+                <div class="form-group {% if form_errors(form.company) %}has-error{% endif %}">
+                    <label class="control-label">
+                        Société
+                    </label>
+                    {{ form_row(form.company) }}
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group {% if form_errors(form.tva) %}has-error{% endif %}">
+                    <label class="control-label">
+                        TVA
+                    </label>
+                    {{ form_row(form.tva) }}
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
                 <div class="form-group {% if form_errors(form.email) %}has-error{% endif %}">
                     <label class="control-label">
                         E-Mail<star>*</star>

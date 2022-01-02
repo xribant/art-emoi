@@ -8,6 +8,7 @@ config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
 var/
 vendor/
+/test
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

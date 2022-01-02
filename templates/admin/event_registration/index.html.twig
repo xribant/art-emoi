@@ -46,7 +46,7 @@
                                         <td>{{ registration.updatedAt|format_datetime('medium', 'short',locale='fr') }}</td>
                                         <td>
                                             {% if registration.status == 'new' %}
-                                                <button class="btn btn-xs btn-fill btn-warning">A confirmer</button>
+                                                <a href="{{ path('invoice_confirmation', {'uid': registration.uid}) }}" class="btn btn-xs btn-fill btn-warning" title="">Confirmer</a>
                                             {% elseif registration.status == 'paid' %}
                                                 <button class="btn btn-xs btn-fill btn-success">Payée</button>
                                             {% elseif registration.status == 'closed' %}

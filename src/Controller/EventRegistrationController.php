@@ -31,6 +31,7 @@ class EventRegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $eventRegistration->setStatus('new');
+            $eventRegistration->setUid(uniqid("",false));
             $entityManager->persist($eventRegistration);
             $entityManager->flush();
 

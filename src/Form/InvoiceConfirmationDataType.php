@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EventRegistrationType extends AbstractType
+class InvoiceConfirmationDataType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -33,23 +33,7 @@ class EventRegistrationType extends AbstractType
                     'placeholder' => 'Nom',
                     'class' => 'form-control'
                     ]
-            ])
-            ->add('company',TextType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Société',
-                    'class' => 'form-control'
-                ]
-            ])
-            ->add('tva',TextType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'N° TVA',
-                    'class' => 'form-control'
-                ]
-            ])
+                ])
             ->add('email', EmailType::class, [
                     'required' => true,
                     'label' => false,
@@ -114,21 +98,6 @@ class EventRegistrationType extends AbstractType
                 },
                 'attr' => [
                     'placeholder' => 'Formation',
-                    'class' => 'form-control'
-                ]
-            ])
-            ->add('status', ChoiceType::class, [
-                'required' => true,
-                'label' => false,
-                'multiple' => false,
-                'expanded' => false,
-                'choices' => [
-                    'A confirmer' => 'new',
-                    'Payée' => 'paid',
-                    'Clôturée' => 'closed',
-                    'Annulée' => 'canceled'
-                ],
-                'attr' => [
                     'class' => 'form-control'
                 ]
             ])
