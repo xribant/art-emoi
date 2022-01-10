@@ -46,20 +46,30 @@
                                         <td>{{ registration.updatedAt|format_datetime('medium', 'short',locale='fr') }}</td>
                                         <td>
                                             {% if registration.status == 'new' %}
-                                                <a href="{{ path('invoice_confirmation', {'uid': registration.uid}) }}" class="btn btn-xs btn-fill btn-warning" title="">Confirmer</a>
+                                                <span class="badge badge-success">A confirmer</span>
                                             {% elseif registration.status == 'paid' %}
-                                                <button class="btn btn-xs btn-fill btn-success">Payée</button>
+                                                <span class="badge badge-success">Payée</span>
                                             {% elseif registration.status == 'closed' %}
-                                                <button class="btn btn-xs btn-fill">Clôturée</button>
+                                                <span class="badge badge-success">Clôturée</span>
                                             {% elseif registration.status == 'canceled' %}
-                                                <button class="btn btn-xs btn-fill btn-danger">Annulée</button>
+                                                <span class="badge badge-success">Annulée</span>
                                             {% endif %}
                                         </td>
                                         <td>
                                             <div>
-                                                <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_registration_edit', {'id': registration.id}) }}">
-                                                    <i class="ti-pencil-alt"></i>
-                                                </a>
+                                                {% if registration.status != 'canceled' %}
+                                                    <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_registration_edit', {'uid': registration.uid}) }}">
+                                                        <i class="ti-pencil-alt"></i>
+                                                    </a>
+                                                    {% if registration.status == 'new' %}
+                                                        <a rel="tooltip" title="Confirmer" class="btn btn-simple btn-success btn-icon" href="{{ path('event_registration_confirm', {'uid': registration.uid}) }}">
+                                                            <i class="ti-check-box"></i>
+                                                        </a>
+                                                    {% endif %}
+                                                    <a rel="tooltip" title="Annuler" class="btn btn-simple btn-danger btn-icon" onclick="return confirm('Une fois annulée, cette inscription sera clôturée sans retour en arrière possible. Etes-vous certain de vouloir annuler cette inscription?');" href="{{ path('event_registration_cancel', {'uid': registration.uid}) }}">
+                                                        <i class="ti-trash"></i>
+                                                    </a>
+                                                {% endif %}
                                             </div>
                                         </td>
                                     </tr>

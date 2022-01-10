@@ -176,18 +176,17 @@
                             </tr>
                             <tr>
                                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Merci pour votre inscription à cette formation. <p>Vos données : </p>
-                                        <p>Nom: {{ registration.firstName }} {{registration.lastName}}</p>
-                                        <p>E-Mail: {{ registration.email }}</p>
-                                        <p>Adresse: {{ registration.address }}, {{ registration.postalCode }} {{ registration.city }} {{ registration.country }}</p>
-                                        <p>Téléphone: {{ registration.phone }}</p>
-                                        <p>Formation choisie: {{registration.event.workshop.title }} du {{ registration.event.startDate|format_datetime('medium', 'short',locale='fr') }}</p>
-                                    </div>
+                                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Cet e-mail pour vous confirmer votre inscription à la formation {{registration.event.workshop.title }} du {{ registration.event.startDate|format_datetime('medium', 'short',locale='fr') }}</div>
                                 </td>
                             </tr>
                             <tr>
                                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Pour confirmer votre inscription, merci de verser la somme de {{registration.event.workshop.workshopInfos.price|format_currency('EUR') }} sur le n° de compte BE12 3456 7891 2345.</div>
+                                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Veuillez trouver ci-joint votre facture.</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">A très bientôt.</div>
                                 </td>
                             </tr>
                             <tr>

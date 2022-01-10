@@ -103,6 +103,11 @@ class EventRegistration
      */
     private $tva;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Invoice::class, mappedBy="eventRegistration", cascade={"persist", "remove"})
+     */
+    private $invoice;
+
     public function __construct() {
         $this->updated_at = new \DateTime();
         $this->created_at = new \DateTime();
@@ -289,6 +294,23 @@ class EventRegistration
     public function setTva(?string $tva): self
     {
         $this->tva = $tva;
+
+        return $this;
+    }
+
+    public function getInvoice(): ?Invoice
+    {
+        return $this->invoice;
+    }
+
+    public function setInvoice(Invoice $invoice): self
+    {
+        // set the owning side of the relation if necessary
+        if ($invoice->getEventRegistration() !== $this) {
+            $invoice->setEventRegistration($this);
+        }
+
+        $this->invoice = $invoice;
 
         return $this;
     }

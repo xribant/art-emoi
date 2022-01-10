@@ -102,16 +102,6 @@
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-group {% if form_errors(form.status) %}has-error{% endif %}">
-                    <label class="control-label">
-                        Statut<star>*</star>
-                    </label>
-                    {{ form_row(form.status) }}
-                </div>
-            </div>
-        </div>
         <div class="category"><star>*</star> Champs obligatoires</div>
         <div class="card-footer">
             <a class="btn btn-danger btn-fill pull-right" href="{{ path('event_registration_index') }}" style="margin-left: 1rem;">Annuler</a>

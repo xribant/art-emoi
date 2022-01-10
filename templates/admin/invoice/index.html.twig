@@ -2,11 +2,21 @@
 
 {% block title %}Facturation{% endblock %}
 
-{% block pageTitle %}Confirmation des données de facturation{% endblock %}
+{% block pageTitle %}Confirmation des données et facturation{% endblock %}
 
 {% block content %}
     <div class="content">
         <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="alert alert-info">
+                        <span>
+                            Veuillez vérifier les données de facturation ci-dessous avant de cliquer sur le bouton de confirmation.<br>
+                            Après confirmation, la facture sera envoyée automatiquement à l'adresse e-mail mentionnée.
+                        </span>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-md-8">
                     <div class="card">
@@ -29,6 +39,24 @@
                                                 Nom<star>*</star>
                                             </label>
                                             {{ form_row(form.lastName) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group {% if form_errors(form.firstName) %}has-error{% endif %}">
+                                            <label class="control-label">
+                                                Société
+                                            </label>
+                                            {{ form_row(form.company) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group {% if form_errors(form.lastName) %}has-error{% endif %}">
+                                            <label class="control-label">
+                                                TVA
+                                            </label>
+                                            {{ form_row(form.tva) }}
                                         </div>
                                     </div>
                                 </div>

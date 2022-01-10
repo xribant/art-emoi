@@ -14,7 +14,7 @@ class PdfGenerator
         $this->twig = $twig;
     }
 
-    public function createInvoice($outputPath, $html) {
+    public function createPDF($outputPath, $html, $invoiceName) {
 
         $pdfOptions = new Options();
         $pdfOptions->set('defaultFont', 'Arial');
@@ -24,24 +24,24 @@ class PdfGenerator
         $dompdf = new Dompdf($pdfOptions);
 
         $dompdf->loadHtml($html);
+
         $dompdf->setPaper('A4', 'portrait');
+
         $dompdf->render();
 
         // Store PDF Binary Data
         $output = $dompdf->output();
 
         // Check if the invoices cache folder exist before to create the file
-        if(is_dir($outputPath . '/invoices')) {
-            $pdfFilepath =  $outputPath . '/invoices/Facture 2021-003.pdf';
+        if(is_dir($outputPath)) {
+            $pdfFilepath =  $outputPath . '/'.$invoiceName;
             file_put_contents($pdfFilepath, $output);
         }
         else {
-            mkdir($outputPath . '/invoices');
-            $pdfFilepath =  $outputPath . '/invoices/Facture 2021-003.pdf';
+            mkdir($outputPath);
+            $pdfFilepath =  $outputPath . '/'.$invoiceName;
             file_put_contents($pdfFilepath, $output);
         }
-
-        return "";
 
     }
 }

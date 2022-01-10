@@ -117,21 +117,6 @@ class EventRegistrationType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('status', ChoiceType::class, [
-                'required' => true,
-                'label' => false,
-                'multiple' => false,
-                'expanded' => false,
-                'choices' => [
-                    'A confirmer' => 'new',
-                    'Payée' => 'paid',
-                    'Clôturée' => 'closed',
-                    'Annulée' => 'canceled'
-                ],
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
         ;
     }
 

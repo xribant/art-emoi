@@ -20,6 +20,7 @@ class FrontRegistrationController extends AbstractController
     public function index(Request $request, WorkshopRepository $workshopRepository, MailerInterface $mailer, ToastrFactory $toastr): Response
     {
         $eventRegistration = new EventRegistration();
+
         $form = $this->createForm(FrontRegistrationType::class, $eventRegistration);
         $form->handleRequest($request);
 
@@ -27,6 +28,7 @@ class FrontRegistrationController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $eventRegistration->setStatus('new');
+            $eventRegistration->setUid(uniqid("",false).bin2hex(random_bytes(20)));
             $entityManager->persist($eventRegistration);
             $entityManager->flush();
 
@@ -36,7 +38,7 @@ class FrontRegistrationController extends AbstractController
                 ->subject('Art-Emoi : confirmation d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
-                    'registration' => $eventRegistration
+                    'registration' => $eventRegistration,
                 ])
             ;
 

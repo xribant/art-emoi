@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\EventRegistration;
+use Doctrine\ORM\EntityRepository;
 use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
 use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -34,6 +35,22 @@ class FrontRegistrationType extends AbstractType
                 'label' => false,
                 'attr' => [
                     'placeholder' => 'Nom',
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('company',TextType::class, [
+                'required' => true,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Société si applicable',
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('tva',TextType::class, [
+                'required' => true,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'N° TVA si applicable',
                     'class' => 'form-control'
                 ]
             ])
@@ -96,8 +113,13 @@ class FrontRegistrationType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'class' => Event::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.active = true')
+                        ->orderBy('u.startDate', 'ASC');
+                },
                 'choice_label' => function($event) {
-                    return $event->getWorkshop()->getTitle().' du '.$event->getStartDate()->format('d/m/Y');
+                        return $event->getWorkshop()->getTitle() . ' du ' . $event->getStartDate()->format('d/m/Y');
                 },
                 'attr' => [
                     'class' => 'form-control'
