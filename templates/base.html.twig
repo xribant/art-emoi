@@ -70,7 +70,7 @@
                                 <ul class="navbar-nav m-auto">
                                     <li class="nav-item {% if current_menu == 'home' %}active{% endif %}"><a href="{{ path('home') }}" class="nav-link">Accueil</a></li>
                                     <li class="nav-item {% if current_menu == 'about' %}active{% endif %}"><a href="{{ path('about') }}" class="nav-link">Presentation</a></li>
-                                    <li class="nav-item"><a href="#" class="nav-link">Partenaires</a></li>
+                                    <li class="nav-item {% if current_menu == 'partners' %}active{% endif %}"><a href="{{ path('front_partners') }}" class="nav-link">Partenaires</a></li>
                                     <li class="nav-item {% if current_menu == 'books' %}active{% endif %}"><a href="{{ path('books') }}" class="nav-link">Ouvrages</a></li>
                                     <li class="nav-item {% if current_menu == 'contact' %}active{% endif %}"><a href="{{ path('contact_form') }}" class="nav-link">Contact</a></li>
                                 </ul>

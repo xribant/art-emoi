@@ -4,6 +4,12 @@
     <div class="card-content">
         <div class="form-group">
             <label class="control-label">
+                Société
+            </label>
+            {{ form_row(form.company) }}
+        </div>
+        <div class="form-group">
+            <label class="control-label">
                 Prénom <star>*</star>
             </label>
             {{ form_row(form.firstName) }}
@@ -16,13 +22,13 @@
         </div>
         <div class="form-group">
             <label class="control-label">
-                E-Mail<star>*</star>
+                E-Mail
             </label>
             {{ form_row(form.email) }}
         </div>
         <div class="form-group">
             <label class="control-label">
-                Site Web<star>*</star>
+                Site Web
             </label>
             {{ form_row(form.url, {'attr': {'value': 'http://'}}) }}
         </div>

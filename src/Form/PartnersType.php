@@ -14,6 +14,14 @@ class PartnersType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
+            ->add('company', TextType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'Société',
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('firstName', TextType::class, [
                 'required' => true,
                 'label' => false,

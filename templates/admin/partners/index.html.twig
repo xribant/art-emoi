@@ -20,6 +20,7 @@
                                 <thead>
                                 <tr>
                                     <th>Id</th>
+                                    <th>Société</th>
                                     <th>Prénom</th>
                                     <th>Nom</th>
                                     <th>E-Mail</th>
@@ -32,6 +33,7 @@
                                 {% for partner in partners %}
                                     <tr>
                                         <td>{{ loop.index }}</td>
+                                        <td>{{ partner.company }}</td>
                                         <td>{{ partner.firstName }}</td>
                                         <td>{{ partner.lastName }}</td>
                                         <td>{{ partner.email }}</td>
