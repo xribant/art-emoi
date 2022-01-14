@@ -18,6 +18,7 @@
         "liip/imagine-bundle": "^2.7",
         "php-flasher/flasher-toastr-symfony": "^0.9.5",
         "phpdocumentor/reflection-docblock": "^5.3",
+        "phpoffice/phpspreadsheet": "^1.21",
         "sensio/framework-extra-bundle": "^6.1",
         "stof/doctrine-extensions-bundle": "^1.7",
         "symfony/asset": "5.3.*",
