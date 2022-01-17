@@ -22,7 +22,7 @@ class EventRegistrationController extends AbstractController
     public function index(EventRegistrationRepository $eventRegistrationRepository): Response
     {
         return $this->render('admin/event_registration/index.html.twig', [
-            'event_registrations' => $eventRegistrationRepository->findAll(),
+            'event_registrations' => $eventRegistrationRepository->findIfNotArchived(),
         ]);
     }
 
@@ -105,7 +105,7 @@ class EventRegistrationController extends AbstractController
 
             $invoiceNum = date('Y').'-'.$newInvoiceId;
 
-            $invoice->setFileName('facture_'.$invoiceNum.'.pdf');
+            $invoice->setFileName(uniqid().'.pdf');
             $invoice->setNumber($invoiceNum);
             $invoice->setEventRegistration($eventRegistration);
 

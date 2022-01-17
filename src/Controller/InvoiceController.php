@@ -34,9 +34,9 @@ class InvoiceController extends AbstractController
         $outputPath = $this->getParameter('kernel.project_dir') . '/public/media/cache/invoices';
 
         if($lastInvoice) {
-            $invoiceName = 'facture-'.date("Y").'-'.($lastInvoice->getId()+1).'.pdf';
+            $invoiceName = uniqid().'.pdf';
         } else {
-            $invoiceName = 'facture-'.date("Y").'-001.pdf';
+            $invoiceName = uniqid().'.pdf';
         }
 
         $html = $this->renderView('documents/invoice.html.twig', [
@@ -52,7 +52,6 @@ class InvoiceController extends AbstractController
 
         $invoice->setCreatedAt(new \DateTime());
         $invoice->setEventRegistration($registration);
-        $invoice->setName($invoiceName);
         $invoice->setFileName($invoiceName.'.pdf');
 
         $em = $this->getDoctrine()->getManager();

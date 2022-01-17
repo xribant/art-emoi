@@ -70,6 +70,11 @@
                                                     <a rel="tooltip" title="Annuler" class="btn btn-simple btn-danger btn-icon" onclick="return confirm('Une fois annulée, cette inscription sera clôturée sans retour en arrière possible. Etes-vous certain de vouloir annuler cette inscription?');" href="{{ path('event_registration_cancel', {'uid': registration.uid}) }}">
                                                         <i class="ti-trash"></i>
                                                     </a>
+                                                    {% if registration.invoice %}
+                                                        <a rel="tooltip" title="Télécharger la facture" class="btn btn-simple btn-success btn-icon" href="{{ absolute_url(asset('media/cache/invoices/' ~ registration.invoice.fileName)) }}" target="_blank">
+                                                            <i class="ti-file"></i>
+                                                        </a>
+                                                    {% endif %}
                                                 {% endif %}
                                             </div>
                                         </td>

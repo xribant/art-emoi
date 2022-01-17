@@ -49,7 +49,24 @@ class ExcelExportController extends AbstractController
             $sheet->setCellValue('H'.$i, $registration->getCity());
             $sheet->setCellValue('I'.$i, $registration->getCountry());
             $sheet->setCellValue('J'.$i, $registration->getEvent()->getWorkshop()->getTitle());
-            $sheet->setCellValue('K'.$i, $registration->getStatus());
+
+            $status = $registration->getStatus();
+
+            switch($status) {
+                case 'new':
+                    $value = 'A confirmer';
+                    break;
+                case 'paid':
+                    $value = 'Payée';
+                    break;
+                case 'cancelled':
+                    $value = 'Annulée';
+                    break;
+                case 'closed':
+                    $value = 'Clôturée';
+                    break;
+            }
+            $sheet->setCellValue('K'.$i, $value);
 
             $i++;
         }

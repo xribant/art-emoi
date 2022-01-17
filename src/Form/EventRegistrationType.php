@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\EventRegistration;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -109,6 +110,11 @@ class EventRegistrationType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'class' => Event::class,
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('u')
+                        ->where('u.active = true')
+                        ->orderBy('u.startDate', 'ASC');
+                },
                 'choice_label' => function($event) {
                     return $event->getWorkshop()->getTitle().' du '.$event->getStartDate()->format('d/m/Y');
                 },

@@ -36,6 +36,17 @@ class EventRegistrationRepository extends ServiceEntityRepository
     }
     */
 
+    public function findIfNotArchived()
+    {
+        return $this->createQueryBuilder('e')
+            ->where('e.status != :archived')
+            ->setParameter('archived', 'archived')
+            ->orderBy('e.created_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     /*
     public function findOneBySomeField($value): ?EventRegistration
     {
