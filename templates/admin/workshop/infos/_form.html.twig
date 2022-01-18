@@ -10,11 +10,11 @@
                 {{ form_row(form.location) }}
             </div>
         </div>
-        <div class="form-group {% if form_errors(form.days) %}has-error{% endif %}">
+        <div class="form-group {% if form_errors(form.duration) %}has-error{% endif %}">
             <label class="control-label">
-                Journées<star>*</star>
+                Durée<star>*</star>
             </label>
-            {{ form_row(form.days) }}
+            {{ form_row(form.duration) }}
         </div>
         <div class="form-group {% if form_errors(form.start_at) %}has-error{% endif %}">
             <label class="control-label">
@@ -28,13 +28,13 @@
             </label>
             {{ form_row(form.stop_at) }}
         </div>
-        <div class="form-group {% if form_errors(form.days) %}has-error{% endif %}">
+        <div class="form-group {% if form_errors(form.price) %}has-error{% endif %}">
             <label class="control-label">
                 Prix (TTC)<star>*</star>
             </label>
             {{ form_row(form.price) }}
         </div>
-        <div class="form-group {% if form_errors(form.days) %}has-error{% endif %}">
+        <div class="form-group {% if form_errors(form.animator) %}has-error{% endif %}">
             <label class="control-label">
                 Animatrice/Animateur<star>*</star>
             </label>

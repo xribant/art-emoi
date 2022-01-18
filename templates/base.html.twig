@@ -26,6 +26,9 @@
         <!-- Font Awesome Icones -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css" integrity="sha512-YWzhKL2whUzgiheMoBFwW8CKV4qpHQAEuvilg9FAn5VJUDwKZZxkJNuGM4XkWuk94WCrrwslk8yWNGmY1EduTA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
+        <!-- Cookie consent -->
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.css" />
+
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('build/apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('build/favicon-32x32.png') }}">
@@ -165,9 +168,30 @@
             <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
             <script src="{{ asset('assets/js/jquery.timepicker.min.js') }}"></script>
             <script src="{{ asset('assets/js/scrollax.min.js') }}"></script>
-
+            <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+            <script>
+                window.cookieconsent.initialise({
+                    "palette": {
+                        "popup": {
+                            "background": "#2c396b",
+                            "text": "#ffb5b5"
+                        },
+                        "button": {
+                            "background": "#ffb5b5",
+                            "text": "#ffffff"
+                        }
+                    },
+                    "content": {
+                        "message": "Ce site internet utilise des cookies afin d'améliorer l'expérience utilisateur et pour connaître la provenance des visiteurs.",
+                        "dismiss": "J'ai compris",
+                        "link": "En savoir plus",
+                        "href": "https://www.belgium.be/fr/justice/respect_de_la_vie_privee/protection_des_donnees_personnelles"
+                    }
+                });
+            </script>
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
+
         {% endblock %}
 
 

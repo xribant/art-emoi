@@ -8,7 +8,6 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-7 ftco-animate">
-                    <h2 class="mb-3" style="font-size: 3rem;">{{ workshop.title }}</h2>
 
                     {% for article in workshop.articles %}
                         <h2 class="mb-3 mt-5">
@@ -36,10 +35,12 @@
                                         Lorcé |
                                     {% elseif value == 'ZO' %}
                                         Zoom |
+                                    {% elseif value == 'NA' %}
+                                        Namur |
                                     {% endif %}
                                 {% endfor %}
                             </li>
-                            <li>{{ workshop.workshopinfos.days }} journées</li>
+                            <li>{{ workshop.workshopinfos.duration }}</li>
                             <li>De {{ workshop.workshopinfos.startAt|format_datetime('none', 'short',locale='fr') }} à {{ workshop.workshopinfos.stopAt|format_datetime('none', 'short',locale='fr') }}</li>
                             <li>{{ workshop.workshopinfos.price|format_currency('EUR') }} TTC</li>
                             <li>Animé par {{ workshop.workshopinfos.animator }}</li>

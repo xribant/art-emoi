@@ -10,6 +10,7 @@ use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,21 +27,37 @@ class FrontRegistrationController extends AbstractController
 
         if($form->isSubmitted() and $form->isValid()) {
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $eventRegistration->setStatus('new');
-            $eventRegistration->setUid(uniqid("",false).bin2hex(random_bytes(20)));
-            $entityManager->persist($eventRegistration);
-            $entityManager->flush();
-
             $email = (new TemplatedEmail())
-                ->from($eventRegistration->getEmail())
-                ->to(new Address('xavier@mywebcreation.be'))
+                ->from('admin@art-emoi.be')
+                ->to(new Address($eventRegistration->getEmail()))
+                ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : confirmation d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
                     'registration' => $eventRegistration,
                 ])
             ;
+
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $e) {
+                $toastr
+                    ->warning('Inscription invalide. L\'adresse e-mail introduite à l\'inscription n\'existe pas !!!')
+                    ->timeOut(10000)
+                    ->progressBar()
+                    ->closeButton()
+                    ->positionClass('toast-top-left')
+                    ->flash()
+                ;
+
+                return $this->redirectToRoute('home');
+            }
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $eventRegistration->setStatus('new');
+            $eventRegistration->setUid(uniqid("",false).bin2hex(random_bytes(20)));
+            $entityManager->persist($eventRegistration);
+            $entityManager->flush();
 
             $mailer->send($email);
 

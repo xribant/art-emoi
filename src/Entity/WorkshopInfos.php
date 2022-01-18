@@ -61,6 +61,11 @@ class WorkshopInfos
      */
     private $workshop;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $duration;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -146,6 +151,18 @@ class WorkshopInfos
     public function setWorkshop(Workshop $workshop): self
     {
         $this->workshop = $workshop;
+
+        return $this;
+    }
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(string $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

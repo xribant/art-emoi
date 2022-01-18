@@ -8,11 +8,14 @@ use App\Form\EventRegistrationType;
 use App\Repository\EventRegistrationRepository;
 use App\Repository\InvoiceRepository;
 use App\Service\PdfGenerator;
+use Flasher\Toastr\Prime\ToastrFactory;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Address;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/admin/formation/inscription')]
@@ -27,18 +30,56 @@ class EventRegistrationController extends AbstractController
     }
 
     #[Route('/new', name: 'event_registration_new', methods: ['GET','POST'])]
-    public function new(Request $request): Response
+    public function new(Request $request, MailerInterface $mailer, ToastrFactory $toastr): Response
     {
         $eventRegistration = new EventRegistration();
         $form = $this->createForm(EventRegistrationType::class, $eventRegistration);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $email = (new TemplatedEmail())
+                ->from('admin@art-emoi.be')
+                ->to(new Address($eventRegistration->getEmail()))
+                ->cc('admin@art-emoi.be')
+                ->subject('Art-Emoi : confirmation d\'inscription')
+                ->htmlTemplate('mails/registration_confirmation.html.twig')
+                ->context([
+                    'registration' => $eventRegistration,
+                ])
+            ;
+
+            try {
+                $mailer->send($email);
+            } catch (TransportExceptionInterface $e) {
+                $toastr
+                    ->warning("Inscription invalide. L'adresse e-mail introduite à l'inscription n'existe pas !!!")
+                    ->timeOut(10000)
+                    ->progressBar()
+                    ->closeButton()
+                    ->positionClass('toast-top-left')
+                    ->flash()
+                ;
+
+                return $this->redirectToRoute('event_registration_index');
+            }
+
             $entityManager = $this->getDoctrine()->getManager();
             $eventRegistration->setStatus('new');
             $eventRegistration->setUid(uniqid("",false).bin2hex(random_bytes(20)));
             $entityManager->persist($eventRegistration);
             $entityManager->flush();
+
+            $mailer->send($email);
+
+            $toastr
+                ->success('<strong>Inscription enregistrée! <br>Un e-mail de confirmation a été envoyé à l\'utilisateur avec les instructions.</strong>')
+                ->timeOut(5000)
+                ->progressBar()
+                ->closeButton()
+                ->positionClass('toast-top-left')
+                ->flash()
+            ;
 
             return $this->redirectToRoute('event_registration_index', [], Response::HTTP_SEE_OTHER);
         }

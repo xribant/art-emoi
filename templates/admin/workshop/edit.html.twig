@@ -47,9 +47,14 @@
                                                             Lorcé |
                                                         {% elseif value == 'ZO' %}
                                                             Zoom |
+                                                        {% elseif value == 'NA' %}
+                                                            Namur |
                                                         {% endif %}
                                                     {% endfor %}
                                                 </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Durée: </td><td>{{ workshop.workshopinfos.duration }}</td>
                                             </tr>
                                             <tr>
                                                 <td>Début: </td><td>{{ workshop.workshopinfos.startAt|format_datetime('none', 'short',locale='fr') }}</td>

@@ -25,14 +25,15 @@ class WorkshopInfosType extends AbstractType
                 'choices' => [
                     'Saint-Géry' => 'SG',
                     'Lorcé' => 'LO',
-                    'Zoom' => 'ZO'
+                    'Zoom' => 'ZO',
+                    'Namur' => 'NA'
                 ]
             ])
-            ->add('days', TextType::class, [
+            ->add('duration', TextType::class, [
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Nombre de Jourées',
+                    'placeholder' => 'Durée de la formation',
                     'class' => 'form-control',
                 ]
             ])

@@ -179,7 +179,13 @@
                                     <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Merci pour votre inscription à cette formation. <p>Vos données : </p>
                                         <p>Nom: {{ registration.firstName }} {{registration.lastName}}</p>
                                         <p>E-Mail: {{ registration.email }}</p>
-                                        <p>Adresse: {{ registration.address }}, {{ registration.postalCode }} {{ registration.city }} {{ registration.country }}</p>
+                                        <p>Adresse: {{ registration.address }}, {{ registration.postalCode }} {{ registration.city }},
+                                            {% if registration.country == 'BE' %} (Belgique)
+                                            {% elseif registration.country == 'LU'  %} (Luxembourg)
+                                            {% elseif registration.country == 'CA'  %} (Canada)
+                                            {% elseif registration.country == 'SW'  %} (Suisse)
+                                            {% endif %}
+                                        </p>
                                         <p>Téléphone: {{ registration.phone }}</p>
                                         <p>Formation choisie: {{registration.event.workshop.title }} du {{ registration.event.startDate|format_datetime('medium', 'short',locale='fr') }}</p>
                                     </div>
@@ -187,7 +193,14 @@
                             </tr>
                             <tr>
                                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
-                                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Pour confirmer votre inscription, merci de verser la somme de {{registration.event.workshop.workshopInfos.price|format_currency('EUR') }} sur le n° de compte BE12 3456 7891 2345.</div>
+                                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">Pour confirmer votre inscription, merci de verser la somme de {{registration.event.workshop.workshopInfos.price|format_currency('EUR') }} sur le n° de compte BE54 0689 4232 3297</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
+                                    <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">
+                                        Dès réception de votre paiement sur notre compte, nous vous enverrons un e-mail de confirmation avec les modalités propres à la formation.
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
