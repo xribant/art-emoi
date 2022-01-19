@@ -6,6 +6,7 @@ use App\Repository\EventRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
@@ -22,22 +23,26 @@ class Event
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="Veuillez entrer une date de début")
      */
     private $startDate;
 
     /**
      * @ORM\Column(type="datetime")
+     * @Assert\NotBlank(message="Veuillez entrer une date de fin")
      */
     private $end_date;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez choisir le lieu")
      */
     private $location;
 
     /**
      * @ORM\ManyToOne(targetEntity=Workshop::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank(message="Veuillez choisir la formation")
      */
     private $workshop;
 
@@ -66,7 +71,7 @@ class Event
         return $this->startDate;
     }
 
-    public function setStartDate(\DateTimeInterface $startDate): self
+    public function setStartDate(?\DateTimeInterface $startDate): self
     {
         $this->startDate = $startDate;
 
@@ -78,7 +83,7 @@ class Event
         return $this->end_date;
     }
 
-    public function setEndDate(\DateTimeInterface $end_date): self
+    public function setEndDate(?\DateTimeInterface $end_date): self
     {
         $this->end_date = $end_date;
 
@@ -90,7 +95,7 @@ class Event
         return $this->location;
     }
 
-    public function setLocation(string $location): self
+    public function setLocation(?string $location): self
     {
         $this->location = $location;
 
@@ -144,7 +149,7 @@ class Event
         return $this->active;
     }
 
-    public function setActive(bool $active): self
+    public function setActive(?bool $active): self
     {
         $this->active = $active;
 

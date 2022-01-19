@@ -53,7 +53,7 @@ class Contact
         return $this->name;
     }
 
-    public function setName(string $name): self
+    public function setName(?string $name): self
     {
         $this->name = $name;
 
@@ -65,7 +65,7 @@ class Contact
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -77,7 +77,7 @@ class Contact
         return $this->subject;
     }
 
-    public function setSubject(string $subject): self
+    public function setSubject(?string $subject): self
     {
         $this->subject = $subject;
 
@@ -89,7 +89,7 @@ class Contact
         return $this->message;
     }
 
-    public function setMessage(string $message): self
+    public function setMessage(?string $message): self
     {
         $this->message = $message;
 

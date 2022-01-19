@@ -135,7 +135,7 @@ class EventRegistration
         return $this->firstName;
     }
 
-    public function setFirstName(string $firstName): self
+    public function setFirstName(?string $firstName): self
     {
         $this->firstName = $firstName;
 
@@ -147,7 +147,7 @@ class EventRegistration
         return $this->lastName;
     }
 
-    public function setLastName(string $lastName): self
+    public function setLastName(?string $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -159,7 +159,7 @@ class EventRegistration
         return $this->email;
     }
 
-    public function setEmail(string $email): self
+    public function setEmail(?string $email): self
     {
         $this->email = $email;
 
@@ -171,7 +171,7 @@ class EventRegistration
         return $this->address;
     }
 
-    public function setAddress(string $address): self
+    public function setAddress(?string $address): self
     {
         $this->address = $address;
 
@@ -183,7 +183,7 @@ class EventRegistration
         return $this->postalCode;
     }
 
-    public function setPostalCode(string $postalCode): self
+    public function setPostalCode(?string $postalCode): self
     {
         $this->postalCode = $postalCode;
 
@@ -195,7 +195,7 @@ class EventRegistration
         return $this->city;
     }
 
-    public function setCity(string $city): self
+    public function setCity(?string $city): self
     {
         $this->city = $city;
 
@@ -207,7 +207,7 @@ class EventRegistration
         return $this->phone;
     }
 
-    public function setPhone(string $phone): self
+    public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
 
@@ -231,7 +231,7 @@ class EventRegistration
         return $this->updated_at;
     }
 
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
+    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
     {
         $this->updated_at = $updated_at;
 
@@ -243,7 +243,7 @@ class EventRegistration
         return $this->status;
     }
 
-    public function setStatus(string $status): self
+    public function setStatus(?string $status): self
     {
         $this->status = $status;
 
@@ -255,7 +255,7 @@ class EventRegistration
         return $this->country;
     }
 
-    public function setCountry(string $country): self
+    public function setCountry(?string $country): self
     {
         $this->country = $country;
 
@@ -267,7 +267,7 @@ class EventRegistration
         return $this->uid;
     }
 
-    public function setUid(string $uid): self
+    public function setUid(?string $uid): self
     {
         $this->uid = $uid;
 

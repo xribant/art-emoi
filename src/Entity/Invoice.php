@@ -52,7 +52,7 @@ class Invoice
         return $this->fileName;
     }
 
-    public function setFileName(string $fileName): self
+    public function setFileName(?string $fileName): self
     {
         $this->fileName = $fileName;
 
@@ -64,7 +64,7 @@ class Invoice
         return $this->created_at;
     }
 
-    public function setCreatedAt(\DateTimeInterface $created_at): self
+    public function setCreatedAt(?\DateTimeInterface $created_at): self
     {
         $this->created_at = $created_at;
 
@@ -88,7 +88,7 @@ class Invoice
         return $this->number;
     }
 
-    public function setNumber(string $number): self
+    public function setNumber(?string $number): self
     {
         $this->number = $number;
 

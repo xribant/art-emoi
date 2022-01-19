@@ -4,7 +4,6 @@ namespace App\Controller;
 
 use App\Entity\WorkshopInfos;
 use App\Form\WorkshopInfosType;
-use App\Repository\WorkshopInfosRepository;
 use App\Repository\WorkshopRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,14 +39,14 @@ class WorkshopInfosController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'workshop_infos_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, WorkshopInfos $workshopInfo, EntityManagerInterface $entityManager, WorkshopRepository $workshopRepository, $workshop_slug): Response
+    public function edit(Request $request, WorkshopInfos $workshopInfo, WorkshopRepository $workshopRepository, $workshop_slug): Response
     {
         $workshop = $workshopRepository->findOneBy(['slug' => $workshop_slug]);
         $form = $this->createForm(WorkshopInfosType::class, $workshopInfo);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('workshop_edit', ['slug' => $workshop->getSlug()], Response::HTTP_SEE_OTHER);
         }

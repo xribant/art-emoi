@@ -63,6 +63,7 @@ class WorkshopInfos
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Veuillez entrer les infos sur la durée de la formation")
      */
     private $duration;
 
@@ -76,7 +77,7 @@ class WorkshopInfos
         return $this->location;
     }
 
-    public function setLocation(array $location): self
+    public function setLocation(?array $location): self
     {
         $this->location = $location;
 
@@ -88,7 +89,7 @@ class WorkshopInfos
         return $this->days;
     }
 
-    public function setDays(int $days): self
+    public function setDays(?int $days): self
     {
         $this->days = $days;
 
@@ -100,7 +101,7 @@ class WorkshopInfos
         return $this->start_at;
     }
 
-    public function setStartAt(\DateTimeInterface $start_at): self
+    public function setStartAt(?\DateTimeInterface $start_at): self
     {
         $this->start_at = $start_at;
 
@@ -112,7 +113,7 @@ class WorkshopInfos
         return $this->stop_at;
     }
 
-    public function setStopAt(\DateTimeInterface $stop_at): self
+    public function setStopAt(?\DateTimeInterface $stop_at): self
     {
         $this->stop_at = $stop_at;
 
@@ -124,7 +125,7 @@ class WorkshopInfos
         return $this->price;
     }
 
-    public function setPrice(float $price): self
+    public function setPrice(?float $price): self
     {
         $this->price = $price;
 
@@ -136,7 +137,7 @@ class WorkshopInfos
         return $this->animator;
     }
 
-    public function setAnimator(string $animator): self
+    public function setAnimator(?string $animator): self
     {
         $this->animator = $animator;
 
@@ -160,7 +161,7 @@ class WorkshopInfos
         return $this->duration;
     }
 
-    public function setDuration(string $duration): self
+    public function setDuration(?string $duration): self
     {
         $this->duration = $duration;
 

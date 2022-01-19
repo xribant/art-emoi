@@ -61,7 +61,8 @@ class EventType extends AbstractType
                 'choices' => [
                     'Saint-Géry' => 'Saint-Géry',
                     'Lorcé' => 'Lorcé',
-                    'Zoom' => 'Zoom'
+                    'Zoom' => 'Zoom',
+                    'Namur' => 'Namur'
                 ],
                 'attr' => [
                     'class' => 'radio'

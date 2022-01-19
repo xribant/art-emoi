@@ -17,7 +17,9 @@
                             {{ article.text|raw }}
                         </p>
                         <p>
-                            <img src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('article_image') }}" alt="" class="img-fluid">
+                            {% if article.imageName %}
+                                <img src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('article_image') }}" alt="" class="img-fluid">
+                            {% endif %}
                         </p>
                     {% endfor %}
 
@@ -49,6 +51,7 @@
 
                     <div class="sidebar-box ftco-animate">
                         <h3 class="heading-2">Prochaines sessions</h3>
+                        {% if events %}
                             {% for event in events %}
                                 <div class="block-21 mb-4 d-flex">
                                     <div class="text">
@@ -61,6 +64,15 @@
                                     </div>
                                 </div>
                             {% endfor %}
+                        {% else %}
+                            <div class="block-21 mb-4 d-flex">
+                                <div class="text">
+                                    <div class="meta">
+                                       Pas de session pour le moment
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
                         <a href="{{ path('front_registration') }}" class="btn btn-primary px-4 py-3">Inscriptions</a>
                     </div>
 
