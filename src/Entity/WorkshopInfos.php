@@ -25,13 +25,6 @@ class WorkshopInfos
     private $location = [];
 
     /**
-     * @ORM\Column(type="integer")
-     * @Assert\NotBlank(message="Veuillez entrer le nombre de journées de formation")
-     * @Assert\Positive(message="Veuillez entrer une valeur correcte")
-     */
-    private $days;
-
-    /**
      * @ORM\Column(type="time")
      * @Assert\NotBlank(message="Veuillez entrer l'heure de début de la session")
      */

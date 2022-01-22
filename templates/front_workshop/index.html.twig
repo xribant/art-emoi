@@ -23,6 +23,7 @@
                         </p>
                     {% endfor %}
 
+
                 </div> <!-- .col-md-8 -->
 
                 <div class="col-lg-5 sidebar ftco-animate">
@@ -57,7 +58,11 @@
                                     <div class="text">
                                         <div class="meta">
                                             <span class="icon-calendar"></span>
-                                            Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }} |
+                                            {% if event.startDate != event.endDate %}
+                                                Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }} |
+                                            {% else %}
+                                                Le {{ event.startDate|format_datetime('medium', 'none',locale='fr') }}
+                                            {% endif %}
                                             <span class="icon-map-marker"></span>
                                             {{ event.location }}
                                         </div>

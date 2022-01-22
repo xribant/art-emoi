@@ -26,10 +26,18 @@
                             <div class="text mt-4">
                                 <h3 class="mb-4">{{ workshop.title }}</h3>
                                 <p class="mb-1" style="height: 8rem;">{{ workshop.description|raw }}</p>
-                                <p>
-                                    <a href="{{ path('front_workshop_infos', {'slug': workshop.slug}) }}" class="btn btn-primary mr-3 mt-3" style="width: 6rem;">Infos</a>
+                            </div>
+                            <div class="button-group">
+                                <a href="{{ path('front_workshop_infos', {'slug': workshop.slug}) }}" class="btn btn-primary mr-3 mt-3" style="width: 6rem;">Infos</a>
+                                {% set activeEvent = 0 %}
+                                {% for event in workshop.events %}
+                                    {% if event.active %}
+                                        {% set activeEvent = activeEvent + 1 %}
+                                    {% endif %}
+                                {% endfor %}
+                                {% if workshop.events is not empty and activeEvent != 0 %}
                                     <a href="{{ path('front_registration') }}" class="btn btn-primary mt-3" style="width: 6rem;">Inscription</a>
-                                </p>
+                                {% endif %}
                             </div>
                         </div>
                     </div>

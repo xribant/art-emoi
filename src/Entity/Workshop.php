@@ -93,6 +93,7 @@ class Workshop
 
     public function __construct()
     {
+        $this->updated_at = new \DateTime();
         $this->events = new ArrayCollection();
         $this->articles = new ArrayCollection();
     }

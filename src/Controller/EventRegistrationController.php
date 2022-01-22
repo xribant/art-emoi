@@ -42,7 +42,7 @@ class EventRegistrationController extends AbstractController
                 ->from('admin@art-emoi.be')
                 ->to(new Address($eventRegistration->getEmail()))
                 ->cc('admin@art-emoi.be')
-                ->subject('Art-Emoi : confirmation d\'inscription')
+                ->subject('Art-Emoi : Demande d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
                     'registration' => $eventRegistration,

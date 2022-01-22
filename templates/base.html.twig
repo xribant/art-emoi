@@ -17,7 +17,7 @@
         <meta property="og:url" content="https://www.art-emoi.be" /> <!-- where do you want your post to link to -->
         <meta name="twitter:card" content="summary_large_image"> <!-- to have large image post format in Twitter -->
 
-        <title>{% block title %}{% endblock %} | Art-Émoi</title>
+        <title>{% block title %}{% endblock %} | Art-Émoi </title>
 
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700&display=swap" rel="stylesheet">
@@ -54,6 +54,22 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
+        <!-- Matomo
+        <script>
+            var _paq = window._paq = window._paq || [];
+            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+            _paq.push(['trackPageView']);
+            _paq.push(['enableLinkTracking']);
+            (function() {
+                var u="https://analytics.mywebcreation.be/";
+                _paq.push(['setTrackerUrl', u+'matomo.php']);
+                _paq.push(['setSiteId', '2']);
+                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+                g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+            })();
+        </script>
+        End Matomo Code -->
+
     </head>
     <body>
     {{ flasher_render() }}
@@ -63,7 +79,7 @@
                 <div class="container">
                     <div class="row m-auto">
                         <div class="col-12 w-100 text-center">
-                            <a class="navbar-brand w-100" href="{{ path('home') }}"><img src="{{ asset('build/logo-art-emoi.png') }}" style="height:6rem;" alt=""></a>
+                            <a class="navbar-brand w-100" href="{{ path('home') }}"><img src="{{ asset('build/logo-art-emoi.png') }}" style="height:6rem;" alt="Art-Émoi"></a>
                             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                                 <span class="oi oi-menu"></span> Menu
                             </button>
@@ -141,8 +157,8 @@
                             <p class="mb-0">
                                 Copyright &copy;<script>
                                     document.write(new Date().getFullYear());
-                                </script> Tous droits réservés | Art Émoi | <a href="mailto:info@art-emoi.be">info@art-émoi.be</a>
-                            <p>Conception web: <a href="https://www.mywebcreation.be" target="_blank">www.mywebcreation.be</a></p>
+                                </script> Tous droits réservés | Art Émoi | <a href="mailto:info@art-emoi.be" title="info@art-emoi.be">info@art-émoi.be</a>
+                            <p>Conception web: <a href="https://www.mywebcreation.be" target="_blank" title="My Web Creation">www.mywebcreation.be</a></p>
                         </div>
                     </div>
                 </div>
