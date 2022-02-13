@@ -30,7 +30,7 @@ class FrontRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
                 ->to(new Address($eventRegistration->getEmail()))
-                ->cc('admin@art-emoi.be')
+                // ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Demande d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([

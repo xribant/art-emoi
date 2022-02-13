@@ -71,7 +71,7 @@
             <th scope="col">Description</th>
             <th scope="col">Quantité</th>
             <th scope="col">Prix Unitaire</th>
-            <th scope="col">TVA (21.00 %)</th>
+            <th scope="col">TVA ({{ tvaRate }} %)</th>
             <th scope="col">Montant</th>
         </tr>
     </thead>
@@ -79,9 +79,8 @@
         <tr>
             <td>{{ registration.event.workshop.title }}</td>
             <td>1</td>
-            {% set price = registration.event.workshop.workshopInfos.price %}
-            <td>{{ (price - (price*0.21))|format_currency('EUR') }}</td>
-            <td>{{ (price*0.21)|format_currency('EUR') }}</td>
+            <td>{{ priceHTVA|format_currency('EUR') }}</td>
+            <td>{{ totalTva|format_currency('EUR') }}</td>
             <td>{{ price|format_currency('EUR') }}</td>
         </tr>
     </tbody>

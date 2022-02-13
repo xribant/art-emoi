@@ -124,6 +124,40 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <div class="form-group {% if form_errors(form.price) %}has-error{% endif %}">
+                                            <label class="control-label">
+                                                Prix TTC<star>*</star>
+                                            </label>
+                                            {{ form_row(form.price) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group {% if form_errors(form.tvaRate) %}has-error{% endif %}">
+                                            <label class="control-label">
+                                                % TVA<star>*</star>
+                                            </label>
+                                            {{ form_row(form.tvaRate) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group {% if form_errors(form.totalHTVA) %}has-error{% endif %}">
+                                            <label class="control-label">
+                                                Prix HTVA<star>*</star>
+                                            </label>
+                                            {{ form_row(form.totalHTVA) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div class="form-group {% if form_errors(form.totalTVA) %}has-error{% endif %}">
+                                            <label class="control-label">
+                                                € TVA<star>*</star>
+                                            </label>
+                                            {{ form_row(form.totalTVA) }}
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="category"><star>*</star> Champs obligatoires</div>
                                 <div class="card-footer">
                                     <a class="btn btn-danger btn-fill pull-right" href="{{ path('event_registration_index') }}" style="margin-left: 1rem;">Annuler</a>
@@ -138,4 +172,28 @@
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            //this calculates values automatically
+            calculate();
+            $("#confirm_registration_price, #confirm_registration_tvaRate").on("keydown keyup", function() {
+                calculate();
+            });
+        });
+
+        function calculate() {
+            var price = document.getElementById("confirm_registration_price").value
+            var tvaRate = document.getElementById("confirm_registration_tvaRate").value
+            var tva = price * (tvaRate/100)
+            var priceHTVA = price - tva
+
+            if (!isNaN(tva)) {
+                document.getElementById('confirm_registration_totalTVA').value = tva;
+                document.getElementById('confirm_registration_totalHTVA').value = priceHTVA;
+            }
+        }
+    </script>
 {% endblock %}

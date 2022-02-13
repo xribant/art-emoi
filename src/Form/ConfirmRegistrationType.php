@@ -15,7 +15,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class EventRegistrationType extends AbstractType
+class ConfirmRegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -122,6 +122,46 @@ class EventRegistrationType extends AbstractType
                 'attr' => [
                     'placeholder' => 'Formation',
                     'class' => 'form-control'
+                ]
+            ])
+            ->add('price', MoneyType::class, [
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'Prix',
+                    'class' => 'form-control',
+                    'value' => $builder->getData()->getEvent()->getWorkshop()->getWorkshopInfos()->getPrice()
+                ]
+            ])
+            ->add('tvaRate', TextType::class, [
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => '% TVA',
+                    'class' => 'form-control',
+                    'value' => '21'
+                ]
+            ])
+            ->add('totalHTVA', TextType::class, [
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'prix HTVA',
+                    'class' => 'form-control',
+                    'value' => '0'
+                ]
+            ])
+            ->add('totalTVA', TextType::class, [
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'Montant TVA',
+                    'class' => 'form-control',
+                    'value' => '0'
                 ]
             ])
         ;

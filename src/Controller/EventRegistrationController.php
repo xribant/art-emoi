@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\EventRegistration;
 use App\Entity\Invoice;
+use App\Form\ConfirmRegistrationType;
 use App\Form\EventRegistrationType;
 use App\Repository\EventRegistrationRepository;
 use App\Repository\InvoiceRepository;
@@ -41,7 +42,7 @@ class EventRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
                 ->to(new Address($eventRegistration->getEmail()))
-                ->cc('admin@art-emoi.be')
+                // ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Demande d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
@@ -127,7 +128,7 @@ class EventRegistrationController extends AbstractController
     #[Route('/{uid}/confirmer', name: 'event_registration_confirm', methods: ['GET', 'POST'])]
     public function confirm(Request $request, EventRegistration $eventRegistration, PdfGenerator $generator, InvoiceRepository $invoiceRepository, MailerInterface $mailer): Response
     {
-        $form = $this->createForm(EventRegistrationType::class, $eventRegistration);
+        $form = $this->createForm(ConfirmRegistrationType::class, $eventRegistration);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -144,7 +145,7 @@ class EventRegistrationController extends AbstractController
                 $newInvoiceId = 1;
             }
 
-            $invoiceNum = date('Y').'-'.$newInvoiceId;
+            $invoiceNum = $newInvoiceId;
 
             $invoice->setFileName(uniqid().'.pdf');
             $invoice->setNumber($invoiceNum);
@@ -154,10 +155,19 @@ class EventRegistrationController extends AbstractController
             $entityManager->persist($invoice);
             $entityManager->flush();
 
+            $invoicePrice = $form['price']->getData();
+            $invoiceTvaRate = $form['tvaRate']->getData();
+            $invoiceTotalTva = $form['totalTVA']->getData();
+            $invoicePriceHTVA = $form['totalHTVA']->getData();
+
             $html = $this->renderView('documents/invoice.html.twig', [
                 'title' => 'facture_'.date('Y').'-'.$newInvoiceId,
                 'registration' => $eventRegistration,
-                'invoiceNum' => $invoiceNum
+                'invoiceNum' => $invoiceNum,
+                'price' => $invoicePrice,
+                'tvaRate' => $invoiceTvaRate,
+                'totalTva' => $invoiceTotalTva,
+                'priceHTVA' => $invoicePriceHTVA
             ]);
 
             $outputPath = $this->getParameter('kernel.project_dir') . '/public/media/cache/invoices';
@@ -167,7 +177,7 @@ class EventRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('no-reply@art-emoi.be')
                 ->to($eventRegistration->getEmail())
-                ->cc('admin@art-emoi.be')
+                // ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Confirmation d\'inscription et Facture')
                 ->htmlTemplate('mails/invoice_confirmation.html.twig')
                 ->attachFromPath($this->getParameter('kernel.project_dir') . '/public/media/cache/invoices/'.$invoice->getFileName(), $invoice->getFileName(), 'application/pdf')

@@ -22,9 +22,13 @@
                 {% for workshop in workshops %}
                     <div class="col-md-3 mt-5 d-flex align-items-stretch">
                         <div class="offer-deal text-center">
-                            <div class="img" style="background-image: url({{ vich_uploader_asset(workshop, 'imageFile') | imagine_filter('workshop_jacket') }});"></div>
+                            {% if vich_uploader_asset(workshop, 'imageFile') is null %}
+                                <div class="img" style="background-image: url('{{ asset('/build/no_photo.png') }}');"></div>
+                            {% else %}
+                                <div class="img" style="background-image: url({{ vich_uploader_asset(workshop, 'imageFile') | imagine_filter('workshop_jacket') }});"></div>
+                            {% endif %}
                             <div class="text mt-4">
-                                <h3 class="mb-4">{{ workshop.title }}</h3>
+                                <h3 class="mb-4" style="height: 8rem;">{{ workshop.title }}</h3>
                                 <p class="mb-1" style="height: 8rem;">{{ workshop.description|raw }}</p>
                             </div>
                             <div class="button-group">

@@ -30,6 +30,7 @@
                     <div class="sidebar-box ftco-animate">
                         <div class="categories">
                             <h3 class="heading-2">Infos pratiques</h3>
+                            {% if workshop.workshopInfos %}
                             <li>
                                 {% for value in workshop.workshopinfos.location %}
                                     {% if value == 'SG' %}
@@ -47,6 +48,9 @@
                             <li>De {{ workshop.workshopinfos.startAt|format_datetime('none', 'short',locale='fr') }} à {{ workshop.workshopinfos.stopAt|format_datetime('none', 'short',locale='fr') }}</li>
                             <li>{{ workshop.workshopinfos.price|format_currency('EUR') }} TTC</li>
                             <li>Animé par {{ workshop.workshopinfos.animator }}</li>
+                            {% else %}
+                            <li>Pas d'infos pour le moment</li>
+                            {% endif %}
                         </div>
                     </div>
 
