@@ -34,12 +34,6 @@ class Event
     private $end_date;
 
     /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(message="Veuillez choisir le lieu")
-     */
-    private $location;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Workshop::class, inversedBy="events")
      * @ORM\JoinColumn(nullable=false)
      * @Assert\NotBlank(message="Veuillez choisir la formation")
@@ -55,6 +49,11 @@ class Event
      * @ORM\Column(type="boolean")
      */
     private $active;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=WorkshopLocation::class, inversedBy="events")
+     */
+    private $location;
 
     public function __construct()
     {
@@ -90,17 +89,6 @@ class Event
         return $this;
     }
 
-    public function getLocation(): ?string
-    {
-        return $this->location;
-    }
-
-    public function setLocation(?string $location): self
-    {
-        $this->location = $location;
-
-        return $this;
-    }
 
     public function getWorkshop(): ?Workshop
     {
@@ -152,6 +140,18 @@ class Event
     public function setActive(?bool $active): self
     {
         $this->active = $active;
+
+        return $this;
+    }
+
+    public function getLocation(): ?WorkshopLocation
+    {
+        return $this->location;
+    }
+
+    public function setLocation(?WorkshopLocation $location): self
+    {
+        $this->location = $location;
 
         return $this;
     }

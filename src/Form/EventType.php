@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\Workshop;
+use App\Entity\WorkshopLocation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -54,18 +55,13 @@ class EventType extends AbstractType
                     })
                 ]
             ])
-            ->add('location', ChoiceType::class, [
+            ->add('location', EntityType::class, [
                 'label' => false,
-                'expanded' => true,
-                'multiple' => false,
-                'choices' => [
-                    'Saint-Géry' => 'Saint-Géry',
-                    'Lorcé' => 'Lorcé',
-                    'Zoom' => 'Zoom',
-                    'Namur' => 'Namur'
-                ],
+                'class'=> WorkshopLocation::class,
+                'choice_label' => 'name',
+                'required' => true,
                 'attr' => [
-                    'class' => 'radio'
+                    'class' => 'btn btn-block dropdown-toggle'
                 ]
             ])
             ->add('workshop', EntityType::class, [

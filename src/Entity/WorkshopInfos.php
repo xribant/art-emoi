@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\WorkshopInfosRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -18,11 +20,6 @@ class WorkshopInfos
      */
     private $id;
 
-    /**
-     * @ORM\Column(type="json")
-     * @Assert\NotBlank(message="Merci de sélectionner au moins un lieux de formation")
-     */
-    private $location = [];
 
     /**
      * @ORM\Column(type="time")
@@ -60,21 +57,19 @@ class WorkshopInfos
      */
     private $duration;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=WorkshopLocation::class, inversedBy="workshopInfos")
+     */
+    private $location;
+
+    public function __construct()
+    {
+        $this->location = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getLocation(): ?array
-    {
-        return $this->location;
-    }
-
-    public function setLocation(?array $location): self
-    {
-        $this->location = $location;
-
-        return $this;
     }
 
     public function getDays(): ?int
@@ -157,6 +152,30 @@ class WorkshopInfos
     public function setDuration(?string $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|WorkshopLocation[]
+     */
+    public function getLocation(): Collection
+    {
+        return $this->location;
+    }
+
+    public function addLocation(WorkshopLocation $location): self
+    {
+        if (!$this->location->contains($location)) {
+            $this->location[] = $location;
+        }
+
+        return $this;
+    }
+
+    public function removeLocation(WorkshopLocation $location): self
+    {
+        $this->location->removeElement($location);
 
         return $this;
     }

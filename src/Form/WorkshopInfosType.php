@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\WorkshopInfos;
+use App\Entity\WorkshopLocation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\CurrencyType;
@@ -17,17 +19,13 @@ class WorkshopInfosType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('location', ChoiceType::class, [
+            ->add('location', EntityType::class, [
                 'label' => false,
                 'required' => true,
                 'expanded' => true,
                 'multiple' => true,
-                'choices' => [
-                    'Saint-Géry' => 'SG',
-                    'Lorcé' => 'LO',
-                    'Zoom' => 'ZO',
-                    'Namur' => 'NA'
-                ]
+                'class' => WorkshopLocation::class,
+                'choice_label' => 'name'
             ])
             ->add('duration', TextType::class, [
                 'required' => true,

@@ -34,7 +34,7 @@
                                     <td>{{ loop.index }}</td>
                                     <td>{{ event.startDate ? event.startDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
                                     <td>{{ event.endDate ? event.endDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
-                                    <td>{{ event.location }}</td>
+                                    <td>{{ event.location.name }}</td>
                                     <td>{{ event.workshop.title }}</td>
                                     <td>
                                         <div class="custom-control custom-switch">

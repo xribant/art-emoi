@@ -40,16 +40,8 @@
                                                     Lieu(x):
                                                 </td>
                                                 <td>
-                                                    {% for value in workshop.workshopinfos.location %}
-                                                        {% if value == 'SG' %}
-                                                            Saint-Géry |
-                                                        {% elseif value == 'LO' %}
-                                                            Lorcé |
-                                                        {% elseif value == 'ZO' %}
-                                                            Zoom |
-                                                        {% elseif value == 'NA' %}
-                                                            Namur |
-                                                        {% endif %}
+                                                    {% for location in workshop.workshopinfos.location %}
+                                                        {{ location.name}} |
                                                     {% endfor %}
                                                 </td>
                                             </tr>
