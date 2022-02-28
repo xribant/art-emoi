@@ -91,11 +91,17 @@ class Workshop
      */
     private $slug;
 
+    /**
+     * @ORM\OneToMany(targetEntity=WorkshopVideo::class, mappedBy="workshop", orphanRemoval=true)
+     */
+    private $workshopVideos;
+
     public function __construct()
     {
         $this->updated_at = new \DateTime();
         $this->events = new ArrayCollection();
         $this->articles = new ArrayCollection();
+        $this->workshopVideos = new ArrayCollection();
     }
 
 
@@ -269,5 +275,35 @@ class Workshop
     public function getSlug(): ?string
     {
         return $this->slug;
+    }
+
+    /**
+     * @return Collection|WorkshopVideo[]
+     */
+    public function getWorkshopVideos(): Collection
+    {
+        return $this->workshopVideos;
+    }
+
+    public function addWorkshopVideo(WorkshopVideo $workshopVideo): self
+    {
+        if (!$this->workshopVideos->contains($workshopVideo)) {
+            $this->workshopVideos[] = $workshopVideo;
+            $workshopVideo->setWorkshop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWorkshopVideo(WorkshopVideo $workshopVideo): self
+    {
+        if ($this->workshopVideos->removeElement($workshopVideo)) {
+            // set the owning side to null (unless already changed)
+            if ($workshopVideo->getWorkshop() === $this) {
+                $workshopVideo->setWorkshop(null);
+            }
+        }
+
+        return $this;
     }
 }

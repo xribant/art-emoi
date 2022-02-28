@@ -23,8 +23,17 @@
                         </p>
                     {% endfor %}
 
+                    {% if workshop.workshopVideos %}
+                        {% for video in workshop.workshopVideos %}
+                            <h2 class="mt-5">{{ video.title }}</h2>
+                            {% if video.description %}<p>{{ video.description }}</p>{% endif %}
+                            <div class="video-responsive mt-5">
+                                <iframe width="560" height="315" src="{{ video.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
 
-                </div> <!-- .col-md-8 -->
+                </div>
 
                 <div class="col-lg-5 sidebar ftco-animate">
                     <div class="sidebar-box ftco-animate">
@@ -32,16 +41,8 @@
                             <h3 class="heading-2">Infos pratiques</h3>
                             {% if workshop.workshopInfos %}
                             <li>
-                                {% for value in workshop.workshopinfos.location %}
-                                    {% if value == 'SG' %}
-                                        Saint-Géry |
-                                    {% elseif value == 'LO' %}
-                                        Lorcé |
-                                    {% elseif value == 'ZO' %}
-                                        Zoom |
-                                    {% elseif value == 'NA' %}
-                                        Namur |
-                                    {% endif %}
+                                {% for location in workshop.workshopInfos.location %}
+                                    {{ location.name }} |
                                 {% endfor %}
                             </li>
                             <li>{{ workshop.workshopinfos.duration }}</li>

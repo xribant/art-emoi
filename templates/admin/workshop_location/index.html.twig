@@ -42,10 +42,10 @@
                                                 <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('workshop_location_edit', {'id': location.id}) }}">
                                                     <i class="ti-pencil-alt"></i>
                                                 </a>
-                                                <form style="display: inline-block;" method="post" action="{{ path('workshop_location_delete', {'id': location.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet endroit?');">
+                                                <!-- <form style="display: inline-block;" method="post" action="{{ path('workshop_location_delete', {'id': location.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet endroit?');">
                                                     <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ location.id) }}">
                                                     <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
-                                                </form>
+                                                </form> -->
                                             </div>
                                         </td>
                                     </tr>

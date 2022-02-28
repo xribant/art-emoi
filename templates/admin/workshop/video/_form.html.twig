@@ -1,0 +1,32 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+ {{ form_row(form._token) }}
+<form id="addWorshopVideoForm" action="" method="post">
+    <div class="card-content">
+        <div class="form-group {% if form_errors(form.title) %}has-error{% endif %}">
+            <label class="control-label">
+                Titre <star>*</star>
+            </label>
+            {{ form_row(form.title) }}
+        </div>
+        <div class="form-group {% if form_errors(form.link) %}has-error{% endif %}">
+            <label class="control-label">
+                Lien de la vidéo <star>*</star>
+            </label>
+            {{ form_row(form.link) }}
+        </div>
+        <div class="form-group {% if form_errors(form.description) %}has-error{% endif %}">
+            <label class="control-label">
+                Description (Optionnel)
+            </label>
+            {{ form_row(form.description) }}
+        </div>
+        <div class="category"><star>*</star> Champs obligatoires</div>
+        <div class="card-footer">
+            <a class="btn btn-danger btn-fill pull-right" href="{{ path('workshop_edit', {'slug': workshop.slug}) }}" style="margin-left: 1rem;">Annuler</a>
+            <button class="btn btn-info btn-fill pull-right">{{ button_label|default('Enregistrer') }}</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</form>
+{{ form_end(form) }}
+
