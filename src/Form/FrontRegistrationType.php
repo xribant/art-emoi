@@ -109,7 +109,7 @@ class FrontRegistrationType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('event', EntityType::class, [
+            /* ->add('event', EntityType::class, [
                 'required' => true,
                 'label' => false,
                 'class' => Event::class,
@@ -124,7 +124,7 @@ class FrontRegistrationType extends AbstractType
                 'attr' => [
                     'class' => 'form-control'
                 ]
-            ])
+            ]) */
             ->add('captcha', Recaptcha3Type::class, [
                 'constraints' => new Recaptcha3(),
                 'action_name' => 'homepage'

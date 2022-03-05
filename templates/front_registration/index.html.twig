@@ -9,7 +9,9 @@
             <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
                 <div class="col-md-9 ftco-animate text-center">
                     <h1 class="mb-3 bread">Inscription</h1>
-                    <p class="breadcrumbs"><span class="mr-2"><a href="{{ path('home') }}">Accueil</a></span> <span>Inscription</span></p>
+                    <p class="breadcrumbs">
+                        <span>{{ event.workshop.title }} <br> <strong>{{ event.startDate|format_datetime(pattern='d MMMM YYYY', locale='fr') }}</strong></span>
+                    </p>
                 </div>
             </div>
         </div>
@@ -86,13 +88,13 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row">
+                        <!-- <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    {{ form_row(form.event) }}
+
                                 </div>
                             </div>
-                        </div>
+                        </div> -->
                         {{ form_row(form.captcha) }}
                         <div class="form-group">
                             <input type="submit" value="Envoyer" class="btn btn-primary py-3 px-5" formnovalidate>

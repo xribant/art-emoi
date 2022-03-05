@@ -31,6 +31,8 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $event->setActive(true);
+            $event->setUid(uniqid());
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($event);
             $entityManager->flush();
@@ -59,6 +61,7 @@ class EventController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $event->setUid(uniqid());
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('event_index', [], Response::HTTP_SEE_OTHER);

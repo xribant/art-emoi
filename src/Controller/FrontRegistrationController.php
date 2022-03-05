@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\EventRegistration;
 use App\Form\FrontRegistrationType;
+use App\Repository\EventRepository;
 use App\Repository\WorkshopRepository;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
@@ -17,15 +18,19 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class FrontRegistrationController extends AbstractController
 {
-    #[Route('/inscription', name: 'front_registration')]
-    public function index(Request $request, WorkshopRepository $workshopRepository, MailerInterface $mailer, ToastrFactory $toastr): Response
+    #[Route('/inscription/{event_uid}', name: 'front_registration')]
+    public function index(Request $request, WorkshopRepository $workshopRepository, MailerInterface $mailer, ToastrFactory $toastr, EventRepository $eventRepository, $event_uid): Response
     {
+        $event = $eventRepository->findOneBy(['uid' => $event_uid]);
+
         $eventRegistration = new EventRegistration();
 
         $form = $this->createForm(FrontRegistrationType::class, $eventRegistration);
         $form->handleRequest($request);
 
         if($form->isSubmitted() and $form->isValid()) {
+
+            $eventRegistration->setEvent($event);
 
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
@@ -76,7 +81,7 @@ class FrontRegistrationController extends AbstractController
         return $this->render('front_registration/index.html.twig', [
             'form' => $form->createView(),
             'current_menu' => 'registration',
-            'workshops' => $workshopRepository->findAll()
+            'event' => $event
         ]);
     }
 }

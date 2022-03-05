@@ -27,14 +27,6 @@ class WorkshopInfosType extends AbstractType
                 'class' => WorkshopLocation::class,
                 'choice_label' => 'name'
             ])
-            ->add('duration', TextType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'placeholder' => 'Durée de la formation',
-                    'class' => 'form-control',
-                ]
-            ])
             ->add('start_at', TimeType::class, [
                 'label' => false,
                 'widget' => 'single_text',

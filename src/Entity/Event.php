@@ -55,6 +55,16 @@ class Event
      */
     private $location;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $uid;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $duration;
+
     public function __construct()
     {
         $this->eventRegistrations = new ArrayCollection();
@@ -152,6 +162,30 @@ class Event
     public function setLocation(?WorkshopLocation $location): self
     {
         $this->location = $location;
+
+        return $this;
+    }
+
+    public function getUid(): ?string
+    {
+        return $this->uid;
+    }
+
+    public function setUid(string $uid): self
+    {
+        $this->uid = $uid;
+
+        return $this;
+    }
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?string $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

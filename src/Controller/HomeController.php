@@ -12,12 +12,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
-    public function index(NewsRepository $newsRepository, WorkshopRepository $workshopRepository): Response
+    public function index(NewsRepository $newsRepository, WorkshopRepository $workshopRepository, EventRepository $eventRepository): Response
     {
         return $this->render('home/index.html.twig', [
             'current_menu' => 'home',
             'news' => $newsRepository->findAll(),
-            'workshops' => $workshopRepository->findAll()
+            'workshops' => $workshopRepository->findAll(),
+            'events' => $eventRepository->findAllFuture()
         ]);
     }
 }

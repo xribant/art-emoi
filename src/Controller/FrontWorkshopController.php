@@ -18,7 +18,7 @@ class FrontWorkshopController extends AbstractController
 
         return $this->render('front_workshop/index.html.twig', [
             'current_menu' => '',
-            'events' => $eventRepository->findBy(['workshop' => $workshop]),
+            'events' => $eventRepository->findOnlyFutureByWorkshop($workshop),
             'workshops' => $workshopRepository->findAll(),
             'workshop' => $workshop,
         ]);

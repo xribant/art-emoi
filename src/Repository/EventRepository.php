@@ -19,6 +19,28 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    public function findAllFuture() {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.startDate > :today')
+            ->setParameter('today', new \DateTime())
+            ->orderBy('e.startDate', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findOnlyFutureByWorkshop($workshop) {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.startDate > :today')
+            ->andWhere('e.workshop = :workshop')
+            ->setParameter('workshop', $workshop)
+            ->setParameter('today', new \DateTime())
+            ->orderBy('e.startDate', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

@@ -24,6 +24,7 @@
                                     <th>Au</th>
                                     <th>Lieu</th>
                                     <th>Formation</th>
+                                    <th>Durée</th>
                                     <th>Active</th>
                                     <th>Actions</th>
                                 </tr>
@@ -36,6 +37,7 @@
                                     <td>{{ event.endDate ? event.endDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
                                     <td>{{ event.location.name }}</td>
                                     <td>{{ event.workshop.title }}</td>
+                                    <td>{{ event.duration }}</td>
                                     <td>
                                         <div class="custom-control custom-switch">
                                             <input type="checkbox" class="custom-control-input" {{ (event.active) ? 'checked' : '' }} data-id="{{event.id}}">

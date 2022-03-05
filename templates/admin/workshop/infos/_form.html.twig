@@ -10,12 +10,6 @@
                 {{ form_row(form.location) }}
             </div>
         </div>
-        <div class="form-group {% if form_errors(form.duration) %}has-error{% endif %}">
-            <label class="control-label">
-                Durée<star>*</star>
-            </label>
-            {{ form_row(form.duration) }}
-        </div>
         <div class="form-group {% if form_errors(form.start_at) %}has-error{% endif %}">
             <label class="control-label">
                 Début<star>*</star>

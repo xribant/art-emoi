@@ -9859,3 +9859,51 @@ textarea.form-control {
   color: #000000;
 }
 
+
+/*** Events List ***/
+
+.event-list .line-dark {
+  background-color: #e6e6e6;
+  padding: 20px;
+}
+
+.event-list .line-light {
+  background-color: #f2f2f2;
+  padding: 20px;
+}
+
+.event-list .date {
+  padding: 0;
+  margin: 0;
+  background-color: #ffb5b5;
+  height: 120px;
+  line-height: 120px;
+}
+
+.event-list .date span {
+  color: #FFFFFF;
+  font-weight: 900;
+  font-size: 30px;
+}
+
+.event-list h4 {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.event-list .infos {
+  font-weight: 600;
+  color: #b94e5e;
+  display: inline-block;
+}
+
+.event-list .badge {
+  font-size: 20px;
+  padding: 10px;
+}
+
+
+
+
+
+

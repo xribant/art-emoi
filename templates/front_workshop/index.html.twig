@@ -45,7 +45,6 @@
                                     {{ location.name }} |
                                 {% endfor %}
                             </li>
-                            <li>{{ workshop.workshopinfos.duration }}</li>
                             <li>De {{ workshop.workshopinfos.startAt|format_datetime('none', 'short',locale='fr') }} à {{ workshop.workshopinfos.stopAt|format_datetime('none', 'short',locale='fr') }}</li>
                             <li>{{ workshop.workshopinfos.price|format_currency('EUR') }} TTC</li>
                             <li>Animé par {{ workshop.workshopinfos.animator }}</li>
@@ -59,20 +58,25 @@
                         <h3 class="heading-2">Prochaines sessions</h3>
                         {% if events %}
                             {% for event in events %}
+                                {% if event.active %}
                                 <div class="block-21 mb-4 d-flex">
                                     <div class="text">
                                         <div class="meta">
                                             <span class="icon-calendar"></span>
-                                            {% if event.startDate != event.endDate %}
-                                                Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }} |
-                                            {% else %}
-                                                Le {{ event.startDate|format_datetime('medium', 'none',locale='fr') }}
-                                            {% endif %}
+                                                {% if event.startDate != event.endDate %}
+                                                    Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }} |
+                                                {% else %}
+                                                    Le {{ event.startDate|format_datetime('medium', 'none',locale='fr') }}
+                                                {% endif %}
+                                            <br>
                                             <span class="icon-map-marker"></span>
                                             {{ event.location }}
+                                            <br>
+                                            <a href="{{ path('front_registration', {'event_uid': event.uid}) }}" class="btn btn-primary">Inscriptions</a>
                                         </div>
                                     </div>
                                 </div>
+                                {% endif %}
                             {% endfor %}
                         {% else %}
                             <div class="block-21 mb-4 d-flex">
@@ -83,7 +87,6 @@
                                 </div>
                             </div>
                         {% endif %}
-                        <a href="{{ path('front_registration') }}" class="btn btn-primary px-4 py-3">Inscriptions</a>
                     </div>
 
 
