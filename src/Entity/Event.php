@@ -65,6 +65,11 @@ class Event
      */
     private $duration;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $archived;
+
     public function __construct()
     {
         $this->eventRegistrations = new ArrayCollection();
@@ -186,6 +191,18 @@ class Event
     public function setDuration(?string $duration): self
     {
         $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function getArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): self
+    {
+        $this->archived = $archived;
 
         return $this;
     }

@@ -108,6 +108,11 @@ class EventRegistration
      */
     private $invoice;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $archived;
+
     public function __construct() {
         $this->updated_at = new \DateTime();
         $this->created_at = new \DateTime();
@@ -311,6 +316,18 @@ class EventRegistration
         }
 
         $this->invoice = $invoice;
+
+        return $this;
+    }
+
+    public function getArchived(): ?bool
+    {
+        return $this->archived;
+    }
+
+    public function setArchived(bool $archived): self
+    {
+        $this->archived = $archived;
 
         return $this;
     }

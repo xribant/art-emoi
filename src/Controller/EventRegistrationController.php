@@ -42,7 +42,7 @@ class EventRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
                 ->to(new Address($eventRegistration->getEmail()))
-                ->cc('admin@art-emoi.be')
+                // ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Demande d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
@@ -67,6 +67,7 @@ class EventRegistrationController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $eventRegistration->setStatus('new');
+            $eventRegistration->setArchived(false);
             $eventRegistration->setUid(uniqid("",false).bin2hex(random_bytes(20)));
             $entityManager->persist($eventRegistration);
             $entityManager->flush();
@@ -177,7 +178,7 @@ class EventRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('no-reply@art-emoi.be')
                 ->to($eventRegistration->getEmail())
-                ->cc('admin@art-emoi.be')
+                // ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Confirmation d\'inscription et Facture')
                 ->htmlTemplate('mails/invoice_confirmation.html.twig')
                 ->attachFromPath($this->getParameter('kernel.project_dir') . '/public/media/cache/invoices/'.$invoice->getFileName(), $invoice->getFileName(), 'application/pdf')
