@@ -1,0 +1,46 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+ {{ form_row(form._token) }}
+<form id="addBookForm" action="" method="post">
+    <div class="card-content">
+        <div class="form-group {% if form_errors(form.title) %}has-error{% endif %}">
+            <label class="control-label">
+                Titre <star>*</star>
+            </label>
+            {{ form_row(form.title) }}
+        </div>
+        <div class="form-group {% if form_errors(form.author) %}has-error{% endif %}">
+            <label class="control-label">
+                Auteur <star>*</star>
+            </label>
+            {{ form_row(form.author) }}
+        </div>
+        <div class="form-group {% if form_errors(form.description) %}has-error{% endif %}">
+            <label class="control-label">
+                Description
+            </label>
+            {{ form_row(form.description) }}
+        </div>
+        <div class="form-group {% if form_errors(form.imageFile) %}has-error{% endif %}">
+            <div class="input-group">
+                <label class="control-label">
+                    Image actuelle:
+                </label>
+            </div>
+            {% if book.imageName %}
+                <img id="imgPreview" src="{{ vich_uploader_asset(book, 'imageFile') | imagine_filter('book_image') }}" alt="Cover" style="height: 200px; width: 150px; margin-bottom: 2rem;border: solid #66615B 2px; border-radius: 5px;">
+            {% else %}
+                <img id="imgPreview" src="{{ asset('build/no_photo.png') }}" style="height: 200px; width: 150px;border: solid #66615B 2px; margin-bottom: 2rem; border-radius: 5px;" alt="Cover">
+            {% endif %}
+            <div class="input-group">
+                {{ form_row(form.imageFile) }}
+            </div>
+        </div>
+        <div class="category"><star>*</star> Champs obligatoires</div>
+        <div class="card-footer">
+            <a class="btn btn-danger btn-fill pull-right" href="{{ path('book_index') }}" style="margin-left: 1rem;">Annuler</a>
+            <button class="btn btn-info btn-fill pull-right">{{ button_label|default('Enregistrer') }}</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</form>
+{{ form_end(form) }}

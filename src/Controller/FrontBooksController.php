@@ -7,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class BooksController extends AbstractController
+class FrontBooksController extends AbstractController
 {
     #[Route('/publications', name: 'books')]
     public function index(WorkshopRepository $workshopRepository): Response

@@ -1,0 +1,63 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Gestion des ouvrages{% endblock %}
+
+{% block pageTitle %}Gestion des Ouvrages{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="toolbar">
+                                <!--Here you can write extra buttons/actions for the toolbar-->
+                                <a class="btn btn-primary btn-fill btn-wd" href="{{ path('book_new') }}">Créer un ouvrage</a>
+                            </div>
+
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Titre</th>
+                                    <th>Auteur</th>
+                                    <th>Créé le</th>
+                                    <th>Modifié le</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for book in books %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ book.title }}</td>
+                                        <td>{{ book.author }}</td>
+                                        <td>{{ book.createdAt ? book.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>{{ book.updatedAt ? book.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                                        <td>
+                                            <div>
+                                                <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('book_edit', {'id': book.id}) }}">
+                                                    <i class="ti-pencil-alt"></i>
+                                                </a>
+                                                <form style="display: inline-block;" method="post" action="{{ path('book_delete', {'id': book.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet ouvrage');">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ book.id) }}">
+                                                    <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="6">Pas d'ouvrage</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--  end card  -->
+                </div> <!-- end col-md-12 -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+{% endblock %}
