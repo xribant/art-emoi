@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Agenda des formations et ateliers{% endblock %}
+
+{% block content %}
+
+    <section class="ftco-section event-list" id="event-list">
+        <div class="container">
+            <div class="row justify-content-center pb-3">
+                <div class="col-md-12 heading-section ftco-animate text-center">
+                    <h2 class="mb-5">Agenda</h2>
+                </div>
+            </div>
+
+            {% if events %}
+                {% for event in events %}
+                    <div class="row {% if loop.index % 2 == 0 %}line-light{% else %}line-dark{% endif %} align-items-center ftco-animate">
+                        <div class="col date d-flex justify-content-center">
+                            <span>
+                                {{ event.startDate|format_datetime(pattern='d MMM', locale='fr') }}
+                            </span>
+                        </div>
+                        <div class="col-lg-8 justify-content-start">
+                            <h4>{{ event.workshop.title }}</h4>
+                            <div class="infos">
+                                <span class="infos icon icon-map-marker"></span> {{ event.location.name }} | <span class="infos icon icon-calendar"></span>
+                                {{ event.duration }} | {{ event.workshop.workshopInfos.price|format_currency('EUR') }} TTC
+                            </div>
+                        </div>
+                        <div class="col-lg-2 d-flex justify-content-center">
+                            {% if event.active %}
+                                <a href="{{ path('front_registration', {'event_uid': event.uid }) }}" class="btn btn-lg btn-primary">Je m'inscris</a>
+                            {% else %}
+                                <span class="badge badge-danger">Complet</span>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="row line align-items-center">
+                    <div class="col d-flex justify-content-center">
+                        Pas d'évènement pour le moment
+                    </div>
+                </div>
+            {% endif %}
+
+        </div>
+    </section>
+
+{% endblock %}

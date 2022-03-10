@@ -41,6 +41,32 @@ class EventRepository extends ServiceEntityRepository
             ;
     }
 
+    public function findOnlyFutureByWorkshopAndZoom($workshop) {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.startDate > :today')
+            ->andWhere('e.workshop = :workshop')
+            ->andWhere('e.presentiel = false')
+            ->setParameter('workshop', $workshop)
+            ->setParameter('today', new \DateTime())
+            ->orderBy('e.startDate', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    public function findOnlyFutureByWorkshopAndPresentiel($workshop) {
+        return $this->createQueryBuilder('e')
+            ->andWhere('e.startDate > :today')
+            ->andWhere('e.workshop = :workshop')
+            ->andWhere('e.presentiel = true')
+            ->setParameter('workshop', $workshop)
+            ->setParameter('today', new \DateTime())
+            ->orderBy('e.startDate', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */

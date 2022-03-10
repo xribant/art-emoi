@@ -7,6 +7,7 @@ use App\Entity\Workshop;
 use App\Entity\WorkshopLocation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -71,6 +72,13 @@ class EventType extends AbstractType
                 'required' => true,
                 'attr' => [
                     'class' => 'btn btn-block dropdown-toggle'
+                ]
+            ])
+            ->add('presentiel', CheckboxType::class, [
+                'label' => false,
+                'required' => true,
+                'attr' => [
+                    'class' => 'form-control'
                 ]
             ])
             ->add('workshop', EntityType::class, [

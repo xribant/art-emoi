@@ -70,6 +70,11 @@ class Event
      */
     private $archived;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $presentiel;
+
     public function __construct()
     {
         $this->eventRegistrations = new ArrayCollection();
@@ -203,6 +208,18 @@ class Event
     public function setArchived(bool $archived): self
     {
         $this->archived = $archived;
+
+        return $this;
+    }
+
+    public function getPresentiel(): ?bool
+    {
+        return $this->presentiel;
+    }
+
+    public function setPresentiel(bool $presentiel): self
+    {
+        $this->presentiel = $presentiel;
 
         return $this;
     }

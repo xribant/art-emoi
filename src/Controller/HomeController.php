@@ -17,8 +17,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'current_menu' => 'home',
             'news' => $newsRepository->findAll(),
-            'workshops' => $workshopRepository->findAll(),
-            'events' => $eventRepository->findAllFuture()
+            'workshops' => $workshopRepository->findAll()
         ]);
     }
 }
