@@ -63,7 +63,7 @@ class WorkshopController extends AbstractController
     #[Route('/{slug}', name: 'workshop_delete', methods: ['POST'])]
     public function delete(Request $request, Workshop $workshop): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$workshop->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete'.$workshop->getSlug(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($workshop);
             $entityManager->flush();

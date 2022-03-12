@@ -25,7 +25,7 @@ liip_imagine:
             filters:
                 thumbnail: { size: [ 750, 475 ] }
 
-        book_image:
+        book_cover:
             quality: 75
             filters:
-                thumbnail: { size: [ 252, 352 ], mode: outbound }
+                thumbnail: { size: [ 385, 537 ], mode: outbound }

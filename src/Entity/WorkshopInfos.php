@@ -46,7 +46,7 @@ class WorkshopInfos
     private $animator;
 
     /**
-     * @ORM\OneToOne(targetEntity=Workshop::class, inversedBy="workshopInfos", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity=Workshop::class, inversedBy="workshopInfos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $workshop;

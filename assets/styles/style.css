@@ -8952,13 +8952,15 @@ h1, h2, h3, h4, h5,
     color: #fff; }
 
 .coach {
-  width: 100%;
+  /* width: 100%; */
   display: block;
   margin-bottom: 30px; }
-  .coach .img, .coach .text {
-    width: 100%; }
-  .coach .img {
-    height: 480px;
+  .coach .text {
+    width: 100%;
+  }
+  .coach img {
+    width: 100%;
+    height: 537px;
     background-position: top center !important; }
   .coach .text .subheading {
     font-size: 13px;

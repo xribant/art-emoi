@@ -27,7 +27,7 @@
                 </label>
             </div>
             {% if book.imageName %}
-                <img id="imgPreview" src="{{ vich_uploader_asset(book, 'imageFile') | imagine_filter('book_image') }}" alt="Cover" style="height: 200px; width: 150px; margin-bottom: 2rem;border: solid #66615B 2px; border-radius: 5px;">
+                <img id="imgPreview" src="{{ vich_uploader_asset(book, 'imageFile') | imagine_filter('book_cover') }}" alt="Cover" style="height: 200px; width: 150px; margin-bottom: 2rem;border: solid #66615B 2px; border-radius: 5px;">
             {% else %}
                 <img id="imgPreview" src="{{ asset('build/no_photo.png') }}" style="height: 200px; width: 150px;border: solid #66615B 2px; margin-bottom: 2rem; border-radius: 5px;" alt="Cover">
             {% endif %}
