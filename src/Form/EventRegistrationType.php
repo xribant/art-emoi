@@ -68,7 +68,7 @@ class EventRegistrationType extends AbstractType
                         'class' => 'form-control'
                     ]
             ])
-            ->add('postalCode', NumberType::class, [
+            ->add('postalCode', TextType::class, [
                 'required' => true,
                 'label' => false,
                 'attr' => [

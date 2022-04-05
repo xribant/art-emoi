@@ -1,0 +1,54 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Nouvelle facture libre{% endblock %}
+
+{% block pageTitle %}Nouvelle facture libre{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="alert alert-info">
+                        <span>
+                            Veuillez vérifier les données de facturation ci-dessous avant de cliquer sur le bouton de confirmation.<br>
+                            Après confirmation, la facture sera envoyée automatiquement à l'adresse e-mail mentionnée.
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    <div class="card">
+                        {{ include('admin/free_registration/_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script>
+        $(document).ready(function() {
+            //this calculates values automatically
+            calculate();
+            $("#free_registration_price, #free_registration_tvaRate").on("keydown keyup", function() {
+                calculate();
+            });
+        });
+
+        function calculate() {
+            var price = document.getElementById("free_registration_price").value
+            var tvaRate = document.getElementById("free_registration_tvaRate").value
+            var decimal = tvaRate / 100
+            var priceHTVA = price/(decimal+1)
+            var tva = priceHTVA * decimal
+
+            if (!isNaN(tva)) {
+                document.getElementById('free_registration_totalTVA').value = parseFloat(tva).toFixed(2);;
+                document.getElementById('free_registration_totalHTVA').value = parseFloat(priceHTVA).toFixed(2);
+            }
+        }
+    </script>
+{% endblock %}

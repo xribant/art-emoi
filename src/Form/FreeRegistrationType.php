@@ -2,22 +2,18 @@
 
 namespace App\Form;
 
-use App\Entity\Event;
-use App\Entity\EventRegistration;
-use Doctrine\ORM\EntityRepository;
-use Karser\Recaptcha3Bundle\Form\Recaptcha3Type;
-use Karser\Recaptcha3Bundle\Validator\Constraints\Recaptcha3;
+use App\Entity\FreeRegistration;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\Extension\Core\Type\NumberType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FrontRegistrationType extends AbstractType
+class FreeRegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
@@ -42,7 +38,7 @@ class FrontRegistrationType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Société si applicable',
+                    'placeholder' => 'Société',
                     'class' => 'form-control'
                 ]
             ])
@@ -50,7 +46,7 @@ class FrontRegistrationType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'N° TVA si applicable',
+                    'placeholder' => 'N° TVA',
                     'class' => 'form-control'
                 ]
             ])
@@ -109,25 +105,52 @@ class FrontRegistrationType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            /* ->add('event', EntityType::class, [
+            ->add('workshop', TextType::class, [
                 'required' => true,
                 'label' => false,
-                'class' => Event::class,
-                'query_builder' => function (EntityRepository $er) {
-                    return $er->createQueryBuilder('u')
-                        ->where('u.active = true')
-                        ->orderBy('u.startDate', 'ASC');
-                },
-                'choice_label' => function($event) {
-                        return $event->getWorkshop()->getTitle() . ' du ' . $event->getStartDate()->format('d/m/Y');
-                },
                 'attr' => [
+                    'placeholder' => 'Formation',
                     'class' => 'form-control'
                 ]
-            ]) */
-            ->add('captcha', Recaptcha3Type::class, [
-                'constraints' => new Recaptcha3(),
-                'action_name' => 'homepage'
+            ])
+            ->add('price', MoneyType::class, [
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'Prix',
+                    'class' => 'form-control'
+                ]
+            ])
+            ->add('tvaRate', TextType::class, [
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => '% TVA',
+                    'class' => 'form-control',
+                    'value' => '21'
+                ]
+            ])
+            ->add('totalHTVA', TextType::class, [
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'prix HTVA',
+                    'class' => 'form-control',
+                    'value' => '0'
+                ]
+            ])
+            ->add('totalTVA', TextType::class, [
+                'required' => true,
+                'label' => false,
+                'mapped' => false,
+                'attr' => [
+                    'placeholder' => 'Montant TVA',
+                    'class' => 'form-control',
+                    'value' => '0'
+                ]
             ])
         ;
     }
@@ -135,7 +158,7 @@ class FrontRegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => EventRegistration::class,
+            'data_class' => FreeRegistration::class,
         ]);
     }
 }

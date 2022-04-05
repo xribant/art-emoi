@@ -1,8 +1,8 @@
 {% extends 'admin/admin_base.html.twig' %}
 
-{% block title %}Inscriptions{% endblock %}
+{% block title %}Archives inscriptions{% endblock %}
 
-{% block pageTitle %}Gestion des inscriptions aux ateliers{% endblock %}
+{% block pageTitle %}Archives des inscriptions{% endblock %}
 
 {% block content %}
     <div class="content">
@@ -13,8 +13,7 @@
                         <div class="card-content">
                             <div class="toolbar" style="margin-bottom: 2rem;">
                                 <!--Here you can write extra buttons/actions for the toolbar-->
-                                <a class="btn btn-primary btn-fill btn-wd" href="{{ path('event_registration_new') }}">Nouvelle inscription</a>
-                                <a class="btn btn-primary btn-fill btn-wd pull-right" href="{{ path('event_registration_archived_index') }}">Archives</a>
+                                <a class="btn btn-warning btn-fill btn-wd" href="{{ path('event_registration_index') }}">Retour aux inscriptions</a>
                                 <a class="btn btn-primary btn-fill btn-wd pull-right" href="{{ path('excel_export') }}" style="margin-right: 1rem;"><i class="ti-export"></i> Export Excel</a>
                             </div>
 
@@ -36,7 +35,7 @@
                                 </thead>
                                 <tbody>
                                 {% for registration in event_registrations %}
-                                    {% if registration.archived == false %}
+                                    {% if registration.archived == true %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
                                             <td>{{ registration.firstName }}</td>
@@ -48,11 +47,7 @@
                                             <td>{{ registration.createdAt|format_datetime('medium', 'short',locale='fr') }}</td>
                                             <td>{{ registration.updatedAt|format_datetime('medium', 'short',locale='fr') }}</td>
                                             <td>
-                                                {% if registration.status == 'new' %}
-                                                    <span class="badge badge-success">A confirmer</span>
-                                                {% elseif registration.status == 'paid' %}
-                                                    <span class="badge badge-success">Payée</span>
-                                                {% elseif registration.status == 'closed' %}
+                                                {% if registration.status == 'closed' %}
                                                     <span class="badge badge-success">Clôturée</span>
                                                 {% elseif registration.status == 'canceled' %}
                                                     <span class="badge badge-success">Annulée</span>
@@ -60,23 +55,10 @@
                                             </td>
                                             <td>
                                                 <div>
-                                                    {% if registration.status != 'canceled' %}
-                                                        <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_registration_edit', {'uid': registration.uid}) }}">
-                                                            <i class="ti-pencil-alt"></i>
+                                                    {% if registration.invoice %}
+                                                        <a rel="tooltip" title="Télécharger la facture" class="btn btn-simple btn-success btn-icon" href="{{ absolute_url(asset('media/cache/invoices/' ~ registration.invoice.fileName)) }}" target="_blank">
+                                                            <i class="ti-file"></i>
                                                         </a>
-                                                        {% if registration.status == 'new' %}
-                                                            <a rel="tooltip" title="Confirmer" class="btn btn-simple btn-success btn-icon" href="{{ path('event_registration_confirm', {'uid': registration.uid}) }}">
-                                                                <i class="ti-check-box"></i>
-                                                            </a>
-                                                        {% endif %}
-                                                        <a rel="tooltip" title="Annuler" class="btn btn-simple btn-danger btn-icon" onclick="return confirm('Une fois annulée, cette inscription sera clôturée sans retour en arrière possible. Etes-vous certain de vouloir annuler cette inscription?');" href="{{ path('event_registration_cancel', {'uid': registration.uid}) }}">
-                                                            <i class="ti-trash"></i>
-                                                        </a>
-                                                        {% if registration.invoice %}
-                                                            <a rel="tooltip" title="Télécharger la facture" class="btn btn-simple btn-success btn-icon" href="{{ absolute_url(asset('media/cache/invoices/' ~ registration.invoice.fileName)) }}" target="_blank">
-                                                                <i class="ti-file"></i>
-                                                            </a>
-                                                        {% endif %}
                                                     {% endif %}
                                                 </div>
                                             </td>
@@ -84,7 +66,7 @@
                                     {% endif %}
                                 {% else %}
                                     <tr>
-                                        <td colspan="11">Pas d'inscription actuellement..</td>
+                                        <td colspan="11">Pas d'archives</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

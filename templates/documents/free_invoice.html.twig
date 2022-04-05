@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Facture {{ invoiceNum }}</title>
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/bootstrap.min.css')) }}">
+    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/invoice.css')) }}">
+</head>
+<body>
+<table class="heading">
+    <tr>
+        <td>
+            <img src="{{ absolute_url(asset('assets/images/logo-art-emoi.png')) }}" alt="" style="height: 150px;">
+        </td>
+        <td>
+            <p><span class="address-header">SRL Art Émoi</span>
+                <br>
+                68 Lorcé<br>
+                4987 Stoumont<br>
+                +32 (0)478 64 09 26<br>
+                info@art-emoi.be<br>
+                TVA: BE 0772.459.302</p>
+        </td>
+    </tr>
+</table>
+
+<span class="invoice-number">FACTURE <span class="num">{{ invoiceNum }}</span></span>
+<table width="100%">
+    <tr>
+        <td>
+            <table class="infos-dates">
+                <tr>
+                    <td>Date: </td><td>{{ "now"|format_datetime('short', 'none',locale='fr') }}</td>
+                </tr>
+                <tr>
+                    <td>Echéance: </td><td>{{ "now"|format_datetime('short', 'none',locale='fr') }}</td>
+                </tr>
+                <tr>
+                    <td>TVA Client: </td><td>{{ registration.tva }}</td>
+                </tr>
+            </table>
+        </td>
+        <td>
+            <table>
+                {% if registration.company %}
+                    <tr>
+                        <td>{{ registration.company }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td>{{ registration.firstName }} {{ registration.lastName }}</td>
+                </tr>
+                <tr>
+                    <td>{{ registration.address }}</td>
+                </tr>
+                <tr>
+                    <td>{{ registration.postalCode }} {{ registration.city }}</td>
+                </tr>
+                <tr>
+                    <td>{{ registration.phone }}</td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+</table>
+
+<table class="table table-content">
+    <thead>
+    <tr>
+        <th scope="col">Description</th>
+        <th scope="col">Quantité</th>
+        <th scope="col">Prix Unitaire</th>
+        <th scope="col">TVA ({{ tvaRate }} %)</th>
+        <th scope="col">Montant</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td>{{ registration.workshop }}</td>
+        <td>1</td>
+        <td>{{ priceHTVA|format_currency('EUR') }}</td>
+        <td>{{ totalTva|format_currency('EUR') }}</td>
+        <td>{{ price|format_currency('EUR') }}</td>
+    </tr>
+    </tbody>
+    <tfoot>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td class="total-amount">TOTAL:</td>
+        <td class="total-amount">{{ price|format_currency('EUR') }}</td>
+    </tr>
+    </tfoot>
+</table>
+
+<table class="footer">
+    <tr>
+        <td class="total-amount">STATUT: Déjà payée</td>
+    </tr>
+</table>
+
+
+<link rel="stylesheet" href="{{ absolute_url(asset('assets/js/bootstrap.min.js')) }}">
+</body>
+</html>

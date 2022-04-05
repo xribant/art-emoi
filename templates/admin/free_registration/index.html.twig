@@ -1,0 +1,65 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Facturation libre{% endblock %}
+
+{% block pageTitle %}Facturation libre{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="toolbar" style="margin-bottom: 2rem;">
+                                <!--Here you can write extra buttons/actions for the toolbar-->
+                                <a class="btn btn-primary btn-fill btn-wd" href="{{ path('free_registration_new') }}">Nouvelle facture</a>
+                            </div>
+
+                            <table id="workshopTable" class="table table-striped table-no-bordered table-hover mt-2" style="width:100%">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Prénom</th>
+                                    <th>Nom</th>
+                                    <th>E-Mail</th>
+                                    <th>Société</th>
+                                    <th>TVA</th>
+                                    <th>Formation</th>
+                                    <th>Créé</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for registration in free_registrations %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ registration.firstName }}</td>
+                                        <td>{{ registration.lastName }}</td>
+                                        <td>{{ registration.email }}</td>
+                                        <td>{{ registration.company }}</td>
+                                        <td>{{ registration.tva }}</td>
+                                        <td>{{ registration.workshop }}</td>
+                                        <td>{{ registration.createdAt|format_datetime('medium', 'short',locale='fr') }}</td>
+                                        <td>
+                                            <div>
+                                                <a rel="tooltip" title="Télécharger la facture" class="btn btn-simple btn-success btn-icon" href="{{ absolute_url(asset('media/cache/invoices/' ~ registration.invoice.fileName)) }}" target="_blank">
+                                                    <i class="ti-file"></i>
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="10">Pas de factures...</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--  end card  -->
+                </div> <!-- end col-md-12 -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+{% endblock %}

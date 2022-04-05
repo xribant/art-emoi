@@ -31,30 +31,32 @@
                             </thead>
                             <tbody>
                             {% for event in events %}
-                                <tr>
-                                    <td>{{ loop.index }}</td>
-                                    <td>{{ event.startDate ? event.startDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
-                                    <td>{{ event.endDate ? event.endDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
-                                    <td>{{ event.location.name }}</td>
-                                    <td>{{ event.workshop.title }}</td>
-                                    <td>{{ event.duration }}</td>
-                                    <td>
-                                        <div class="custom-control custom-switch">
-                                            <input type="checkbox" class="custom-control-input" {{ (event.active) ? 'checked' : '' }} data-id="{{event.id}}">
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div>
-                                            <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_edit', {'id': event.id}) }}">
-                                                <i class="ti-pencil-alt"></i>
-                                            </a>
-                                            <form style="display: inline-block;" method="post" action="{{ path('event_delete', {'id': event.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet évènement?');">
-                                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
-                                                <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
+                                {% if event.archived == false %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ event.startDate ? event.startDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
+                                        <td>{{ event.endDate ? event.endDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
+                                        <td>{{ event.location.name }}</td>
+                                        <td>{{ event.workshop.title }}</td>
+                                        <td>{{ event.duration }}</td>
+                                        <td>
+                                            <div class="custom-control custom-switch">
+                                                <input type="checkbox" class="custom-control-input" {{ (event.active) ? 'checked' : '' }} data-id="{{event.id}}">
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('event_edit', {'id': event.id}) }}">
+                                                    <i class="ti-pencil-alt"></i>
+                                                </a>
+                                                <form style="display: inline-block;" method="post" action="{{ path('event_delete', {'id': event.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet évènement?');">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ event.id) }}">
+                                                    <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endif %}
                             {% else %}
                                 <tr>
                                     <td colspan="6">Pas d'évènement en cours...</td>

@@ -29,7 +29,7 @@ class Invoice
 
     /**
      * @ORM\OneToOne(targetEntity=EventRegistration::class, inversedBy="invoice", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $eventRegistration;
 
@@ -37,6 +37,12 @@ class Invoice
      * @ORM\Column(type="string", length=255)
      */
     private $number;
+
+    /**
+     * @ORM\OneToOne(targetEntity=FreeRegistration::class, mappedBy="invoice", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $freeRegistration;
 
     public function __construct() {
         $this->created_at = New \DateTime();
@@ -91,6 +97,23 @@ class Invoice
     public function setNumber(?string $number): self
     {
         $this->number = $number;
+
+        return $this;
+    }
+
+    public function getFreeRegistration(): ?FreeRegistration
+    {
+        return $this->freeRegistration;
+    }
+
+    public function setFreeRegistration(FreeRegistration $freeRegistration): self
+    {
+        // set the owning side of the relation if necessary
+        if ($freeRegistration->getInvoice() !== $this) {
+            $freeRegistration->setInvoice($this);
+        }
+
+        $this->freeRegistration = $freeRegistration;
 
         return $this;
     }

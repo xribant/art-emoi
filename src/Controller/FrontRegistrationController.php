@@ -60,6 +60,7 @@ class FrontRegistrationController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $eventRegistration->setStatus('new');
+            $eventRegistration->setArchived(false);
             $eventRegistration->setUid(uniqid("",false).bin2hex(random_bytes(20)));
             $entityManager->persist($eventRegistration);
             $entityManager->flush();

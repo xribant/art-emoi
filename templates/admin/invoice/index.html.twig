@@ -44,7 +44,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-md-6">
-                                        <div class="form-group {% if form_errors(form.firstName) %}has-error{% endif %}">
+                                        <div class="form-group {% if form_errors(form.company) %}has-error{% endif %}">
                                             <label class="control-label">
                                                 Société
                                             </label>
@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group {% if form_errors(form.lastName) %}has-error{% endif %}">
+                                        <div class="form-group {% if form_errors(form.tva) %}has-error{% endif %}">
                                             <label class="control-label">
                                                 TVA
                                             </label>
@@ -98,7 +98,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                        <div class="form-group {% if form_errors(form.city) %}has-error{% endif %}">
+                                        <div class="form-group {% if form_errors(form.country) %}has-error{% endif %}">
                                             <label class="control-label">
                                                 Pays<star>*</star>
                                             </label>
@@ -187,12 +187,13 @@
         function calculate() {
             var price = document.getElementById("confirm_registration_price").value
             var tvaRate = document.getElementById("confirm_registration_tvaRate").value
-            var tva = price * (tvaRate/100)
-            var priceHTVA = price - tva
+            var decimal = tvaRate / 100
+            var priceHTVA = price/(decimal+1)
+            var tva = priceHTVA * decimal
 
             if (!isNaN(tva)) {
-                document.getElementById('confirm_registration_totalTVA').value = tva;
-                document.getElementById('confirm_registration_totalHTVA').value = priceHTVA;
+                document.getElementById('confirm_registration_totalTVA').value = parseFloat(tva).toFixed(2);
+                document.getElementById('confirm_registration_totalHTVA').value = parseFloat(priceHTVA).toFixed(2);
             }
         }
     </script>

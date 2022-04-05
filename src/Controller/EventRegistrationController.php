@@ -26,7 +26,15 @@ class EventRegistrationController extends AbstractController
     public function index(EventRegistrationRepository $eventRegistrationRepository): Response
     {
         return $this->render('admin/event_registration/index.html.twig', [
-            'event_registrations' => $eventRegistrationRepository->findIfNotArchived(),
+            'event_registrations' => $eventRegistrationRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/archives', name: 'event_registration_archived_index', methods: ['GET'])]
+    public function indexArchived(EventRegistrationRepository $eventRegistrationRepository): Response
+    {
+        return $this->render('admin/event_registration/index_archived.html.twig', [
+            'event_registrations' => $eventRegistrationRepository->findAll(),
         ]);
     }
 
