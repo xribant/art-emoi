@@ -4,8 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Facture {{ invoiceNum }}</title>
-    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/bootstrap.min.css')) }}">
-    <link rel="stylesheet" href="{{ absolute_url(asset('assets/css/invoice.css')) }}">
+
+    <link href="{{ absolute_url(asset('assets/admin/css/bootstrap.min.css')) }}" rel="stylesheet" />
+    <link href="{{ absolute_url(asset('assets/css/invoice.css')) }}" rel="stylesheet">
+
 </head>
 <body>
 <table class="heading">
@@ -95,13 +97,15 @@
     </tfoot>
 </table>
 
-<table class="footer">
-    <tr>
-        <td class="total-amount">STATUT: Déjà payée</td>
-    </tr>
-</table>
+<div class="mt-3">
+    <strong>Coordonnées:</strong><br><br>
+    Nom: <strong>Nathalie Hanot</strong><br>
+    Compte: <strong>IBAN</strong> BE54 0689 4232 3297, <strong>BIC</strong> GKCCBEBB<br>
+    Banque: <strong>Belfius Banque</strong>, Chaussee De Namur 46, 1457  Nil-Saint-Vincent-Saint-Martin<br>
+</div>
 
 
-<link rel="stylesheet" href="{{ absolute_url(asset('assets/js/bootstrap.min.js')) }}">
+
+<script src="{{ asset('assets/js/bootstrap.min.js') }}" type="text/javascript"></script>
 </body>
 </html>

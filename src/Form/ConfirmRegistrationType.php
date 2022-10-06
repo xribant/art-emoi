@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Event;
 use App\Entity\EventRegistration;
-use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -68,7 +67,7 @@ class ConfirmRegistrationType extends AbstractType
                         'class' => 'form-control'
                     ]
             ])
-            ->add('postalCode', NumberType::class, [
+            ->add('postalCode', TextType::class, [
                 'required' => true,
                 'label' => false,
                 'attr' => [

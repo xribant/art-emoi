@@ -35,7 +35,8 @@ class FrontRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
                 ->to(new Address($eventRegistration->getEmail()))
-                // ->cc('admin@art-emoi.be')
+                // ->to('xribant@gmail.com')
+                ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Demande d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
@@ -64,8 +65,6 @@ class FrontRegistrationController extends AbstractController
             $eventRegistration->setUid(uniqid("",false).bin2hex(random_bytes(20)));
             $entityManager->persist($eventRegistration);
             $entityManager->flush();
-
-            $mailer->send($email);
 
             $toastr
                 ->success('<strong>Inscription enregistrée! <br>Un e-mail de confirmation vous a été envoyé avec les instructions.</strong>')

@@ -90,6 +90,7 @@
                                     <li class="nav-item {% if current_menu == 'home' %}active{% endif %}"><a href="{{ path('home') }}" class="nav-link">Accueil</a></li>
                                     <li class="nav-item {% if current_menu == 'about' %}active{% endif %}"><a href="{{ path('about') }}" class="nav-link">Presentation</a></li>
                                     <li class="nav-item {% if current_menu == 'agenda' %}active{% endif %}"><a href="{{ path('agenda') }}" class="nav-link">Agenda</a></li>
+                                    <li class="nav-item {% if current_menu == 'training' %}active{% endif %}"><a href="{{ path('app_front_training') }}" class="nav-link">Formations</a></li>
                                     <li class="nav-item {% if current_menu == 'partners' %}active{% endif %}"><a href="{{ path('front_partners') }}" class="nav-link">Partenaires</a></li>
                                     <li class="nav-item {% if current_menu == 'books' %}active{% endif %}"><a href="{{ path('books') }}" class="nav-link">Ouvrages</a></li>
                                     <li class="nav-item {% if current_menu == 'contact' %}active{% endif %}"><a href="{{ path('contact_form') }}" class="nav-link">Contact</a></li>
@@ -176,6 +177,7 @@
             <script src="{{ asset('assets/js/jquery.timepicker.min.js') }}"></script>
             <script src="{{ asset('assets/js/scrollax.min.js') }}"></script>
             <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
+            <script src="https://player.vimeo.com/api/player.js"></script>
             <script>
                 window.cookieconsent.initialise({
                     "palette": {

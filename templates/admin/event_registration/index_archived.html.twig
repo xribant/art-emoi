@@ -35,7 +35,6 @@
                                 </thead>
                                 <tbody>
                                 {% for registration in event_registrations %}
-                                    {% if registration.archived == true %}
                                         <tr>
                                             <td>{{ loop.index }}</td>
                                             <td>{{ registration.firstName }}</td>
@@ -63,7 +62,6 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                    {% endif %}
                                 {% else %}
                                     <tr>
                                         <td colspan="11">Pas d'archives</td>

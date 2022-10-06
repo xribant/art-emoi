@@ -26,15 +26,7 @@ class EventRegistrationController extends AbstractController
     public function index(EventRegistrationRepository $eventRegistrationRepository): Response
     {
         return $this->render('admin/event_registration/index.html.twig', [
-            'event_registrations' => $eventRegistrationRepository->findAll(),
-        ]);
-    }
-
-    #[Route('/archives', name: 'event_registration_archived_index', methods: ['GET'])]
-    public function indexArchived(EventRegistrationRepository $eventRegistrationRepository): Response
-    {
-        return $this->render('admin/event_registration/index_archived.html.twig', [
-            'event_registrations' => $eventRegistrationRepository->findAll(),
+            'event_registrations' => $eventRegistrationRepository->findAllNotArchived(),
         ]);
     }
 
@@ -49,8 +41,9 @@ class EventRegistrationController extends AbstractController
 
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
+                // ->to('xribant@gmail.com')
                 ->to(new Address($eventRegistration->getEmail()))
-                // ->cc('admin@art-emoi.be')
+                ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Demande d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
@@ -76,11 +69,9 @@ class EventRegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $eventRegistration->setStatus('new');
             $eventRegistration->setArchived(false);
-            $eventRegistration->setUid(uniqid("",false).bin2hex(random_bytes(20)));
+            $eventRegistration->setUid(uniqid());
             $entityManager->persist($eventRegistration);
             $entityManager->flush();
-
-            $mailer->send($email);
 
             $toastr
                 ->success('<strong>Inscription enregistrée! <br>Un e-mail de confirmation a été envoyé à l\'utilisateur avec les instructions.</strong>')
@@ -144,7 +135,7 @@ class EventRegistrationController extends AbstractController
 
             $entityManager = $this->getDoctrine()->getManager();
             $eventRegistration->setUpdatedAt(new \DateTime('NOW'));
-            $eventRegistration->setStatus('paid');
+            $eventRegistration->setStatus('invoiced');
 
             $invoice = new Invoice();
 
@@ -185,8 +176,9 @@ class EventRegistrationController extends AbstractController
 
             $email = (new TemplatedEmail())
                 ->from('no-reply@art-emoi.be')
-                ->to($eventRegistration->getEmail())
-                // ->cc('admin@art-emoi.be')
+                 ->to($eventRegistration->getEmail())
+                 ->cc('admin@art-emoi.be')
+                // ->to('xribant@gmail.com')
                 ->subject('Art-Emoi : Confirmation d\'inscription et Facture')
                 ->htmlTemplate('mails/invoice_confirmation.html.twig')
                 ->attachFromPath($this->getParameter('kernel.project_dir') . '/public/media/cache/invoices/'.$invoice->getFileName(), $invoice->getFileName(), 'application/pdf')

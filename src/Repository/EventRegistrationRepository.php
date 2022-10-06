@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\EventRegistration;
+use DateTime;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -36,11 +37,32 @@ class EventRegistrationRepository extends ServiceEntityRepository
     }
     */
 
-    public function findIfNotArchived()
+    public function findAllArchived() {
+
+        return $this->createQueryBuilder('e')
+            ->where('e.archived = true')
+            ->orderBy('e.created_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllNotArchived()
     {
         return $this->createQueryBuilder('e')
-            ->where('e.status != :archived')
-            ->setParameter('archived', 'archived')
+            ->where('e.archived = false')
+            ->orderBy('e.created_at', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllToArchive() {
+        return $this->createQueryBuilder('e')
+            ->where('e.event.end_date < :today')
+            ->setParameter('today', new DateTime())
+            ->andWhere('e.status = :cancelled')
+            ->setParameter('cancelled', 'cancelled')
             ->orderBy('e.created_at', 'ASC')
             ->getQuery()
             ->getResult()

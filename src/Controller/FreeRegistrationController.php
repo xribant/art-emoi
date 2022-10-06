@@ -75,8 +75,9 @@ class FreeRegistrationController extends AbstractController
 
             $email = (new TemplatedEmail())
                 ->from('no-reply@art-emoi.be')
+                // ->to('xribant@gmail.com')
                 ->to($freeRegistration->getEmail())
-                // ->cc('admin@art-emoi.be')
+                ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Facture n° '.$invoiceNum)
                 ->htmlTemplate('mails/free_invoice_confirmation.html.twig')
                 ->attachFromPath($this->getParameter('kernel.project_dir') . '/public/media/cache/invoices/'.$invoice->getFileName(), $invoice->getFileName(), 'application/pdf')

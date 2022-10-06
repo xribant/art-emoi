@@ -14,7 +14,7 @@
                             <div class="toolbar" style="margin-bottom: 2rem;">
                                 <!--Here you can write extra buttons/actions for the toolbar-->
                                 <a class="btn btn-primary btn-fill btn-wd" href="{{ path('event_registration_new') }}">Nouvelle inscription</a>
-                                <a class="btn btn-primary btn-fill btn-wd pull-right" href="{{ path('event_registration_archived_index') }}">Archives</a>
+                                <a class="btn btn-primary btn-fill btn-wd pull-right" href="{{ path('app_admin_archives') }}">Archives</a>
                                 <a class="btn btn-primary btn-fill btn-wd pull-right" href="{{ path('excel_export') }}" style="margin-right: 1rem;"><i class="ti-export"></i> Export Excel</a>
                             </div>
 
@@ -36,7 +36,7 @@
                                 </thead>
                                 <tbody>
                                 {% for registration in event_registrations %}
-                                    {% if registration.archived == false %}
+                                    
                                         <tr>
                                             <td>{{ loop.index }}</td>
                                             <td>{{ registration.firstName }}</td>
@@ -50,6 +50,8 @@
                                             <td>
                                                 {% if registration.status == 'new' %}
                                                     <span class="badge badge-success">A confirmer</span>
+                                                {% elseif registration.status == 'invoiced' %}
+                                                    <span class="badge badge-success">Facturée</span>
                                                 {% elseif registration.status == 'paid' %}
                                                     <span class="badge badge-success">Payée</span>
                                                 {% elseif registration.status == 'closed' %}
@@ -78,10 +80,15 @@
                                                             </a>
                                                         {% endif %}
                                                     {% endif %}
+                                                    {% if registration.archived == false %}
+                                                        <a rel="tooltip" title="Archiver" class="btn btn-simple btn-danger btn-icon" onclick="return confirm('Etes-vous certain de vouloir archiver cette inscription?');" href="{{ path('app_admin_send_to_archive', {'uid': registration.uid}) }}">
+                                                            <i class="ti-archive"></i>
+                                                        </a>
+                                                    {% endif %}
                                                 </div>
                                             </td>
                                         </tr>
-                                    {% endif %}
+                                    
                                 {% else %}
                                     <tr>
                                         <td colspan="11">Pas d'inscription actuellement..</td>
