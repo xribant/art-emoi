@@ -20,7 +20,7 @@ class FrontTrainingController extends AbstractController
         $this->requestStack = $requestStack;
     }
 
-    #[Route('/formations', name: 'app_front_training')]
+    #[Route('/couleurs-du-deuil', name: 'app_front_deuil')]
     public function index(WorkshopRepository $workshopRepository, Request $request): Response
     {
         $code = [];
@@ -34,12 +34,10 @@ class FrontTrainingController extends AbstractController
 
             $session = $this->requestStack->getSession();
             $session->set('activation_code', $hashedCode);
-
-            dump($session);
         }
 
-        return $this->render('front_training/index.html.twig', [
-            'current_menu' => 'training',
+        return $this->render('front_deuil/index.html.twig', [
+            'current_menu' => 'event',
             'form' => $form->createView(),
             'workshops' => $workshopRepository->findAll()
         ]);

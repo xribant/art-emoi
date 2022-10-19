@@ -90,7 +90,15 @@
                                     <li class="nav-item {% if current_menu == 'home' %}active{% endif %}"><a href="{{ path('home') }}" class="nav-link">Accueil</a></li>
                                     <li class="nav-item {% if current_menu == 'about' %}active{% endif %}"><a href="{{ path('about') }}" class="nav-link">Presentation</a></li>
                                     <li class="nav-item {% if current_menu == 'agenda' %}active{% endif %}"><a href="{{ path('agenda') }}" class="nav-link">Agenda</a></li>
-                                    <li class="nav-item {% if current_menu == 'training' %}active{% endif %}"><a href="{{ path('app_front_training') }}" class="nav-link">Formations</a></li>
+
+                                    <li class="nav-item dropdown {% if current_menu == 'event' %}active{% endif %}">
+                                        <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-expanded="false">évènements</a>
+                                        <div class="dropdown-menu">
+                                            <a class="dropdown-item" href="{{ path('app_pub') }}">Festival de la créativité</a>
+                                            <a class="dropdown-item" href="{{ path('app_front_deuil') }}">Les couleurs du deuil</a>
+                                        </div>
+                                    </li>
+
                                     <li class="nav-item {% if current_menu == 'partners' %}active{% endif %}"><a href="{{ path('front_partners') }}" class="nav-link">Partenaires</a></li>
                                     <li class="nav-item {% if current_menu == 'books' %}active{% endif %}"><a href="{{ path('books') }}" class="nav-link">Ouvrages</a></li>
                                     <li class="nav-item {% if current_menu == 'contact' %}active{% endif %}"><a href="{{ path('contact_form') }}" class="nav-link">Contact</a></li>
