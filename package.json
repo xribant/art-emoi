@@ -33,6 +33,7 @@
         "magnific-popup": "^1.1.0",
         "owl.carousel": "^2.3.4",
         "scrollax": "^1.0.0",
+        "tarteaucitronjs": "^1.9.7",
         "toastr": "^2.1.4"
     }
 }

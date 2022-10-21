@@ -18,39 +18,157 @@
 		</div>
 	</section>
 
-	<section class="ftco-section">
+	<section class="ftco-videos">
 		<div class="container">
 			<div class="row">
-				<div class="col-lg-12 ftco-animate">
 
+				{% if app.session.get('activation_code') == 'REVVSUxBTTIwMjI=' %}
+
+				<div class="col-lg-12 ftco-animate mt-5">
 					<div class="row">
+				
 						<div class="col-md-12 d-flex ftco-animate justify-content-center">
+							<div clss="row">
+								
+									<ul class="nav nav-tabs" id="myTab">
+										<li class="nav-item">
+											<a href="#atelier1" class="nav-link active" data-bs-toggle="tab">1. Mieux vivre les ruptures</a>
+										</li>
+										<li class="nav-item">
+											<a href="#atelier2" class="nav-link" data-bs-toggle="tab">2. Courbes et Colères</a>
+										</li>
+										<li class="nav-item">
+											<a href="#atelier3" class="nav-link" data-bs-toggle="tab">3. La Peur sur le Chemin</a>
+										</li>
+										<li class="nav-item">
+											<a href="#atelier4" class="nav-link" data-bs-toggle="tab">4. La Tristesse</a>
+										</li>
+										<li class="nav-item">
+											<a href="#atelier5" class="nav-link" data-bs-toggle="tab">5. Appropriation</a>
+										</li>
+									</ul>
+									<div class="tab-content">
+										<div class="tab-pane fade show active" id="atelier1">
+											<iframe class="responsive-iframe" src="https://player.vimeo.com/video/761184338?h=a0d7cd2d19" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+										</div>	
+										<div class="tab-pane fade" id="atelier2">
+											<iframe class="responsive-iframe" src="https://player.vimeo.com/video/761363246?h=08fb32f86e" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+										</div>	
+										<div class="tab-pane fade" id="atelier3">
+											<iframe class="responsive-iframe" src="https://player.vimeo.com/video/761378219?h=c2b81d1a58" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+										</div>	
+										<div class="tab-pane fade" id="atelier4">
+											<iframe class="responsive-iframe" src="https://player.vimeo.com/video/761406743?h=ae91eacec2" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+										</div>	
+										<div class="tab-pane fade" id="atelier5">
+											<iframe class="responsive-iframe" src="https://player.vimeo.com/video/761431219?h=620cac1c32" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
+										</div>	
+									</div>
+							</div>
+						</div>
 
-                            {% if app.session.get('activation_code') == 'REVVSUxBTTIwMjI=' %}
-                                <iframe src="https://player.vimeo.com/video/757188827?h=dc6e920090" width="640" height="564" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                            {% else %}
-                                <form id="contactForm" action="" class="contact-form" method="post">
-                                    {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
-                                    {{ form_row(form._token) }}
-                                        <div class="row">
-                                            <div class="col-lg-12 col-md-12">
-                                                <div class="form-group {% if form_errors(form.key) %}has-error{% endif %}">
-                                                    {{ form_row(form.key) }}
-                                                </div>
-                                            </div>
-                                        </div>
-                                        {{ form_row(form.captcha) }}
-                                        <div class="form-group">
-                                            <input type="submit" value="Envoyer" class="btn btn-primary py-3 px-5" formnovalidate>
-                                        </div>
-                                    {{ form_end(form) }}
-                                </form>
-                            {% endif %}
-                        </div>
 					</div>
+				</div>	
 
+				{% else %}
+				
+				<div class="col-lg-12 ftco-animate">
+					<div class="row">
+						<div class="col-md-12 d-flex ftco-animate mt-5">
+							<div class="blog-entry blog-entry-2 justify-content-start d-md-flex w-100">
+								<img src="{{ asset('build/couleurs-du-deuil.png') }}" alt="Les couleurs du deuil">
+								<div class="text pl-md-4 ml-md-2 pt-4">
+									<div class="meta">
+										<div>
+											<a href="#">Coffret de formations</a>
+										</div>
+									</div>
+									<h3 class="heading mt-2">Les couleurs du Deuil</h3>
+									<p> 
+									<stron>C’est avec beaucoup de bienveillance et de douceur que je vous annonce que je fais partie d’un tout nouveau concept, le coffret Couleurs du Deuil.</strong>
+									</p>
+									<p>
+										Vous vivez un deuil ou quelqu’un de votre entourage traverse ce moment difficile…
+									</p>
+									<p>
+										Le processus de deuil est sinueux et nous impacte tant sur le plan physique, émotionnel, mental que spirituel.
+										Chacun va vivre son processus de deuil différemment, et cela prendra le temps qu’il faut.<br>
+										Comprendre les différents états de deuil par lesquels on va passer nous permet d’accueillir avec bienveillance et légitimité nos émotions: cela nous aide aussi à tenir le coup, à trouver de l’apaisement tout au long de ce cheminement, et à découvrir le cadeau caché derrière chaque deuil.
+									</p>
+									<p>
+										Que diriez-vous de traverser votre deuil plus sereinement, d’être accompagné(e) et soutenu(e) par des gens qui vous comprennent ?<br>
+										Aimeriez-vous atteindre enfin l’apaisement, et retrouver goût à la vie ?
+									</p>
+									<p>
+										<strong>C’est la promesse du coffret "Couleurs du Deuil".</strong>
+									</p>
+
+								</div> 
+							</div>
+						</div>
+					</div>
+                	<div class="row">
+			        	<div class="col-lg-12">
+							<div class="col-lg-12 ftco-animate">
+								<div class="row">
+									<div class="container d-flex justify-content-center">
+										<div class="alert alert-danger d-flex align-items-center" role="alert">
+											<i class="fa-solid fa-lock"></i>
+											<div class="col-md-12 d-flex justify-content-center">
+												<form id="contactForm" action="" class="form-inline access-code-form" method="post">
+													{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+													{{ form_row(form._token) }}
+														<div class="form-inline {% if form_errors(form.key) %}has-error{% endif %}">
+															{{ form_row(form.key) }}
+															<input type="submit" value="Accéder aux ateliers" class="btn btn-primary {% if form_errors(form.key) %}mb-1{% endif %}" formnovalidate>
+														</div>
+														{{ form_row(form.captcha) }}
+													{{ form_end(form) }}
+												</form>
+											</div>	
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-lg-12 d-flex">
+									
+										<div class="text pt-4">
+											<p>
+												Ce coffret rassemble <strong>11 formations et ateliers en ligne</strong> couvrant différents sujets touchant le deuil.
+												Une de mes formations en fait donc partie et en plus je l’ai CRÉÉE SPÉCIALEMENT pour ce coffret!! 
+											</p>
+											<p>
+												<strong>Le coffret Couleurs du Deuil, en un clin d’oeil</strong>
+											</p>
+											<ul>
+												<li>11 formations en ligne préenregistrées</li>
+												<li>des formatrices canadiennes et européennes (France, Belgique), travaillant depuis des années auprès d’endeuillés</li>
+												<li>de nombreux sujets couverts:  les chaos et les incohérences, les rituels, les émotions, briser l’isolement, les vécus subjectifs de contact avec les défunts, le deuil chez les jeunes, le deuil animalier, revivre après un deuil et trouver son cadeau caché …</li>
+												<li>des <strong>exercices</strong> et des <strong>outils pratiques</strong>, des <strong>carnets PDF</strong>, des <strong>capsules vidéos</strong>, des <strong>méditations</strong>… qui vous aideront à traverser ce chemin du deuil</li>
+												<li>9 formations inédites conçues pour le coffret, 1 formation offerte à vie</li>
+												<li>en vente du 2 au 20 novembre 2022 seulement</li>
+												<li>l’accès aux formations pendant un an, à votre rythme !</li>
+											</ul>
+											<p>
+												<strong>Suivre les formations du coffret Couleurs du Deuil vous permettra de mieux comprendre le processus de deuil, d’apprivoiser le manque et les changements qu’il provoque, de pouvoir enfin vous apaiser, vous libérer de certains sentiments (regret, culpabilité, colère…) et reprendre goût à la vie.</strong>
+											</p>
+											<div class="alert alert-primary" role="alert">
+												<i class="fa-solid fa-gift mr-2"></i> <strong>A l’achat du coffret, vous recevrez 50 € de réduction pour les ateliers du Tarot créatif qui débutent en janvier 2023.</strong>
+											</div>
+											<p>
+												<a href="https://artemoi--experiencenatura.thrivecart.com/couleurs-du-deuil-2022/" target="_blank" class="btn btn-primary py-3 px-5"><i class="fa-solid fa-circle-info"></i> Détails et achat du coffret</a>
+											</p>
+										</div>
+								
+								</div>
+							</div>
+                    	</div>
+                	</div>
 				</div>
-				<!-- .col-md-8 -->
+				
+				{% endif %}
 			</div>
 		</div>
 	</section>

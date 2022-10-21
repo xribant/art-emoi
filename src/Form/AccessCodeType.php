@@ -17,13 +17,13 @@ class AccessCodeType extends AbstractType
         $builder
             ->add('key', TextType::class, [
                 'constraints' => [
-                    new NotBlank(message: 'Veuillez entrer votre code promo pour accéder aux formations'),
+                    new NotBlank(message: 'Veuillez entrer votre code pour accéder aux ateliers vidéos'),
                     new EqualTo('DEUILAM2022', message: 'Code invalide')
                 ],
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => 'Code d\'accès',
+                    'placeholder' => 'Code',
                     'class' => 'form-control'
                 ]
             ])
