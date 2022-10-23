@@ -1,6 +1,57 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
+        <script src="{{ asset('assets/tarteaucitron/tarteaucitron.js') }}"></script>
+        <script type="text/javascript">
+        tarteaucitron.init({
+    	  "privacyUrl": "", /* Privacy policy url */
+          "bodyPosition": "top", /* or top to bring it as first element for accessibility */
+
+    	  "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
+    	  "cookieName": "tarteaucitron", /* Cookie name */
+    
+    	  "orientation": "middle", /* Banner position (top - bottom) */
+       
+          "groupServices": false, /* Group services by category */
+          "serviceDefaultState": "wait", /* Default state (true - wait - false) */
+                           
+    	  "showAlertSmall": false, /* Show the small banner on bottom right */
+    	  "cookieslist": false, /* Show the cookie list */
+                           
+          "closePopup": true, /* Show a close X on the banner */
+
+          "showIcon": true, /* Show cookie icon to manage cookies */
+          "iconSrc": "https://localhost:8000/assets/images/cookie.png", /* Optionnal: URL or base64 encoded image */
+          "iconPosition": "BottomLeft", /* BottomRight, BottomLeft, TopRight and TopLeft */
+
+    	  "adblocker": false, /* Show a Warning if an adblocker is detected */
+                           
+          "DenyAllCta" : true, /* Show the deny all button */
+          "AcceptAllCta" : true, /* Show the accept all button when highPrivacy on */
+          "highPrivacy": true, /* HIGHLY RECOMMANDED Disable auto consent */
+                           
+    	  "handleBrowserDNTRequest": false, /* If Do Not Track == 1, disallow all */
+
+    	  "removeCredit": false, /* Remove credit link */
+    	  "moreInfoLink": true, /* Show more info link */
+
+          "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
+          "useExternalJs": false, /* If false, the tarteaucitron.js file will be loaded */
+
+    	  //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for multisite */
+                          
+          "readmoreLink": "", /* Change the default readmore link */
+
+          "mandatory": true, /* Show a message about mandatory cookies */
+          "mandatoryCta": true /* Show the disabled accept button when mandatory on */
+        });
+         tarteaucitron.user.matomoId = '2';
+        (tarteaucitron.job = tarteaucitron.job || []).push('matomo');
+
+        tarteaucitron.user.recaptchaapi = '6LdhBHQdAAAAACHIpYMXOIdUauGz_MtCTVGC7hhN';
+        (tarteaucitron.job = tarteaucitron.job || []).push('recaptcha');
+        </script>
+
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <!-- SEO Meta Tags -->
@@ -54,21 +105,8 @@
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
 
-        <!-- Matomo
-        <script>
-            var _paq = window._paq = window._paq || [];
-            /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
-            _paq.push(['trackPageView']);
-            _paq.push(['enableLinkTracking']);
-            (function() {
-                var u="https://analytics.mywebcreation.be/";
-                _paq.push(['setTrackerUrl', u+'matomo.php']);
-                _paq.push(['setSiteId', '2']);
-                var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
-                g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
-            })();
-        </script>
-        -->
+        <!-- Matomo -->
+        <script>tarteaucitron.user.matomoHost = 'https://analytics.mywebcreation.be/';</script>
 
     </head>
     <body>
@@ -184,30 +222,8 @@
             <script src="{{ asset('assets/js/bootstrap-datepicker.js') }}"></script>
             <script src="{{ asset('assets/js/jquery.timepicker.min.js') }}"></script>
             <script src="{{ asset('assets/js/scrollax.min.js') }}"></script>
-            <script src="https://cdn.jsdelivr.net/npm/cookieconsent@3/build/cookieconsent.min.js" data-cfasync="false"></script>
             <script src="https://player.vimeo.com/api/player.js"></script>
-            <script>
-                window.cookieconsent.initialise({
-                    "palette": {
-                        "popup": {
-                            "background": "#2c396b",
-                            "text": "#ffb5b5"
-                        },
-                        "button": {
-                            "background": "#ffb5b5",
-                            "text": "#ffffff"
-                        }
-                    },
-                    "content": {
-                        "message": "Ce site internet utilise des cookies afin d'améliorer l'expérience utilisateur et pour connaître la provenance des visiteurs.",
-                        "dismiss": "J'ai compris",
-                        "link": "En savoir plus",
-                        "href": "https://www.belgium.be/fr/justice/respect_de_la_vie_privee/protection_des_donnees_personnelles"
-                    }
-                });
-               
-                
-            </script>
+            
         {% block javascripts %}
             {{ encore_entry_script_tags('app') }}
 
