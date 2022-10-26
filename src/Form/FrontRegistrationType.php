@@ -11,11 +11,16 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class FrontRegistrationType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $event = $options['event'];
+        
+
         $builder
             ->add('firstName',TextType::class, [
                 'required' => true,
@@ -104,6 +109,14 @@ class FrontRegistrationType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
+            ->add('discountCode', TextType::class, [
+                'required' => false,
+                'label' => false,
+                'attr' => [
+                    'placeholder' => 'J\'ai un code promo',
+                    'class' => 'form-control'
+                ]
+            ])
             /* ->add('event', EntityType::class, [
                 'required' => true,
                 'label' => false,
@@ -131,6 +144,7 @@ class FrontRegistrationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => EventRegistration::class,
+            $resolver->setRequired(['event'])
         ]);
     }
 }

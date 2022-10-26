@@ -75,9 +75,15 @@ class Event
      */
     private $presentiel;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Discount::class, mappedBy="event", fetch="EAGER")
+     */
+    private $discounts;
+
     public function __construct()
     {
         $this->eventRegistrations = new ArrayCollection();
+        $this->discounts = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -220,6 +226,36 @@ class Event
     public function setPresentiel(bool $presentiel): self
     {
         $this->presentiel = $presentiel;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Discount>
+     */
+    public function getDiscounts(): Collection
+    {
+        return $this->discounts;
+    }
+
+    public function addDiscount(Discount $discount): self
+    {
+        if (!$this->discounts->contains($discount)) {
+            $this->discounts[] = $discount;
+            $discount->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDiscount(Discount $discount): self
+    {
+        if ($this->discounts->removeElement($discount)) {
+            // set the owning side to null (unless already changed)
+            if ($discount->getEvent() === $this) {
+                $discount->setEvent(null);
+            }
+        }
 
         return $this;
     }

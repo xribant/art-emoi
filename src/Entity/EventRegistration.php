@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\EventRegistrationRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Validator\ValidDiscountCode; 
 
 /**
  * @ORM\Entity(repositoryClass=EventRegistrationRepository::class)
@@ -112,6 +113,12 @@ class EventRegistration
      * @ORM\Column(type="boolean")
      */
     private $archived;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ValidDiscountCode()
+     */
+    private $discountCode;
 
     public function __construct() {
         $this->updated_at = new \DateTime();
@@ -328,6 +335,18 @@ class EventRegistration
     public function setArchived(bool $archived): self
     {
         $this->archived = $archived;
+
+        return $this;
+    }
+
+    public function getDiscountCode(): ?string
+    {
+        return $this->discountCode;
+    }
+
+    public function setDiscountCode(?string $discountCode): self
+    {
+        $this->discountCode = $discountCode;
 
         return $this;
     }

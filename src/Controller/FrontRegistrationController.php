@@ -22,21 +22,22 @@ class FrontRegistrationController extends AbstractController
     public function index(Request $request, WorkshopRepository $workshopRepository, MailerInterface $mailer, ToastrFactory $toastr, EventRepository $eventRepository, $event_uid): Response
     {
         $event = $eventRepository->findOneBy(['uid' => $event_uid]);
-
+        
         $eventRegistration = new EventRegistration();
+        $eventRegistration->setEvent($event);
 
-        $form = $this->createForm(FrontRegistrationType::class, $eventRegistration);
+        $form = $this->createForm(FrontRegistrationType::class, $eventRegistration, ['event' => $event]);
         $form->handleRequest($request);
 
         if($form->isSubmitted() and $form->isValid()) {
-
+            /*
             $eventRegistration->setEvent($event);
 
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
                 ->to(new Address($eventRegistration->getEmail()))
                 // ->to('xribant@gmail.com')
-                ->cc('admin@art-emoi.be')
+                // ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Demande d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
@@ -76,6 +77,7 @@ class FrontRegistrationController extends AbstractController
             ;
 
             return $this->redirectToRoute('home');
+            */
         }
 
         return $this->render('front_registration/index.html.twig', [

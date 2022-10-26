@@ -1,0 +1,44 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+ {{ form_row(form._token) }}
+<form id="addDiscounttForm" action="" method="post">
+    <div class="card-content">
+        <div class="form-group {% if form_errors(form.code) %}has-error{% endif %}">
+            <label class="control-label">
+                Code<star>*</star> (Sera automatiquement adapté en majuscule)
+            </label>
+            {{ form_row(form.code) }}
+        </div>
+        <div class="form-group {% if form_errors(form.description) %}has-error{% endif %}">
+            <label class="control-label">
+                Description<star>*</star> (Pour la factuaration)
+            </label>
+            {{ form_row(form.description) }}
+        </div>
+        <div class="form-group {% if form_errors(form.rate) %}has-error{% endif %}">
+            <label class="control-label">
+                Réduction<star>*</star> (Pourcentage)
+            </label>
+            {{ form_row(form.rate) }}
+        </div>
+        <div class="form-group {% if form_errors(form.enabled) %}has-error{% endif %}">
+            <label class="control-label">
+                Activé<star>*</star>
+            </label>
+            {{ form_row(form.enabled) }}
+        </div>
+        <div class="form-group {% if form_errors(form.event) %}has-error{% endif %}">
+            <label class="control-label">
+                Formation<star>*</star>
+            </label>
+            {{ form_row(form.event) }}
+        </div>
+        <div class="category"><star>*</star> Champs obligatoires</div>
+        <div class="card-footer">
+            <a class="btn btn-danger btn-fill pull-right" href="{{ path('app_discount_index') }}" style="margin-left: 1rem;">Annuler</a>
+            <button class="btn btn-info btn-fill pull-right">{{ button_label|default('Enregistrer') }}</button>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</form>
+{{ form_end(form) }}
+
