@@ -64,11 +64,17 @@ class Discount
      */
     private $event;
 
+    /**
+     * @ORM\OneToMany(targetEntity=EventRegistration::class, mappedBy="discount")
+     */
+    private $eventRegistrations;
+
     public function __construct()
     {
         $this->created_at = new DateTime();
         $this->updated_at = new DateTime();
         $this->uid = uniqid();
+        $this->eventRegistrations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -168,6 +174,36 @@ class Discount
     public function setEvent(?Event $event): self
     {
         $this->event = $event;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, EventRegistration>
+     */
+    public function getEventRegistrations(): Collection
+    {
+        return $this->eventRegistrations;
+    }
+
+    public function addEventRegistration(EventRegistration $eventRegistration): self
+    {
+        if (!$this->eventRegistrations->contains($eventRegistration)) {
+            $this->eventRegistrations[] = $eventRegistration;
+            $eventRegistration->setDiscount($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEventRegistration(EventRegistration $eventRegistration): self
+    {
+        if ($this->eventRegistrations->removeElement($eventRegistration)) {
+            // set the owning side to null (unless already changed)
+            if ($eventRegistration->getDiscount() === $this) {
+                $eventRegistration->setDiscount(null);
+            }
+        }
 
         return $this;
     }

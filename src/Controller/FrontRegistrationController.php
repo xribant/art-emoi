@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\EventRegistration;
 use App\Form\FrontRegistrationType;
+use App\Repository\DiscountRepository;
 use App\Repository\EventRepository;
 use App\Repository\WorkshopRepository;
 use Flasher\Toastr\Prime\ToastrFactory;
@@ -19,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontRegistrationController extends AbstractController
 {
     #[Route('/inscription/{event_uid}', name: 'front_registration')]
-    public function index(Request $request, WorkshopRepository $workshopRepository, MailerInterface $mailer, ToastrFactory $toastr, EventRepository $eventRepository, $event_uid): Response
+    public function index(Request $request, WorkshopRepository $workshopRepository, MailerInterface $mailer, ToastrFactory $toastr, EventRepository $eventRepository, $event_uid, DiscountRepository $discountRepository): Response
     {
         $event = $eventRepository->findOneBy(['uid' => $event_uid]);
         
@@ -30,8 +31,11 @@ class FrontRegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() and $form->isValid()) {
-            /*
+
+            $discount = $discountRepository->findOneBy(['code' => $eventRegistration->getDiscountCode()]);
+    
             $eventRegistration->setEvent($event);
+            $eventRegistration->setDiscount($discount);
 
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
@@ -77,7 +81,7 @@ class FrontRegistrationController extends AbstractController
             ;
 
             return $this->redirectToRoute('home');
-            */
+        
         }
 
         return $this->render('front_registration/index.html.twig', [

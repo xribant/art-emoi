@@ -120,6 +120,11 @@ class EventRegistration
      */
     private $discountCode;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Discount::class, inversedBy="eventRegistrations")
+     */
+    private $discount;
+
     public function __construct() {
         $this->updated_at = new \DateTime();
         $this->created_at = new \DateTime();
@@ -347,6 +352,18 @@ class EventRegistration
     public function setDiscountCode(?string $discountCode): self
     {
         $this->discountCode = $discountCode;
+
+        return $this;
+    }
+
+    public function getDiscount(): ?Discount
+    {
+        return $this->discount;
+    }
+
+    public function setDiscount(?Discount $discount): self
+    {
+        $this->discount = $discount;
 
         return $this;
     }
