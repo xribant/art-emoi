@@ -79,12 +79,25 @@
     </thead>
     <tbody>
         <tr>
-            <td>{{ registration.event.workshop.title }}</td>
+            <td>
+                {{ registration.event.workshop.title }}<br>
+            </td>
             <td>1</td>
             <td>{{ priceHTVA|format_currency('EUR') }}</td>
             <td>{{ totalTva|format_currency('EUR') }}</td>
             <td>{{ price|format_currency('EUR') }}</td>
         </tr>
+        {% if registration.discount %}
+            <tr>
+                <td>
+                    {{ registration.discount.description }}<br>
+                </td>
+                <td>1</td>
+                <td></td>
+                <td></td>
+                <td>- {{ registration.discount.rate|format_currency('EUR') }}</td>
+            </tr>
+        {% endif %}
     </tbody>
     <tfoot>
         <tr>
@@ -92,7 +105,7 @@
             <td></td>
             <td></td>
             <td class="total-amount">TOTAL:</td>
-            <td class="total-amount">{{ price|format_currency('EUR') }}</td>
+            <td class="total-amount">{{ (price - registration.discount.rate)|format_currency('EUR') }}</td>
         </tr>
     </tfoot>
 </table>

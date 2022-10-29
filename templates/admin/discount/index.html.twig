@@ -22,7 +22,7 @@
                                     <th>#</th>
                                     <th>Code</th>
                                     <th>Description</th>
-                                    <th>%</th>
+                                    <th>Réduction €</th>
                                     <th>Formation</th>
                                     <th>Actif</th>
                                     <th>Créé le</th>
@@ -35,7 +35,7 @@
                                         <td>{{ loop.index }}</td>
                                         <td>{{ discount.code }}</td>
                                         <td>{{ discount.description }}</td>
-                                        <td>{{ discount.rate }}</td>
+                                        <td>{{ discount.rate|format_currency('EUR') }}</td>
                                         <td>{{ discount.event.workshop.title }}</td>
                                         <td>{{ discount.enabled ? 'Oui' : 'Non' }}</td>
                                         <td>{{ discount.createdAt|format_datetime('medium', 'none',locale='fr') }}</td>

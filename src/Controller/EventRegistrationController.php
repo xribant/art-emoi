@@ -7,6 +7,7 @@ use App\Entity\Invoice;
 use App\Form\ConfirmRegistrationType;
 use App\Form\EventRegistrationType;
 use App\Repository\EventRegistrationRepository;
+use App\Repository\EventRepository;
 use App\Repository\InvoiceRepository;
 use App\Service\PdfGenerator;
 use Flasher\Toastr\Prime\ToastrFactory;
@@ -128,7 +129,9 @@ class EventRegistrationController extends AbstractController
     #[Route('/{uid}/confirmer', name: 'event_registration_confirm', methods: ['GET', 'POST'])]
     public function confirm(Request $request, EventRegistration $eventRegistration, PdfGenerator $generator, InvoiceRepository $invoiceRepository, MailerInterface $mailer): Response
     {
-        $form = $this->createForm(ConfirmRegistrationType::class, $eventRegistration);
+        $event = $eventRegistration->getEvent();
+
+        $form = $this->createForm(ConfirmRegistrationType::class, $eventRegistration, ['event' => $event]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

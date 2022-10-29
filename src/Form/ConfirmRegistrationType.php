@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Discount;
 use App\Entity\Event;
 use App\Entity\EventRegistration;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -9,15 +10,21 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Doctrine\ORM\EntityRepository;
+
 
 class ConfirmRegistrationType extends AbstractType
 {
+
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+
+        $event = $options['event'];
+        dump($event);
+
         $builder
             ->add('firstName',TextType::class, [
                 'required' => true,
@@ -163,6 +170,26 @@ class ConfirmRegistrationType extends AbstractType
                     'value' => '0'
                 ]
             ])
+            ->add('discount', EntityType::class, [
+                'required' => false,
+                'label' => false,
+                'expanded' => false,
+                'multiple' => false,
+                'class' => Discount::class,
+                'query_builder' => function (EntityRepository $er) use($event) {
+                    return $er->createQueryBuilder('d')
+                        ->where('d.event = :event')
+                        ->setParameters(['event' => $event])
+                        ->orderBy('d.id', 'ASC');
+                }, 
+                'choice_label' => function($discount) {
+                    return $discount->getDescription().' - '.$discount->getRate().' €';
+                },
+                'attr' => [
+                    'placeholder' => 'Promo',
+                    'class' => 'form-control'
+                ]
+            ])
         ;
     }
 
@@ -171,6 +198,7 @@ class ConfirmRegistrationType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => EventRegistration::class,
+            $resolver->setRequired(['event'])
         ]);
     }
 }

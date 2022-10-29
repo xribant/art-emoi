@@ -29,7 +29,7 @@ class DiscountType extends AbstractType
                 'required' => true,
                 'label' => false,
                 'attr' => [
-                    'placeholder' => '%',
+                    'placeholder' => '0.00 €',
                     'class' => 'form-control'
                 ]
             ])

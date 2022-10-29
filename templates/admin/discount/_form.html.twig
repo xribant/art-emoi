@@ -10,13 +10,13 @@
         </div>
         <div class="form-group {% if form_errors(form.description) %}has-error{% endif %}">
             <label class="control-label">
-                Description<star>*</star> (Pour la factuaration)
+                Description<star>*</star> (Pour la facturation)
             </label>
             {{ form_row(form.description) }}
         </div>
         <div class="form-group {% if form_errors(form.rate) %}has-error{% endif %}">
             <label class="control-label">
-                Réduction<star>*</star> (Pourcentage)
+                Réduction<star>*</star> (En euros)
             </label>
             {{ form_row(form.rate) }}
         </div>
