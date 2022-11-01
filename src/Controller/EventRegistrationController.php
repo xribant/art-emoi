@@ -42,7 +42,7 @@ class EventRegistrationController extends AbstractController
 
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
-                // ->to('xribant@gmail.com')
+                    // ->to('xribant@gmail.com')
                 ->to(new Address($eventRegistration->getEmail()))
                 ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Demande d\'inscription')
@@ -180,7 +180,7 @@ class EventRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('no-reply@art-emoi.be')
                  ->to($eventRegistration->getEmail())
-                 ->cc('admin@art-emoi.be')
+                ->cc('admin@art-emoi.be')
                 // ->to('xribant@gmail.com')
                 ->subject('Art-Emoi : Confirmation d\'inscription et Facture')
                 ->htmlTemplate('mails/invoice_confirmation.html.twig')

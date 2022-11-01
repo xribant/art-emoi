@@ -23,7 +23,6 @@ class ConfirmRegistrationType extends AbstractType
     {
 
         $event = $options['event'];
-        dump($event);
 
         $builder
             ->add('firstName',TextType::class, [

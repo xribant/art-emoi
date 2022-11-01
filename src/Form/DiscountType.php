@@ -33,16 +33,6 @@ class DiscountType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('enabled', ChoiceType::class,[
-                'required' => true,
-                'label' => false,
-                'expanded' => false,
-                'multiple' => false,
-                'choices' => [
-                    'Oui' => true,
-                    'Non' => false
-                ]
-            ])
             ->add('description', TextType::class, [
                 'required' => true,
                 'label' => false,

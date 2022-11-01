@@ -24,7 +24,6 @@
                                     <th>Description</th>
                                     <th>Réduction €</th>
                                     <th>Formation</th>
-                                    <th>Actif</th>
                                     <th>Créé le</th>
                                     <th>Actions</th>
                                 </tr>
@@ -37,7 +36,6 @@
                                         <td>{{ discount.description }}</td>
                                         <td>{{ discount.rate|format_currency('EUR') }}</td>
                                         <td>{{ discount.event.workshop.title }}</td>
-                                        <td>{{ discount.enabled ? 'Oui' : 'Non' }}</td>
                                         <td>{{ discount.createdAt|format_datetime('medium', 'none',locale='fr') }}</td>
                                         <td>
                                             <div>
