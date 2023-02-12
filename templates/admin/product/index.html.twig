@@ -1,0 +1,64 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Catalogue{% endblock %}
+
+{% block pageTitle %}Catalogue{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="toolbar">
+                                <!--Here you can write extra buttons/actions for the toolbar-->
+                                <a class="btn btn-primary btn-fill btn-wd" href="{{ path('app_product_new') }}">Créer un produit</a>
+                            </div>
+                            <table id="catalogue-table" class="table">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Type</th>
+                                    <th>Titre</th>
+                                    <th>Public</th>
+                                    <th>Débute</th>
+                                    <th>Se termine</th>
+                                    <th>Créé</th>
+                                    <th>Actions</th>
+                                </thead>
+                                <tbody>
+                                {% for product in products %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ product.type }}</td>
+                                    <td>{{ product.title }}</td>
+                                    <td>{{ product.public }}</td>
+                                    <td>{{ product.startAt|format_datetime('medium', 'medium',locale='fr') }}</td>
+                                    <td>{{ product.endAt|format_datetime('medium', 'medium',locale='fr') }}</td>
+                                    <td>{{ product.createdAt|format_datetime('medium', 'medium',locale='fr') }}</td>
+                                    <td>
+                                        <div>
+                                                <a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('app_product_edit', {'uid': product.uid}) }}">
+                                                    <i class="ti-pencil-alt"></i>
+                                                </a>
+                                                <form style="display: inline-block;" method="post" action="{{ path('app_product_delete', {'uid': product.uid}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer ce produit / Service?');">
+                                                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ product.uid) }}">
+                                                    <button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon"><i class="ti-close"></i></button>
+                                                </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="9">Aucun produit</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--  end card  -->
+                </div> <!-- end col-md-12 -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+{% endblock %}

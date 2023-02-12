@@ -40,8 +40,8 @@ class FrontRegistrationController extends AbstractController
             $email = (new TemplatedEmail())
                 ->from('admin@art-emoi.be')
                 ->to(new Address($eventRegistration->getEmail()))
-                    // ->to('xribant@gmail.com')
-                ->cc('admin@art-emoi.be')
+                // ->to('xribant@gmail.com')
+                // ->cc('admin@art-emoi.be')
                 ->subject('Art-Emoi : Demande d\'inscription')
                 ->htmlTemplate('mails/registration_confirmation.html.twig')
                 ->context([
@@ -53,7 +53,7 @@ class FrontRegistrationController extends AbstractController
                 $mailer->send($email);
             } catch (TransportExceptionInterface $e) {
                 $toastr
-                    ->warning('Inscription invalide. L\'adresse e-mail introduite à l\'inscription n\'existe pas !!!')
+                    ->warning('Erreur lors de la création de l\'inscription, veuillez réessayer')
                     ->timeOut(10000)
                     ->progressBar()
                     ->closeButton()

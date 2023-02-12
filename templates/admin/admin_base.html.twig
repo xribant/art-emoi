@@ -30,7 +30,7 @@
 {{ flasher_render() }}
     {% block body %}
         <div class="wrapper">
-            <div class="sidebar" data-background-color="white" data-active-color="danger">
+            <div class="sidebar" data-background-color="brown" data-active-color="danger">
                 <!--
                     Tip 1: you can change the color of the sidebar's background using: data-background-color="white | brown"
                     Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
@@ -72,66 +72,173 @@
                         </div>
                     </div>
                     <ul class="nav">
-                        <li>
+                        <li {% if active_menu is defined and active_menu == 'user' %}class="active"{% endif %}>
                             <a href="{{ path('user_index') }}">
                                 <i class="ti-user"></i>
-                                <p>Utilisateurs</p>
+                                <p>Admin Users</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ path('news_index') }}">
-                                <i class="ti-announcement"></i>
-                                <p>News</p>
+
+                        {% if active_menu is defined and (active_menu == 'news' or active_menu == 'partners' or active_menu == 'books') %}
+                        <li class="active">
+	                        <a data-toggle="collapse" href="#content" aria-expanded="true">
+                                <i class="ti-package"></i>
+                                <p>Contenu du site
+                                <b class="caret"></b>
+                                </p>
+	                        </a>
+	                        <div class="collapse in" id="content">
+                        {% else %}    
+                            <li>
+                            <a data-toggle="collapse" href="#content">
+                                <i class="ti-layers-alt"></i>
+                                <p>Contenu du site
+                                <b class="caret"></b>
+                                </p>
                             </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('workshop_index') }}">
+                            <div class="collapse" id="content">
+                        {% endif %}
+                                <ul class="nav">
+                                    <li {% if active_menu is defined and active_menu == 'news' %}class="active"{% endif %}>
+                                        <a href="{{ path('news_index') }}">
+                                            <span class="sidebar-mini">N</span>
+                                            <span class="sidebar-normal">News</span>
+                                        </a>
+                                    </li>
+                                    <li {% if active_menu is defined and active_menu == 'partners' %}class="active"{% endif %}>
+                                        <a href="{{ path('partners_index') }}">
+                                            <span class="sidebar-mini">P</span>
+                                            <span class="sidebar-normal">Partenaires</span>
+                                        </a>
+                                    </li>
+                                    <li {% if active_menu is defined and active_menu == 'books' %}class="active"{% endif %}>
+                                        <a href="{{ path('book_index') }}">
+                                            <span class="sidebar-mini">O</span>
+                                            <span class="sidebar-normal">Ouvrages</span>
+                                        </a>
+                                    </li>
+                                </ul>
+	                        </div>
+	                    </li>
+
+                        {% if active_menu is defined and (active_menu == 'workshop' or active_menu == 'training' or active_menu == 'agenda' or active_menu == 'registration' or active_menu == 'localisation') %}
+                        <li class="active">
+	                        <a data-toggle="collapse" href="#workshop" aria-expanded="true">
+                                <i class="ti-package"></i>
+                                <p>Ateliers/Formations
+                                <b class="caret"></b>
+                                </p>
+	                        </a>
+	                        <div class="collapse in" id="workshop">
+                        {% else %}    
+                            <li>
+                            <a data-toggle="collapse" href="#workshop">
                                 <i class="ti-blackboard"></i>
-                                <p>Formations</p>
+                                <p>Ateliers / Formations
+                                <b class="caret"></b>
+                                </p>
+                            </a>
+                            <div class="collapse" id="workshop">
+                        {% endif %}
+                                <ul class="nav">
+                                    <li {% if active_menu is defined and active_menu == 'workshop' %}class="active"{% endif %}>
+                                        <a href="{{ path('workshop_index') }}">
+                                            <span class="sidebar-mini">At</span>
+                                            <span class="sidebar-normal">Ateliers</span>
+                                        </a>
+                                    </li>
+                                    <li {% if active_menu is defined and active_menu == 'agenda' %}class="active"{% endif %}>
+                                        <a href="{{ path('event_index') }}">
+                                            <span class="sidebar-mini">Ag</span>
+                                            <span class="sidebar-normal">Agenda</span>
+                                        </a>
+                                    </li>
+                                    <li {% if active_menu is defined and active_menu == 'registration' %}class="active"{% endif %}>
+                                        <a href="{{ path('event_registration_index') }}">
+                                            <span class="sidebar-mini">In</span>
+                                            <span class="sidebar-normal">Inscriptions</span>
+                                        </a>
+                                    </li>
+                                     <li {% if active_menu is defined and active_menu == 'localisation' %}class="active"{% endif %}>
+                                        <a href="{{ path('workshop_location_index') }}">
+                                            <span class="sidebar-mini">Lo</span>
+                                            <span class="sidebar-normal">Localisations (Ateliers)</span>
+                                        </a>
+                                    </li>
+                                </ul>
+	                        </div>
+	                    </li>
+
+                        <li {% if active_menu is defined and active_menu == 'catalog' %}class="active"{% endif %}>
+                            <a href="{{ path('app_product_index') }}">
+                                <i class="ti-agenda"></i>
+                                <p>Catalogue</p>
                             </a>
                         </li>
-                        <li>
-                            <a href="{{ path('event_index') }}">
-                                <i class="ti-calendar"></i>
-                                <p>Agenda</p>
+                        
+                        {% if active_menu is defined and 
+                            (
+                                active_menu == 'shop' or 
+                                active_menu == 'customers' or 
+                                active_menu == 'payments' or 
+                                active_menu == 'orders' or 
+                                active_menu == 'promos' or
+                                active_menu == 'free_invoicing'
+                            ) 
+                        %}
+                        <li class="active">
+	                        <a data-toggle="collapse" href="#shop" aria-expanded="true">
+                                <i class="ti-shopping-cart"></i>
+                                <p>E-Shop
+                                <b class="caret"></b>
+                                </p>
+	                        </a>
+	                        <div class="collapse in" id="shop">
+                        {% else %}    
+                            <li>
+                            <a data-toggle="collapse" href="#shop">
+                                <i class="ti-shopping-cart"></i>
+                                <p>E-Shop
+                                <b class="caret"></b>
+                                </p>
                             </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('app_discount_index') }}">
-                                <i class="ti-gift"></i>
-                                <p>Codes Promos</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('event_registration_index') }}">
-                                <i class="ti-pencil-alt"></i>
-                                <p>Inscriptions</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('partners_index') }}">
-                                <i class="ti-link"></i>
-                                <p>Partenaires</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('workshop_location_index') }}">
-                                <i class="ti-location-pin"></i>
-                                <p>Localisations (Ateliers)</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('book_index') }}">
-                                <i class="ti-book"></i>
-                                <p>Ouvrages</p>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ path('free_registration_index') }}">
-                                <i class="ti-files"></i>
-                                <p>Facturation Libre</p>
-                            </a>
-                        </li>
+                            <div class="collapse" id="shop">
+                        {% endif %}
+                                <ul class="nav">
+                                    <li {% if active_menu is defined and active_menu == 'payments' %}class="active"{% endif %}>
+                                        <a href="{{ path('admin_api_payments_index') }}">
+                                            <span class="sidebar-mini">PA</span>
+                                            <span class="sidebar-normal">Paiements</span>
+                                        </a>
+                                    </li>
+                                    <li {% if active_menu is defined and active_menu == 'customers' %}class="active"{% endif %}>
+                                        <a href="{{ path('admin_customer_index') }}">
+                                            <span class="sidebar-mini">CL</span>
+                                            <span class="sidebar-normal">Clients</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="sidebar-mini">CO</span>
+                                            <span class="sidebar-normal">Commandes</span>
+                                        </a>
+                                    </li>
+                                    <li {% if active_menu is defined and active_menu == 'promos' %}class="active"{% endif %}>
+                                        <a href="{{ path('app_discount_index') }}">
+                                            <span class="sidebar-mini">CP</span>
+                                            <span class="sidebar-normal">Codes Promo</span>
+                                        </a>
+                                    </li>
+                                    <li {% if active_menu is defined and active_menu == 'free_invoicing' %}class="active"{% endif %}>
+                                        <a href="{{ path('free_registration_index') }}">
+                                            <span class="sidebar-mini">FL</span>
+                                            <span class="sidebar-normal">Facturation Libre</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+	                    </li>
+                        
                     </ul>
                 </div>
             </div>

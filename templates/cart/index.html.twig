@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon panier{% endblock %}
+
+{% block content %}
+<section class="cart">
+    <div class="content">
+        <div class="container">
+            <div class="row m-auto">
+                <div class="col-12 w-100">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Mes articles</h4>
+                        </div>
+                        <div class="card-content table-responsive table-full-width">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Article</th>
+                                        <th class="text-center">Quantité</th>
+                                        <th class="text-center">Prix</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for item in cart.dataCart %}
+                                    <tr>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ item.event.workshop.title }}</td>
+                                        <td>{{ item.quantity }}</td>
+                                        <td>{{ item.event.workshop.workshopInfos.price|format_currency('EUR') }}</td>
+                                        <td>
+                                            <a class="btn btn-primary" href="{{ path('app_cart_remove', {'uid': item.event.uid }) }}" title="Supprimer cet article"><i class="fa-solid fa-trash"></i></a> 
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td coslpan="5" class="text-center">
+                                            <strong>Votre panier est vide</strong>
+                                        </td>
+                                    </tr>
+                                {% endfor %}       
+                                    <tr>
+                                        <td colspan="2"></td>
+                                        <td><strong>Total: </strong></td>
+                                        <td class="text-center">
+                                            <strong>{{ cart.total|format_currency('EUR') }}</strong>
+                                        </td>
+                                        <td></td>
+                                    </tr>     
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% if cart.dataCart is not empty %}
+                        <form action="{{ path('app_checkout') }}" method="POST">
+                            <button type="submit" class="btn btn-primary py-3 px-5 mt-3">Procéder au paiement</a>
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

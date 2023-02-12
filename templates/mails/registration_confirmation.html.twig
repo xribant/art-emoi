@@ -195,10 +195,12 @@
                                 <td align="left" style="font-size:0px;padding:10px 25px;word-break:break-word;">
                                     <div style="font-family:Ubuntu, Helvetica, Arial, sans-serif;font-size:13px;line-height:1;text-align:left;color:#000000;">
                                     {% if registration.discount %}
+                                        Votre inscription est confirmée.<br><br> 
                                         Grâce au code "{{ registration.discount.code }}", vous bénéficiez d'une promotion de {{ registration.discount.rate|format_currency('EUR') }} sur le prix total de la formation qui est de {{ registration.event.workshop.workshopInfos.price|format_currency('EUR') }}. <br><br>
-                                        Une facture va vous être envoyée d'un montant de {{ (registration.event.workshop.workshopInfos.price - registration.discount.rate)|format_currency('EUR') }} à payer au minimum 2 mois avant la date de la formation.
+                                        Une facture va vous être envoyée une fois le montant de {{ (registration.event.workshop.workshopInfos.price - registration.discount.rate)|format_currency('EUR') }} payé au minimum 2 mois avant la date de la formation.
                                     {% else %}
-                                        Une facture va vous être envoyée d'un montant de {{ registration.event.workshop.workshopInfos.price|format_currency('EUR') }} à payer au minimum 2 mois avant la date de la formation.
+                                        Votre inscription est confirmée.<br><br>
+                                        Une facture va vous être envoyée une fois le montant de {{ registration.event.workshop.workshopInfos.price|format_currency('EUR') }} payé au minimum 2 mois avant la date de la formation.
                                     {% endif %}
                                     </div>
                                 </td>

@@ -1,0 +1,56 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}STRIPE Clients{% endblock %}
+
+{% block pageTitle %}STRIPE Clients{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <table id="adminUsers-table" class="table">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Nom</th>
+                                    <th>E-Mail</th>
+                                    <th>Adresse</th>
+                                    <th>Code Postal</th>
+                                    <th>Ville</th>
+                                    <th>Pays</th>
+                                    <th>Téléphone</th>
+                                    <th>Création</th>
+                                    <th><th>
+                                </thead>
+                                <tbody>
+                                {% for customer in customers %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ customer.name }}</td>
+                                    <td>{{ customer.email }}</td>
+                                    <td>{{ customer.address }}</td>
+                                    <td>{{ customer.zipCode }}</td>
+                                    <td>{{ customer.city }}</td>
+                                    <td>{{ customer.country }}</td>
+                                    <td>{{ customer.phone }}</td>
+                                    <td>{{ customer.createdAt|format_datetime('medium', 'medium',locale='fr') }}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary">Commandes</button>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="10">Pas de clients</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--  end card  -->
+                </div> <!-- end col-md-12 -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+{% endblock %}

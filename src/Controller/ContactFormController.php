@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Contact;
 use App\Form\ContactFormType;
 use App\Repository\WorkshopRepository;
+use App\Service\CartManager;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -17,8 +18,10 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactFormController extends AbstractController
 {
     #[Route('/contact', name: 'contact_form')]
-    public function index(Request $request, WorkshopRepository $workshopRepository, ToastrFactory $toastr, MailerInterface $mailer): Response
+    public function index(Request $request, WorkshopRepository $workshopRepository, ToastrFactory $toastr, MailerInterface $mailer, CartManager $cartManager): Response
     {
+        $cart = $cartManager->getCart();
+
         $contact = new Contact();
         $form = $this->createForm(ContactFormType::class, $contact);
         $form->handleRequest($request);
@@ -52,7 +55,8 @@ class ContactFormController extends AbstractController
         return $this->render('contact/index.html.twig', [
             'form' => $form->createView(),
             'current_menu' => 'contact',
-            'workshops' => $workshopRepository->findAll()
+            'workshops' => $workshopRepository->findAll(),
+            'cart' => $cart
         ]);
     }
 }

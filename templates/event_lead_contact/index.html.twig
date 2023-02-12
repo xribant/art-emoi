@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Tarot - Bonnes résolutions{% endblock %}
+
+{% block content %}
+    <section class="hero-wrap hero-wrap-2" style="background-image: url({{ asset('build/header_contact.png') }});" data-stellar-background-ratio="0.5">
+        <div class="overlay"></div>
+        <div class="container">
+            <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center">
+                <div class="col-md-9 ftco-animate text-center">
+                    <h1 class="mb-3 bread">Tarot - Bonnes résolutions</h1>
+                    <p class="breadcrumbs"><span class="mr-2"><a href="{{ path('home') }}">Accueil</a></span> <span>Tarot à télécharger</span></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ftco-section contact-section ftco-no-pt ftco-no-pb">
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 ftco-animate py-md-5">
+                Bonjour, vous pouvez télécharger les fichiers pdf du Tarot - Bonnes résolutions sur cette page, il suffit juste de nous laisser une petite trace de votre passage via le formulaire ci-dessous, merci... 
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-md-6 ftco-animate py-md-5">
+
+                    {% if app.session.get('contact_lead_id') %}
+                        <a class="btn btn-primary" href="https://www.art-emoi.be/media/download/tarot_bonne_resolution.zip" title="Tarot Bonnes résolutions">Télécharger les PDF</a> 
+                    {% else %}
+                        <form id="contactForm" action="" class="contact-form" method="post">
+                            {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                            {{ form_row(form._token) }}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group {% if form_errors(form.firstName) %}has-error{% endif %}">
+                                            {{ form_row(form.firstName) }}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group {% if form_errors(form.lastName) %}has-error{% endif %}">
+                                            {{ form_row(form.lastName) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group {% if form_errors(form.email) %}has-error{% endif %}">
+                                            {{ form_row(form.email) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                {{ form_row(form.captcha) }}
+                                <div class="form-group">
+                                    <input type="submit" value="Télécharger" class="btn btn-primary py-3 px-5" formnovalidate>
+                                </div>
+                            {{ form_end(form) }}
+                        </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}

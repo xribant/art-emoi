@@ -21,7 +21,7 @@
                             </span>
                         </div>
                         <div class="col-lg-8 justify-content-start">
-                            <h4>{{ event.workshop.title }}</h4>
+                            <h4><a href="{{ path('front_workshop_infos', {'slug': event.workshop.slug }) }}" title="Détails">{{ event.workshop.title }}</a></h4>
                             <div class="infos">
                                 <span class="infos icon icon-map-marker"></span> {{ event.location.name }} | {% if event.duration %}<span class="infos icon icon-calendar"></span>
                                 {{ event.duration }} | {% endif %} {% if event.workshop.workshopInfos %}{{ event.workshop.workshopInfos.price|format_currency('EUR') }} TTC{% endif %}
@@ -29,7 +29,7 @@
                         </div>
                         <div class="col-lg-2 d-flex justify-content-center">
                             {% if event.active %}
-                                <a href="{{ path('front_registration', {'event_uid': event.uid }) }}" class="btn btn-lg btn-primary">Je m'inscris</a>
+                                <a href="{{ path('app_cart_add', {'uid': event.uid }) }}" class="btn btn-lg btn-primary">Je m'inscris</a>
                             {% else %}
                                 <span class="badge badge-danger">Complet</span>
                             {% endif %}

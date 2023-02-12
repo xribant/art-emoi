@@ -56,6 +56,11 @@ class WorkshopInfos
      */
     private $location;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $duration;
+
     public function __construct()
     {
         $this->location = new ArrayCollection();
@@ -158,6 +163,18 @@ class WorkshopInfos
     public function removeLocation(WorkshopLocation $location): self
     {
         $this->location->removeElement($location);
+
+        return $this;
+    }
+
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+
+    public function setDuration(?string $duration): self
+    {
+        $this->duration = $duration;
 
         return $this;
     }

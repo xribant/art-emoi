@@ -1,0 +1,50 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}STRIPE Paiements{% endblock %}
+
+{% block pageTitle %}STRIPE Paiements{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            
+                            <table id="adminUsers-table" class="table">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Client</th>
+                                    <th>Montant</th>
+                                    <th>Statut</th>
+                                    <th>Stripe transaction ID</th>
+                                    <th>Créé</th>
+                                    <th>Clôturé</th>
+                                </thead>
+                                <tbody>
+                                {% for payment in payments %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ payment.customer.name }}</td>
+                                    <td>{{ (payment.amount / 100)|format_currency('EUR') }}
+                                    <td>{{ payment.status }}</td>
+                                    <td><a href="https://dashboard.stripe.com/test/payments/{{ payment.stripeDescription }}" target="_blank">{{ payment.stripeDescription }}</a></td>
+                                    <td>{{ payment.creationDate|format_datetime('medium', 'medium',locale='fr') }}</td>
+                                    <td>{{ payment.closureDate|format_datetime('medium', 'medium',locale='fr') }}</td>
+                                </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="7">Pas de transaction</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--  end card  -->
+                </div> <!-- end col-md-12 -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,241 @@
+{{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+ {{ form_row(form._token) }}
+    <form id="newProductForm" action="" method="post">
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col-md-2">
+                    <h4 class="card-title">Détails du Service</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group {% if form_errors(form.type) %}has-error{% endif %}">
+                        <label class="control-label">
+                            Type de service <star>*</star>
+                        </label>
+                        {{ form_row(form.type) }}
+                    </div>
+                </div>
+                <div class="col-md-6">    
+                    <div class="form-group {% if form_errors(form.title) %}has-error{% endif %}">
+                        <label class="control-label">
+                            Titre / Nom <star>*</star>
+                        </label>
+                        {{ form_row(form.title) }}
+                    </div>
+                </div>
+                <div class="col-md-2">    
+                    <div class="form-group {% if form_errors(form.active) %}has-error{% endif %}">
+                        <label class="control-label">
+                            Activé
+                        </label>
+                        {{ form_row(form.active) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group {% if form_errors(form.description) %}has-error{% endif %}">
+                        <label class="control-label">
+                            Description <star>*</star>
+                        </label>
+                        {{ form_row(form.description) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">    
+                    <div class="form-group {% if form_errors(form.trainer) %}has-error{% endif %}">
+                        <label class="control-label">
+                            Animateur(s) / trice(s) <star>*</star>
+                        </label>
+                        {{ form_row(form.trainer) }}
+                    </div>
+                </div>
+                <div class="col-md-6">    
+                    <div class="form-group {% if form_errors(form.public) %}has-error{% endif %}">
+                        <label class="control-label">
+                            Destiné à quel publique ?<star>*</star>
+                        </label>
+                        {{ form_row(form.public) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content">
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="card-title">Dates / Nombre de séances</h4>
+                        <div class="col-md-6">
+                            <div class="form-group {% if form_errors(form.start_at) %}has-error{% endif %}">
+                                <label class="control-label">
+                                    Début <star>*</star>
+                                </label>
+                                {{ form_row(form.start_at) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">    
+                            <div class="form-group {% if form_errors(form.end_at) %}has-error{% endif %}">
+                                <label class="control-label">
+                                    Fin <star>*</star>
+                                </label>
+                                {{ form_row(form.end_at) }}
+                            </div>
+                        </div>
+                         <div class="col-md-6">    
+                            <div class="form-group {% if form_errors(form.nbr_sessions) %}has-error{% endif %}">
+                                <label class="control-label">
+                                    Nombre de séances / sessions
+                                </label>
+                                {{ form_row(form.nbr_sessions) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h4 class="card-title">Disponibilité(s)</h4>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="checkbox {% if form_errors(form.online) %}has-error{% endif %}">
+                                    {{ form_row(form.online) }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group {% if form_errors(form.online_price) %}has-error{% endif %}">
+                                    <span class="input-group-addon">€</span>
+                                        {% if form.online.vars.checked == true %}
+                                            {{ form_row(form.online_price) }}
+                                        {% else %}
+                                            {{ form_row(form.online_price, {'attr': {'disabled': true}}) }}
+                                        {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="checkbox {% if form_errors(form.visio) %}has-error{% endif %}">
+                                    {{ form_row(form.visio) }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group {% if form_errors(form.visio_price) %}has-error{% endif %}">
+                                    <span class="input-group-addon">€</span>
+                                    {% if form.visio.vars.checked == true %}
+                                        {{ form_row(form.visio_price, { 'disabled': false }) }}
+                                    {% else %}
+                                        {{ form_row(form.visio_price, { 'disabled': true }) }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="checkbox {% if form_errors(form.present) %}has-error{% endif %}">
+                                    {{ form_row(form.present) }}
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="input-group {% if form_errors(form.present_price) %}has-error{% endif %}">
+                                    <span class="input-group-addon">€</span>
+                                    {% if form.present.vars.checked == true %}
+                                        {{ form_row(form.present_price, { 'disabled': false }) }}
+                                    {% else %}
+                                        {{ form_row(form.present_price, { 'disabled': true }) }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                             <div class="col-md-5">
+                                <div class="form-group {% if form_errors(form.present_location) %}has-error{% endif %}">
+                                    {% if form.present.vars.checked == true %}
+                                        {{ form_row(form.present_location, { 'disabled': false }) }}
+                                    {% else %}
+                                        {{ form_row(form.present_location, { 'disabled': true }) }}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                         <div class="row">
+                            <div class="col-md-4">
+                                <div class="checkbox {% if form_errors(form.rdv) %}has-error{% endif %}">
+                                    {{ form_row(form.rdv) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-content"> 
+            <div class="row">
+                <div class="col-md-6">
+                    <h4 class="card-title">Illustrations</h4>
+                </div>
+                <div class="col-md-6">
+                    <h4 class="card-title">Video</h4>
+                </div>
+            </div>
+            <div class="row">
+                 <div class="col-md-6">
+                    {% if product.imageName %}
+                        <img id="imgPreview" src="{{ vich_uploader_asset(product, 'imageFile') | imagine_filter('product_thumb_resize') }}" style="max-height: 300px;border: solid #66615B 2px; margin-bottom: 2rem; border-radius: 5px;">
+                    {% else %}
+                        <img id="imgPreview" src="{{ asset('build/image_not_available.png') }}" style="max-height: 300px;border: solid #66615B 2px; margin-bottom: 2rem; border-radius: 5px;">
+                    {% endif %}
+                    <div class="input-group" {% if form_errors(form.imageFile) %}has-error{% endif %}>
+                        {{ form_row(form.imageFile) }}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    {% if product.videoLink %}
+                        <img id="imgPreview" src="{{ vich_uploader_asset(product, 'imageFile') | imagine_filter('product_thumb_resize') }}" style="max-height: 300px;border: solid #66615B 2px; margin-bottom: 2rem; border-radius: 5px;">
+                    {% else %}
+                        <img id="imgPreview" src="{{ asset('build/video_not_available.png') }}" style="max-height: 300px;border: solid #66615B 2px; margin-bottom: 2rem; border-radius: 5px;">
+                    {% endif %}
+                    <div class="form-group {% if form_errors(form.video_link) %}has-error{% endif %}">
+                        {{ form_row(form.video_link) }}
+                    </div>
+                </div>
+            </div>   
+        </div>
+    </div>
+
+    <div class="card">
+        <div class="card-content">
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="card-title">Avis et commentaires</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group {% if form_errors(form.testimonial) %}has-error{% endif %}">
+                        {{ form_row(form.testimonial) }}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <h4 class="card-title">Liste du matériel nécessaire</h4>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group {% if form_errors(form.hardware_list) %}has-error{% endif %}">
+                        {{ form_row(form.hardware_list) }}
+                    </div>
+                </div>
+            </div>
+       
+            <div class="category"><star>*</star> Champs obligatoires</div>
+            <div class="card-footer">
+                <a class="btn btn-danger btn-fill pull-right" href="{{ path('app_product_index') }}" style="margin-left: 1rem;">Annuler</a>
+                <button class="btn btn-info btn-fill pull-right">{{ button_label|default('Enregistrer') }}</button>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </form>
+{{ form_end(form) }}
+

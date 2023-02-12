@@ -24,37 +24,26 @@
                 </div>
             </div>
             <div class="row">
-                {% for workshop in workshops %}
+                {% for product in products %}
                     <div class="col-md-4">
                         <div class="classes w-100 ftco-animate">
-                            {% if vich_uploader_asset(workshop, 'imageFile') is null %}
-                                <a href="{{ path('front_workshop_infos', {'slug': workshop.slug}) }}" class="img w-100 mb-3" style="background-image: url('{{ asset('build/background_with_logo.png') }}');"></a>
+                            {% if vich_uploader_asset(product, 'imageFile') is null %}
+                                <a href="#" class="img w-100 mb-3" style="background-image: url('{{ asset('build/background_with_logo.png') }}');"></a>
                             {% else %}
-                                <a href="{{ path('front_workshop_infos', {'slug': workshop.slug}) }}" class="img w-100 mb-3" style="background-image: url('{{ vich_uploader_asset(workshop, 'imageFile') | imagine_filter('workshop_jacket') }}');"></a>
+                                <a href="#" class="img w-100 mb-3" style="background-image: url('{{ vich_uploader_asset(product, 'imageFile') | imagine_filter('workshop_jacket') }}');"></a>
                             {% endif %}
-                            <div class="text w-100 text-left">
-                                <h3><a href="{{ path('front_workshop_infos', {'slug': workshop.slug}) }}">{{ workshop.title }}</a></h3>
-                                <div class="tagcloud">
-                                    <a href="{{ path('front_workshop_infos', {'slug': workshop.slug}) }}" class="tag-cloud-link">Détails</a>
-                                    {% set zoom = 0 %}
-                                    {% set presentiel = 0 %}
-                                    {% for event in workshop.events %}
-                                        {% if date(event.startDate) > date() %}
-                                            {% if event.presentiel %}
-                                                {% set presentiel = 1 %}
-                                            {% else %}
-                                                {% set zoom = 1 %}
-                                            {% endif %}
-                                        {% endif %}
-                                    {% endfor %}
-                                    {% if zoom == 1 %}
-                                        <a href="{{ path('agenda_by_workshop', {'slug': workshop.slug, 'location': 'zoom'}) }}" class="tag-cloud-link">Dates sur zoom</a>
-                                    {% endif %}
-                                    {% if presentiel == 1 %}
-                                        <a href="{{ path('agenda_by_workshop', {'slug': workshop.slug, 'location': 'presentiel'}) }}" class="tag-cloud-link">Dates en présentiel</a>
-                                    {% endif %}
+                            <div class="col-md-6">
+                                <div class="text w-100 text-left mt-2 mb-2">
+                                    <h3><a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}">{{ product.title }}</a></h3>
                                 </div>
-                                <p>{{ workshop.description }}</p>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="tagcloud">
+                                    <a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}" class="tag-cloud-link">Online</a>
+                                    <a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}" class="tag-cloud-link">Visio</a>
+                                    <a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}" class="tag-cloud-link">Présentiel</a>
+                                </div>
+                                <h5><a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}">{{ product.trainer }}</a></h3>
                             </div>
                         </div>
                     </div>

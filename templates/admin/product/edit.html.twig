@@ -1,0 +1,40 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Modifier un produit ou service{% endblock %}
+
+{% block pageTitle %}Modifier un produit ou service{% endblock %}
+
+{% block content %}
+<div class="content">
+    <div class="container-fluid">
+        {{ include('admin/product/_form.html.twig', {'button_label': 'Modifier'}) }}   
+    </div>
+</div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+
+function clearInput(inputId){
+    var inputValue = document.getElementById(inputId);
+    if (inputValue.value != "") {
+        inputValue.value = "";
+    }
+}
+
+    document.getElementById('product_online').onchange = function() {
+        document.getElementById('product_online_price').disabled = !this.checked;
+        clearInput('product_online_price');
+    };
+    document.getElementById('product_visio').onchange = function() {
+        document.getElementById('product_visio_price').disabled = !this.checked;
+        clearInput('product_visio_price');
+    };
+    document.getElementById('product_present').onchange = function() {
+        document.getElementById('product_present_price').disabled = !this.checked;
+        document.getElementById('product_present_location').disabled = !this.checked;
+        clearInput('product_present_price');
+        clearInput('product_present_location');
+    };
+</script>
+{% endblock %}

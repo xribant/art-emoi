@@ -6082,10 +6082,10 @@ strong {
 
 .sidebar .logo,
 .off-canvas-sidebar .logo {
-    padding: 5px 0px;
+    padding: 18px 0px;
     margin: 0;
     box-shadow: inset -1px 0px 0px 0px #cfcfca;
-    /* height: 75px; */
+    height: 75px;
     position: relative;
     z-index: 4;
     display: block;
@@ -6095,10 +6095,10 @@ strong {
 .off-canvas-sidebar .logo a.logo-mini {
     opacity: 0;
     float: left;
-    /* width: 30px; */
+    width: 30px;
     text-align: center;
-    margin-left: 10px;
-    /* margin-right: 15px; */
+    margin-left: 23px;
+    margin-right: 15px;
 }
 
 .sidebar .logo a.logo-normal,
@@ -9047,12 +9047,6 @@ star {
 
 .card .card-header.header-with-icon {
     height: 150px;
-}
-
-.card .card-header-login {
-    padding-top: 3rem;
-    padding-bottom: 3rem;
-    text-align: center;
 }
 
 .card .card-header img {
