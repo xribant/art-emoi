@@ -28,21 +28,15 @@ class Invoice
     private $created_at;
 
     /**
-     * @ORM\OneToOne(targetEntity=EventRegistration::class, inversedBy="invoice", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=true)
-     */
-    private $eventRegistration;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     */
-    private $number;
-
-    /**
      * @ORM\OneToOne(targetEntity=FreeRegistration::class, mappedBy="invoice", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true)
      */
     private $freeRegistration;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Order::class, inversedBy="invoice", cascade={"persist", "remove"})
+     */
+    private $linkedOrder;
 
     public function __construct() {
         $this->created_at = New \DateTime();
@@ -51,6 +45,13 @@ class Invoice
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getFileName(): ?string
@@ -77,30 +78,7 @@ class Invoice
         return $this;
     }
 
-    public function getEventRegistration(): ?EventRegistration
-    {
-        return $this->eventRegistration;
-    }
-
-    public function setEventRegistration(EventRegistration $eventRegistration): self
-    {
-        $this->eventRegistration = $eventRegistration;
-
-        return $this;
-    }
-
-    public function getNumber(): ?string
-    {
-        return $this->number;
-    }
-
-    public function setNumber(?string $number): self
-    {
-        $this->number = $number;
-
-        return $this;
-    }
-
+    
     public function getFreeRegistration(): ?FreeRegistration
     {
         return $this->freeRegistration;
@@ -114,6 +92,18 @@ class Invoice
         }
 
         $this->freeRegistration = $freeRegistration;
+
+        return $this;
+    }
+
+    public function getLinkedOrder(): ?Order
+    {
+        return $this->linkedOrder;
+    }
+
+    public function setLinkedOrder(?Order $linkedOrder): self
+    {
+        $this->linkedOrder = $linkedOrder;
 
         return $this;
     }

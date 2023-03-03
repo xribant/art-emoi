@@ -19,6 +19,15 @@ class InvoiceRepository extends ServiceEntityRepository
         parent::__construct($registry, Invoice::class);
     }
 
+    public function getLastInvoice() {
+        return $this->createQueryBuilder('i')
+            ->orderBy('i.id', 'DESC')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Invoice[] Returns an array of Invoice objects
     //  */

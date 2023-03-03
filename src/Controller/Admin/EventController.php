@@ -32,7 +32,6 @@ class EventController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $event->setActive(true);
-            $event->setArchived(false);
             $event->setUid(uniqid());
 
             $entityManager = $this->getDoctrine()->getManager();

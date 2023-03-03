@@ -3,8 +3,10 @@
 namespace App\Form;
 
 use App\Entity\Event;
+use App\Entity\Product;
 use App\Entity\Workshop;
 use App\Entity\WorkshopLocation;
+use phpDocumentor\Reflection\PseudoTypes\False_;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -57,6 +59,15 @@ class EventType extends AbstractType
                     })
                 ]
             ])
+            ->add('product', EntityType::class, [
+                'label' => false,
+                'class' => Product::class,
+                'choice_label' => 'title',
+                'attr' => [
+                    'placeholder' => 'Formation',
+                    'class' => 'form-control'
+                ]
+            ])
             ->add('duration', TextType::class, [
                 'label' => false,
                 'required' => true,
@@ -65,30 +76,23 @@ class EventType extends AbstractType
                     'class' => 'form-control'
                 ]
             ])
-            ->add('location', EntityType::class, [
+            ->add('present', ChoiceType::class, [
                 'label' => false,
-                'class'=> WorkshopLocation::class,
-                'choice_label' => 'name',
-                'required' => true,
+                'expanded' => False,
+                'multiple' => false,
+                'choices' => [
+                    'Oui' => true,
+                    'Non' => false
+                ],
                 'attr' => [
-                    'class' => 'btn btn-block dropdown-toggle'
+                    'class' => 'radio'
                 ]
             ])
-            ->add('presentiel', CheckboxType::class, [
+            ->add('location', TextType::class, [
                 'label' => false,
                 'required' => true,
                 'attr' => [
                     'class' => 'form-control'
-                ]
-            ])
-            ->add('workshop', EntityType::class, [
-                'class' => Workshop::class,
-                'choice_label' => 'title',
-                'required' => 'true',
-                'label' => false,
-                'placeholder' => '',
-                'attr' => [
-                    'class' => 'btn btn-block dropdown-toggle'
                 ]
             ])
         ;

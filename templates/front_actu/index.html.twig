@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ actu.title }}{% endblock %}
+
+{% block content %}
+
+    <section class="product-details ftco-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 mb-5">
+                    <h1>{{ actu.title }}</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {% if actu.imageName %}
+                        <img src="{{ vich_uploader_asset(actu, 'imageFile') | imagine_filter('product_thumb_resize') }}" alt="" class="img-fluid" style="float:left; padding-bottom: 2rem; padding-right: 2rem;">
+                    {% endif %}
+                     <div class="text">
+                        {{ actu.content|raw }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> <!-- .section -->
+{% endblock %}

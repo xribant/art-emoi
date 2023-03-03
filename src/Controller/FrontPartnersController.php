@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ActuRepository;
 use App\Repository\PartnersRepository;
 use App\Repository\WorkshopRepository;
 use App\Service\CartManager;
@@ -12,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontPartnersController extends AbstractController
 {
     #[Route('/partenaires', name: 'front_partners')]
-    public function index(WorkshopRepository $workshopRepository, PartnersRepository $partnersRepository, CartManager $cartManager): Response
+    public function index(WorkshopRepository $workshopRepository, PartnersRepository $partnersRepository, CartManager $cartManager, ActuRepository $actuRepository): Response
     {
         $cart = $cartManager->getCart();
 
@@ -20,7 +21,8 @@ class FrontPartnersController extends AbstractController
             'current_menu' => 'partners',
             'workshops' => $workshopRepository->findAll(),
             'partners' => $partnersRepository->findAll(),
-            'cart' => $cart
+            'cart' => $cart,
+            'actuItems' => $actuRepository->findAll()
         ]);
     }
 }

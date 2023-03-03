@@ -71,11 +71,6 @@ class Workshop
     private $updated_at;
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="workshop")
-     */
-    private $events;
-
-    /**
      * @ORM\OneToMany(targetEntity=Article::class, mappedBy="workshop", orphanRemoval=true)
      */
     private $articles;
@@ -96,12 +91,17 @@ class Workshop
      */
     private $workshopVideos;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="workshop")
+     */
+    private $events;
+
     public function __construct()
     {
         $this->updated_at = new \DateTime();
-        $this->events = new ArrayCollection();
         $this->articles = new ArrayCollection();
         $this->workshopVideos = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
 
@@ -196,36 +196,6 @@ class Workshop
     }
 
     /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setWorkshop($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->removeElement($event)) {
-            // set the owning side to null (unless already changed)
-            if ($event->getWorkshop() === $this) {
-                $event->setWorkshop(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
      * @return Collection|Article[]
      */
     public function getArticles(): Collection
@@ -301,6 +271,36 @@ class Workshop
             // set the owning side to null (unless already changed)
             if ($workshopVideo->getWorkshop() === $this) {
                 $workshopVideo->setWorkshop(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setWorkshop($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getWorkshop() === $this) {
+                $event->setWorkshop(null);
             }
         }
 

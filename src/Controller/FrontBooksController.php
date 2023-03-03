@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ActuRepository;
 use App\Repository\BookRepository;
 use App\Service\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,14 +12,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class FrontBooksController extends AbstractController
 {
     #[Route('/publications', name: 'books')]
-    public function index(BookRepository $bookRepository, CartManager $cartManager): Response
+    public function index(BookRepository $bookRepository, CartManager $cartManager, ActuRepository $actuRepository): Response
     {
         $cart = $cartManager->getCart();
 
         return $this->render('books/index.html.twig', [
             'current_menu' => 'books',
             'books' => $bookRepository->findAll(),
-            'cart' => $cart
+            'cart' => $cart,
+            'actuItems' => $actuRepository->findAll()
         ]);
     }
 }

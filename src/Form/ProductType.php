@@ -10,11 +10,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Validator\Constraints;
-use Symfony\Component\Validator\Context\ExecutionContextInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
-use Symfony\Component\Form\Extension\Core\Type\DateType;
-use Symfony\Component\Form\Extension\Core\Type\MoneyType;
+
 
 class ProductType extends AbstractType
 {
@@ -26,10 +23,10 @@ class ProductType extends AbstractType
                 'label' => false,
                 'choices' => [
                     '' => null,
-                    'Formation' => 'training',
-                    'Atelier' => 'workshop',
+                    'Formation' => 'Formation',
+                    'Atelier' => 'Atelier',
                     'Coaching' => 'Coaching',
-                    'Supervision Professionnelle' => 'supervision'
+                    'Supervision Professionnelle' => 'Supervision'
                 ],
                 'attr' => [
                     'class' => 'form-control'
@@ -88,48 +85,6 @@ class ProductType extends AbstractType
                     'class' => 'imageField'
                 ]
             ])
-            ->add('start_at', DateType::class, [
-                'label' => false,
-                'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'dd/MM/yyyy',
-                'model_timezone' => 'Europe/Brussels',
-                'attr' => [
-                    'class' => 'datepicker',
-                    'placeholder' => 'Date de début'
-                ]
-            ])
-            ->add('end_at', DateType::class, [
-                'label' => false,
-                'widget' => 'single_text',
-                'html5' => false,
-                'format' => 'dd/MM/yyyy',
-                'model_timezone' => 'Europe/Brussels',
-                'attr' => [
-                    'class' => 'datepicker',
-                    'placeholder' => 'Date de fin'
-                ],
-                'constraints' => [
-                    new Constraints\Callback(function($object, ExecutionContextInterface $context) {
-                        $start = $context->getRoot()->getData()->getStartAt();
-                        $stop = $object;
-
-                        if (is_a($start, \DateTime::class) && is_a($stop, \DateTime::class)) {
-                            if ($stop->format('U') - $start->format('U') < 0) {
-                                $context
-                                    ->buildViolation('La date de fin doit être postérieure à la date de début')
-                                    ->addViolation();
-                            }
-                        }
-                    })
-                ]
-            ])
-            ->add('nbr_sessions',TextType::class, [
-                'label' => false,
-                'attr' => [
-                    'class' => 'form-control'
-                ]
-            ])
             ->add('online', CheckboxType::class, [
                 'label' => 'En ligne'
             ])
@@ -158,14 +113,6 @@ class ProductType extends AbstractType
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Prix',
-                ]
-            ])
-            ->add('present_location',TextType::class, [
-                'required' => true,
-                'label' => false,
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Lieu',
                 ]
             ])
             ->add('rdv', CheckboxType::class, [

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Event;
+use App\Repository\ActuRepository;
 use App\Service\CartManager;
 use Flasher\Toastr\Prime\ToastrFactory;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,13 +16,14 @@ class CartController extends AbstractController
 {
     
     #[Route('/', name: 'app_cart')]
-    public function index(CartManager $cartManager): Response
+    public function index(CartManager $cartManager, ActuRepository $actuRepository): Response
     {
         $cart = $cartManager->getCart();
 
         return $this->render('cart/index.html.twig', [
             'current_menu' => 'cart',
-            'cart' => $cart
+            'cart' => $cart,
+            'actuItems' => $actuRepository->findAll()
         ]);
 
     }

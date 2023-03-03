@@ -10,13 +10,36 @@
                 <div class="col-12 w-100">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Merci pour votre achat!</h4>
+                            <h4 class="card-title">Merci pour votre commande: {{ order.uid }}</h4>
                         </div>
-                        <div class="card-content p-5">
+                        <div class="card-content">
+                            <div class="card-content table-responsive table-full-width">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Article</th>
+                                            <th class="text-center">Format</th>
+                                            <th class="text-center">Date de l'évènement</th>
+                                            <th class="text-center">Prix</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>{{ order.event.product.title }}</td>
+                                            <td>{{ order.event.present ? 'En présentiel' : 'En visioconférence' }}</td>
+                                            <td>{{ order.event.startDate|format_datetime('medium', 'none',locale='fr') }}</td>
+                                            <td>{{ order.totalAmount|format_currency('EUR') }}</td>
+                                        </tr>     
+                                    </tbody>
 
-                          Un email de confirmation va vous être envoyé avec les détails et votre facture.
+                                </table>
+                            </div>
                         </div>
                     </div>
+                    <p class="mt-3">
+                        * La confirmation de commande va vous être envoyée par e-mail ainsi que la facture une fois le paiement confirmé par notre organisme.<br>
+                        En cas de problème, merci de nous contacter à l'adresse suivante <a href="mailto:admin@art-emoi.be">admin@art-emoi.be</a>
+                    </p>
                 </div>
             </div>
         </div>

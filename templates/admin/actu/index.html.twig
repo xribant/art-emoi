@@ -1,0 +1,65 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Actualité / Evènements
+{% endblock %}
+
+{% block pageTitle %}Actualité - Evènements
+{% endblock %}
+
+{% block content %}
+	<div class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-12">
+					<div class="card">
+						<div class="card-content">
+							<div
+								class="toolbar">
+								<!--Here you can write extra buttons/actions for the toolbar-->
+								<a class="btn btn-primary btn-fill btn-wd" href="{{ path('app_actu_new') }}">Créer une Actualité</a>
+							</div>
+							<table id="adminUsers-table" class="table">
+								<thead>
+									<th>#</th>
+									<th>Titre</th>
+									<th>Création</th>
+									<th></th>
+									<th></th>
+								</thead>
+								<tbody>
+									{% for actu in actus %}
+										<tr>
+											<td>{{ loop.index }}</td>
+											<td>{{ actu.title }}</td>
+											<td>{{ actu.createdAt|format_datetime('medium', 'medium',locale='fr') }}</td>
+											<td>
+												<div>
+													<a rel="tooltip" title="Modifier" class="btn btn-simple btn-warning btn-icon" href="{{ path('app_actu_edit', {'id': actu.id}) }}">
+														<i class="ti-pencil-alt"></i>
+													</a>
+													<form style="display: inline-block;" method="post" action="{{ path('app_actu_delete', {'id': actu.id}) }}" onsubmit="return confirm('Etes-vous certain de vouloir supprimer cet actualié?');">
+														<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ actu.id) }}">
+														<button rel="tooltip" title="Supprimer" class="btn btn-simple btn-danger btn-icon">
+															<i class="ti-close"></i>
+														</button>
+													</form>
+												</div>
+											</td>
+										</tr>
+									{% else %}
+										<tr>
+											<td colspan="4">Pas d'élément d'actualité pour le moment</td>
+										</tr>
+									{% endfor %}
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<!--  end card  -->
+				</div>
+				<!-- end col-md-12 -->
+			</div>
+			<!-- end row -->
+		</div>
+	</div>
+{% endblock %}

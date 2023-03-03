@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Form\AccessCodeType;
+use App\Repository\ActuRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 
 class FrontTrainingController extends AbstractController
@@ -21,7 +22,7 @@ class FrontTrainingController extends AbstractController
     }
 
     #[Route('/couleurs-du-deuil', name: 'app_front_deuil')]
-    public function index(WorkshopRepository $workshopRepository, Request $request): Response
+    public function index(WorkshopRepository $workshopRepository, Request $request, ActuRepository $actuRepository): Response
     {
         $code = [];
 
@@ -39,7 +40,8 @@ class FrontTrainingController extends AbstractController
         return $this->render('front_deuil/index.html.twig', [
             'current_menu' => 'event',
             'form' => $form->createView(),
-            'workshops' => $workshopRepository->findAll()
+            'workshops' => $workshopRepository->findAll(),
+            'actuItems' => $actuRepository->findAll()
         ]);
     }
 }

@@ -20,9 +20,8 @@
                                     <th>#</th>
                                     <th>Type</th>
                                     <th>Titre</th>
+                                    <th>Activé ?</th>
                                     <th>Public</th>
-                                    <th>Débute</th>
-                                    <th>Se termine</th>
                                     <th>Créé</th>
                                     <th>Actions</th>
                                 </thead>
@@ -32,9 +31,8 @@
                                     <td>{{ loop.index }}</td>
                                     <td>{{ product.type }}</td>
                                     <td>{{ product.title }}</td>
+                                    <td>{{ product.active ? 'Oui' : 'Non' }}</td>
                                     <td>{{ product.public }}</td>
-                                    <td>{{ product.startAt|format_datetime('medium', 'medium',locale='fr') }}</td>
-                                    <td>{{ product.endAt|format_datetime('medium', 'medium',locale='fr') }}</td>
                                     <td>{{ product.createdAt|format_datetime('medium', 'medium',locale='fr') }}</td>
                                     <td>
                                         <div>

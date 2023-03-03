@@ -1,15 +1,27 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Le paiement a échoué{% endblock %}
+{% block title %}Commande annulée{% endblock %}
 
-{% block body %}
-
-<div class="example-wrapper">
-    <h1>Le paiement a échoué</h1>
-    <p>
-      We would appreciate your business! But the payment has failed. ☹️
-      If you have any questions, please email
-      <a href="mailto:orders@example.com">orders@example.com</a>.
-    </p>
-</div>
+{% block content %}
+<section class="payment-success">
+    <div class="content">
+        <div class="container">
+            <div class="row m-auto">
+                <div class="col-12 w-100">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Echec de la commande</h4>
+                        </div>
+                        <div class="card-content">
+                            <p class="m-3">Le traitement de votre commande a échoué.</p>
+                            <p class="m-3">Un problème est survenu lors du paiement de celle-ci. Merci de vérifier vos coordonnées bancaires.</p>
+                            <p class="m-3">Pour toute question, vous pouvez nous contacter à l'adresse <a href="mailto:admin@art-emoi.be">admin@art-emoi.be</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 {% endblock %}
+

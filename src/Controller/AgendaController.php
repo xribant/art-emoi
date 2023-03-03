@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ActuRepository;
 use App\Repository\EventRepository;
 use App\Repository\WorkshopRepository;
 use App\Service\CartManager;
@@ -12,14 +13,15 @@ use Symfony\Component\Routing\Annotation\Route;
 class AgendaController extends AbstractController
 {
     #[Route('/agenda', name: 'agenda')]
-    public function index(EventRepository $eventRepository, CartManager $cartManager): Response
+    public function index(EventRepository $eventRepository, CartManager $cartManager, ActuRepository $actuRepository): Response
     {
         $cart = $cartManager->getCart();
 
         return $this->render('agenda/index.html.twig', [
             'current_menu' => 'agenda',
             'events' => $eventRepository->findAllFuture(),
-            'cart' => $cart
+            'cart' => $cart,
+            'actuItems' => $actuRepository->findAll()
         ]);
     }
 

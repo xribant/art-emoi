@@ -12572,7 +12572,6 @@ textarea.form-control {
   margin: 0;
 }
 .comment-list .children {
-  padding: 50px 0 0 40px;
   margin: 0;
   float: left;
   width: 100%;
@@ -12593,10 +12592,10 @@ textarea.form-control {
   width: 50px;
   border-radius: 50%;
 }
-.comment-list li .comment-body {
-  float: right;
-  width: calc(100% - 80px);
-}
+/* .comment-list li .comment-body {
+  /* float: right; */
+/* width: calc(100% - 80px);
+} */
 .comment-list li .comment-body h3 {
   font-size: 20px;
 }
@@ -13011,4 +13010,21 @@ textarea.form-control {
   margin-left: 3px;
   padding: 3px 2px 3px;
   border-radius: 50%;
+}
+
+.product-grid .img:hover {
+  opacity: 0.5;
+}
+
+.product-grid .tagcloud span,
+.product-details .tagcloud span {
+  text-transform: uppercase;
+  display: inline-block;
+  padding: 4px 10px;
+  margin-bottom: 7px;
+  margin-right: 4px;
+  border-radius: 4px;
+  color: #000;
+  border: 1px solid #e6e6e6;
+  font-size: 11px;
 }

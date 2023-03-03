@@ -39,28 +39,31 @@
                     <td>Echéance: </td><td>{{ "now"|format_datetime('short', 'none',locale='fr') }}</td>
                 </tr>
                 <tr>
-                    <td>TVA Client: </td><td>{{ registration.tva }}</td>
+                    <td>TVA Client: </td><td>{{ order.customer.taxId }}</td>
                 </tr>
             </table>
         </td>
         <td>
             <table>
-                {% if registration.company %}
+                {% if order.customer.company %}
                 <tr>
-                    <td>{{ registration.company }}</td>
+                    <td>{{ order.customer.company }}</td>
                 </tr>
                 {% endif %}
                 <tr>
-                    <td>{{ registration.firstName }} {{ registration.lastName }}</td>
+                    <td>{{ order.customer.name }}</td>
                 </tr>
                 <tr>
-                    <td>{{ registration.address }}</td>
+                    <td>{{ order.customer.address }}</td>
                 </tr>
                 <tr>
-                    <td>{{ registration.postalCode }} {{ registration.city }}</td>
+                    <td>{{ order.customer.zipCode }} {{ order.customer.city }}</td>
                 </tr>
                 <tr>
-                    <td>{{ registration.phone }}</td>
+                    <td>{{ order.customer.country }}</td>
+                </tr>
+                <tr>
+                    <td>{{ order.customer.phone }}</td>
                 </tr>
             </table>
         </td>
@@ -73,31 +76,31 @@
             <th scope="col">Description</th>
             <th scope="col">Quantité</th>
             <th scope="col">Prix Unitaire</th>
-            <th scope="col">TVA ({{ tvaRate }} %)</th>
+            <th scope="col">TVA ({{ tvaRate }}%)</th>
             <th scope="col">Montant</th>
         </tr>
     </thead>
     <tbody>
         <tr>
             <td>
-                {{ registration.event.workshop.title }}<br>
+                {{ order.event.product.title }}<br>
             </td>
             <td>1</td>
-            <td>{{ priceHTVA|format_currency('EUR') }}</td>
-            <td>{{ totalTva|format_currency('EUR') }}</td>
-            <td>{{ price|format_currency('EUR') }}</td>
+            <td>{{ unitPrice|format_currency('EUR') }}</td>
+            <td>{{ amountTax|format_currency('EUR') }}</td>
+            <td>{{ totalAmount|format_currency('EUR') }}</td>
         </tr>
-        {% if registration.discount %}
+        {# {% if order.discount %}
             <tr>
                 <td>
-                    {{ registration.discount.description }}<br>
+                    {{ order.discount.description }}<br>
                 </td>
                 <td>1</td>
                 <td></td>
                 <td></td>
-                <td>- {{ registration.discount.rate|format_currency('EUR') }}</td>
+                <td>- {{ order.discount.rate|format_currency('EUR') }}</td>
             </tr>
-        {% endif %}
+        {% endif %} #}
     </tbody>
     <tfoot>
         <tr>
@@ -105,7 +108,7 @@
             <td></td>
             <td></td>
             <td class="total-amount">TOTAL:</td>
-            <td class="total-amount">{{ (price - registration.discount.rate)|format_currency('EUR') }}</td>
+            <td class="total-amount">{{ totalAmount|format_currency('EUR') }}</td>
         </tr>
     </tfoot>
 </table>

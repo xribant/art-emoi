@@ -24,17 +24,29 @@ class CartManager {
 
         foreach($cart as $id => $quantity){
             $event = $this->eventRepository->findOneBy(['uid' => $id]);
+
+            if($event->getPresent()){ 
+                $price = $event->getProduct()->getPresentPrice();
+            } else {
+                $price = $event->getProduct()->getVisioPrice();
+            }
+
             $dataCart[] = [
                 "event" => $event,
-                "quantity" => $quantity
+                "quantity" => $quantity,
+                "price" => $price
             ];
-            $total += $event->getWorkshop()->getWorkshopInfos()->getPrice() * $quantity;
+            $total += $price * $quantity;
         }
 
         return [
             'dataCart' => $dataCart, 
             'total' => $total
         ];
+    }
+
+    public function emptyCart() {
+        $this->session->set("panier", []);
     }
 }
 

@@ -36,12 +36,12 @@
                     Tip 2: you can change the color of the active button using the data-active-color="primary | info | success | warning | danger"
                 -->
                 <div class="logo">
-                    <a href="{{ path('event_registration_index') }}" class="simple-text logo-mini">
-                        <img src="{{ asset('assets/admin/img/logo-art-emoi-mini.png') }}" alt="Logo">
+                    <a href="{{ path('admin') }}" class="simple-text logo-mini">
+                        AE
                     </a>
 
-                    <a href="{{ path('event_registration_index') }}" class="simple-text logo-normal">
-                        <img src="{{ asset('assets/admin/img/logo-art-emoi-medium.png') }}" alt="Logo">Admin
+                    <a href="{{ path('admin') }}" class="simple-text logo-normal">
+                        ADMIN
                     </a>
                 </div>
                 <div class="sidebar-wrapper">
@@ -121,7 +121,7 @@
 	                        </div>
 	                    </li>
 
-                        {% if active_menu is defined and (active_menu == 'workshop' or active_menu == 'training' or active_menu == 'agenda' or active_menu == 'registration' or active_menu == 'localisation') %}
+                        {% if active_menu is defined and (active_menu == 'workshop' or active_menu == 'training' or active_menu == 'registration' or active_menu == 'localisation') %}
                         <li class="active">
 	                        <a data-toggle="collapse" href="#workshop" aria-expanded="true">
                                 <i class="ti-package"></i>
@@ -147,27 +147,29 @@
                                             <span class="sidebar-normal">Ateliers</span>
                                         </a>
                                     </li>
-                                    <li {% if active_menu is defined and active_menu == 'agenda' %}class="active"{% endif %}>
-                                        <a href="{{ path('event_index') }}">
-                                            <span class="sidebar-mini">Ag</span>
-                                            <span class="sidebar-normal">Agenda</span>
-                                        </a>
-                                    </li>
                                     <li {% if active_menu is defined and active_menu == 'registration' %}class="active"{% endif %}>
                                         <a href="{{ path('event_registration_index') }}">
                                             <span class="sidebar-mini">In</span>
                                             <span class="sidebar-normal">Inscriptions</span>
                                         </a>
                                     </li>
-                                     <li {% if active_menu is defined and active_menu == 'localisation' %}class="active"{% endif %}>
-                                        <a href="{{ path('workshop_location_index') }}">
-                                            <span class="sidebar-mini">Lo</span>
-                                            <span class="sidebar-normal">Localisations (Ateliers)</span>
-                                        </a>
-                                    </li>
                                 </ul>
 	                        </div>
 	                    </li>
+
+                        <li {% if active_menu is defined and active_menu == 'agenda' %}class="active"{% endif %}>
+                            <a href="{{ path('event_index') }}">
+                                <i class="ti-calendar"></i>
+                                <p>Agenda</p>
+                            </a>
+                        </li>
+
+                        <li {% if active_menu is defined and active_menu == 'actu' %}class="active"{% endif %}>
+                            <a href="{{ path('app_actu_index') }}">
+                                <i class="ti-bell"></i>
+                                <p>Actualité(s)</p>
+                            </a>
+                        </li>
 
                         <li {% if active_menu is defined and active_menu == 'catalog' %}class="active"{% endif %}>
                             <a href="{{ path('app_product_index') }}">
@@ -217,8 +219,8 @@
                                             <span class="sidebar-normal">Clients</span>
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="#">
+                                    <li {% if active_menu is defined and active_menu == 'orders' %}class="active"{% endif %}>
+                                        <a href="{{ path('app_order_index') }}">
                                             <span class="sidebar-mini">CO</span>
                                             <span class="sidebar-normal">Commandes</span>
                                         </a>

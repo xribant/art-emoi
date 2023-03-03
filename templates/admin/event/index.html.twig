@@ -22,22 +22,23 @@
                                     <th>#</th>
                                     <th>Du</th>
                                     <th>Au</th>
+                                    <th>Présentiel ?</th>
                                     <th>Lieu</th>
-                                    <th>Formation</th>
+                                    <th>Service</th>
                                     <th>Durée</th>
-                                    <th>Active</th>
+                                    <th>Active ?</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                             {% for event in events %}
-                                {% if event.archived == false %}
                                     <tr>
                                         <td>{{ loop.index }}</td>
                                         <td>{{ event.startDate ? event.startDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
                                         <td>{{ event.endDate ? event.endDate|format_datetime('medium', 'none',locale='fr') : '' }}</td>
-                                        <td>{{ event.location.name }}</td>
-                                        <td>{{ event.workshop.title }}</td>
+                                        <td>{{ event.present ? 'Oui' : 'Non' }}</td>
+                                        <td>{{ event.location }}</td>
+                                        <td>{{ event.product.title }}</td>
                                         <td>{{ event.duration }}</td>
                                         <td>
                                             <div class="custom-control custom-switch">
@@ -56,10 +57,9 @@
                                             </div>
                                         </td>
                                     </tr>
-                                {% endif %}
                             {% else %}
                                 <tr>
-                                    <td colspan="6">Pas d'évènement en cours...</td>
+                                    <td colspan="8">Pas d'évènement en cours...</td>
                                 </tr>
                             {% endfor %}
                             </tbody>

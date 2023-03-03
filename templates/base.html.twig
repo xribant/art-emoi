@@ -133,8 +133,11 @@
                                     <li class="nav-item dropdown {% if current_menu == 'event' %}active{% endif %}">
                                         <a class="nav-link" data-toggle="dropdown" href="#" role="button" aria-expanded="false">évènements</a>
                                         <div class="dropdown-menu">
-                                            <a class="dropdown-item" href="{{ path('app_pub') }}">Festival de la créativité</a>
-                                            <a class="dropdown-item" href="{{ path('app_front_deuil') }}">Les couleurs du deuil</a>
+                                            {% for item in actuItems %}
+                                                <a class="dropdown-item" href="{{ path('front_actu', {'slug': item.slug }) }}">{{ item.title }}</a>
+                                            {% else %}
+                                                 <a class="dropdown-item" href="#">Pas d'évènement pour le moment</a>
+                                            {% endfor %}
                                         </div>
                                     </li>
                                     <li class="nav-item {% if current_menu == 'partners' %}active{% endif %}"><a href="{{ path('front_partners') }}" class="nav-link">Partenaires</a></li>

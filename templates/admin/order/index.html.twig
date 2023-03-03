@@ -1,0 +1,52 @@
+{% extends 'admin/admin_base.html.twig' %}
+
+{% block title %}Commandes{% endblock %}
+
+{% block pageTitle %}Commandes{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-content">
+                            <table id="orders-table" class="table">
+                                <thead>
+                                    <th>#</th>
+                                    <th>Référence</th>
+                                    <th>Client</th>
+                                    <th>Statut</th>
+                                    <th>Article</th>
+                                    <th>Format</th>
+                                    <th>Date de l'évènement</th>
+                                    <th>Prix</th>
+                                    <th>Création</th>
+                                </thead>
+                                <tbody>
+                                {% for order in orders %}
+                                <tr>
+                                    <td>{{ loop.index }}</td>
+                                    <td>{{ order.uid }}</td>
+                                    <td>{{ order.customer.name }}</td>
+                                    <th>{{ order.status }}
+                                    <td>{{ order.event.product.title }}</td>
+                                    <td>{{ order.event.present ? 'Présentiel' : 'Visioconférence' }}</td>
+                                    <td>{{ order.event.startDate|format_datetime('medium', 'none',locale='fr') }}</td>
+                                    <td>{{ (order.totalAmount)|format_currency('EUR') }}</td>
+                                    <td>{{ order.createdAt|format_datetime('medium', 'medium',locale='fr') }}</td>
+                                </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="9">Pas de commande</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!--  end card  -->
+                </div> <!-- end col-md-12 -->
+            </div> <!-- end row -->
+        </div>
+    </div>
+{% endblock %}

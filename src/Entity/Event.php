@@ -34,24 +34,12 @@ class Event
     private $end_date;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Workshop::class, inversedBy="events")
-     * @ORM\JoinColumn(nullable=false)
-     * @Assert\NotBlank(message="Veuillez choisir la formation")
-     */
-    private $workshop;
-
-    /**
-     * @ORM\OneToMany(targetEntity=EventRegistration::class, mappedBy="event", orphanRemoval=true)
-     */
-    private $eventRegistrations;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $active;
 
     /**
-     * @ORM\ManyToOne(targetEntity=WorkshopLocation::class, inversedBy="events")
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $location;
 
@@ -66,24 +54,36 @@ class Event
     private $duration;
 
     /**
-     * @ORM\Column(type="boolean")
-     */
-    private $archived;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $presentiel;
-
-    /**
      * @ORM\OneToMany(targetEntity=Discount::class, mappedBy="event", fetch="EAGER")
      */
     private $discounts;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="events")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $product;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $present;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Order::class, mappedBy="event")
+     */
+    private $orders;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Workshop::class, inversedBy="events")
+     */
+    private $workshop;
+
     public function __construct()
     {
-        $this->eventRegistrations = new ArrayCollection();
         $this->discounts = new ArrayCollection();
+        $this->orders = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -115,49 +115,6 @@ class Event
         return $this;
     }
 
-
-    public function getWorkshop(): ?Workshop
-    {
-        return $this->workshop;
-    }
-
-    public function setWorkshop(?Workshop $workshop): self
-    {
-        $this->workshop = $workshop;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|EventRegistration[]
-     */
-    public function getEventRegistrations(): Collection
-    {
-        return $this->eventRegistrations;
-    }
-
-    public function addEventRegistration(EventRegistration $eventRegistration): self
-    {
-        if (!$this->eventRegistrations->contains($eventRegistration)) {
-            $this->eventRegistrations[] = $eventRegistration;
-            $eventRegistration->setEvent($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEventRegistration(EventRegistration $eventRegistration): self
-    {
-        if ($this->eventRegistrations->removeElement($eventRegistration)) {
-            // set the owning side to null (unless already changed)
-            if ($eventRegistration->getEvent() === $this) {
-                $eventRegistration->setEvent(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getActive(): ?bool
     {
         return $this->active;
@@ -170,12 +127,12 @@ class Event
         return $this;
     }
 
-    public function getLocation(): ?WorkshopLocation
+    public function getLocation(): ?string
     {
         return $this->location;
     }
 
-    public function setLocation(?WorkshopLocation $location): self
+    public function setLocation(?string $location): self
     {
         $this->location = $location;
 
@@ -206,30 +163,6 @@ class Event
         return $this;
     }
 
-    public function getArchived(): ?bool
-    {
-        return $this->archived;
-    }
-
-    public function setArchived(bool $archived): self
-    {
-        $this->archived = $archived;
-
-        return $this;
-    }
-
-    public function getPresentiel(): ?bool
-    {
-        return $this->presentiel;
-    }
-
-    public function setPresentiel(bool $presentiel): self
-    {
-        $this->presentiel = $presentiel;
-
-        return $this;
-    }
-
     /**
      * @return Collection<int, Discount>
      */
@@ -256,6 +189,72 @@ class Event
                 $discount->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getProduct(): ?Product
+    {
+        return $this->product;
+    }
+
+    public function setProduct(?Product $product): self
+    {
+        $this->product = $product;
+
+        return $this;
+    }
+
+    public function getPresent(): ?bool
+    {
+        return $this->present;
+    }
+
+    public function setPresent(bool $present): self
+    {
+        $this->present = $present;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getEvent() === $this) {
+                $order->setEvent(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getWorkshop(): ?Workshop
+    {
+        return $this->workshop;
+    }
+
+    public function setWorkshop(?Workshop $workshop): self
+    {
+        $this->workshop = $workshop;
 
         return $this;
     }

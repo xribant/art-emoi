@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Repository\ActuRepository;
 use App\Repository\WorkshopRepository;
 use App\Service\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,14 +13,15 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 class AboutController extends AbstractController
 {
     #[Route('/presentation', name: 'about')]
-    public function index(WorkshopRepository $workshopRepository, SessionInterface $session, CartManager $cartManager): Response
+    public function index(WorkshopRepository $workshopRepository, SessionInterface $session, CartManager $cartManager, ActuRepository $actuRepository): Response
     {
         $cart = $cartManager->getCart();
 
         return $this->render('about/index.html.twig', [
             'current_menu' => 'about',
             'workshops' => $workshopRepository->findAll(),
-            'cart' => $cart
+            'cart' => $cart,
+            'actuItems' => $actuRepository->findAll()
         ]);
     }
 }

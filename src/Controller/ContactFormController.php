@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Contact;
 use App\Form\ContactFormType;
+use App\Repository\ActuRepository;
 use App\Repository\WorkshopRepository;
 use App\Service\CartManager;
 use Flasher\Toastr\Prime\ToastrFactory;
@@ -18,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ContactFormController extends AbstractController
 {
     #[Route('/contact', name: 'contact_form')]
-    public function index(Request $request, WorkshopRepository $workshopRepository, ToastrFactory $toastr, MailerInterface $mailer, CartManager $cartManager): Response
+    public function index(Request $request, WorkshopRepository $workshopRepository, ToastrFactory $toastr, MailerInterface $mailer, CartManager $cartManager, ActuRepository $actuRepository): Response
     {
         $cart = $cartManager->getCart();
 
@@ -56,7 +57,8 @@ class ContactFormController extends AbstractController
             'form' => $form->createView(),
             'current_menu' => 'contact',
             'workshops' => $workshopRepository->findAll(),
-            'cart' => $cart
+            'cart' => $cart,
+            'actuItems' => $actuRepository->findAll()
         ]);
     }
 }

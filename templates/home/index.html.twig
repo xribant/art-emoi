@@ -16,7 +16,7 @@
         </div>
     </section>
 
-    <section id="workshops" class="ftco-section">
+    <section id="workshops" class="product-grid ftco-section">
         <div class="container">
             <div class="row justify-content-center mb-5">
                 <div class="col-md-12 heading-section ftco-animate text-center">
@@ -25,28 +25,30 @@
             </div>
             <div class="row">
                 {% for product in products %}
-                    <div class="col-md-4">
-                        <div class="classes w-100 ftco-animate">
-                            {% if vich_uploader_asset(product, 'imageFile') is null %}
-                                <a href="#" class="img w-100 mb-3" style="background-image: url('{{ asset('build/background_with_logo.png') }}');"></a>
-                            {% else %}
-                                <a href="#" class="img w-100 mb-3" style="background-image: url('{{ vich_uploader_asset(product, 'imageFile') | imagine_filter('workshop_jacket') }}');"></a>
-                            {% endif %}
-                            <div class="col-md-6">
-                                <div class="text w-100 text-left mt-2 mb-2">
-                                    <h3><a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}">{{ product.title }}</a></h3>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="tagcloud">
-                                    <a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}" class="tag-cloud-link">Online</a>
-                                    <a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}" class="tag-cloud-link">Visio</a>
-                                    <a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}" class="tag-cloud-link">Présentiel</a>
-                                </div>
-                                <h5><a href="{{ path('front_workshop_infos', {'slug': product.slug}) }}">{{ product.trainer }}</a></h3>
+                    {% if product.active %}
+                        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+                            <div class="classes w-100 ftco-animate" style="border-bottom: solid 1px #2c396b;" >
+                                {% if vich_uploader_asset(product, 'imageFile') is null %}
+                                    <a href="{{ path('front_product_details', {'slug': product.slug }) }}" class="img w-100 mb-3" style="background-image: url('{{ asset('build/background_with_logo.png') }}');"></a>
+                                {% else %}
+                                    <a href="{{ path('front_product_details', {'slug': product.slug }) }}" class="img w-100 mb-3" style="background-image: url('{{ vich_uploader_asset(product, 'imageFile') | imagine_filter('workshop_jacket') }}');"></a>
+                                {% endif %}
+                            
+                                    <div class="text w-100 text-left mt-2" style="height: 5rem;">
+                                        <h3><a href="{{ path('front_product_details', {'slug': product.slug}) }}">{{ product.title }}</a></h3>
+                                    </div>
+                                
+                                    <div class="tagcloud mt-2">
+                                        {% if product.online %}<span>Online</span>{% endif %}
+                                        {% if product.visio %}<span>Visio</span>{% endif %}
+                                        {% if product.present %}<span>Présentiel</span>{% endif %}
+                                        {% if product.rdv %}<span>Sur RDV</span>{% endif %}
+                                    </div>
+                                    <h5><a href="{{ path('front_product_details', {'slug': product.slug}) }}">{{ product.trainer }}</a></h5>
+                            
                             </div>
                         </div>
-                    </div>
+                    {% endif %}
                 {% endfor %}
 
             </div>

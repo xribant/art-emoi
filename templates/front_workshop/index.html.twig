@@ -1,97 +1,67 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ workshop.title }}{% endblock %}
+{% block title %}{{ product.title }}{% endblock %}
 
 {% block content %}
 
-    <section class="ftco-section">
+    <section class="product-details ftco-section">
         <div class="container">
             <div class="row">
-                <div class="col-lg-7 ftco-animate">
-
-                    {% for article in workshop.articles %}
-                        <h2 class="mb-3 mt-5">
-                            {{ article.title }}
-                        </h2>
-                        <p>
-                            {{ article.text|raw }}
-                        </p>
-                        <p>
-                            {% if article.imageName %}
-                                <img src="{{ vich_uploader_asset(article, 'imageFile') | imagine_filter('article_image') }}" alt="" class="img-fluid">
-                            {% endif %}
-                        </p>
-                    {% endfor %}
-
-                    {% if workshop.workshopVideos %}
-                        {% for video in workshop.workshopVideos %}
-                            <h2 class="mt-5">{{ video.title }}</h2>
-                            {% if video.description %}<p>{{ video.description }}</p>{% endif %}
-                            <div class="video-responsive mt-5">
-                                <iframe width="560" height="315" src="{{ video.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                        {% endfor %}
+                <div class="col-md-6">
+                    {% if product.imageName %}
+                        <img src="{{ vich_uploader_asset(product, 'imageFile') | imagine_filter('product_thumb_resize') }}" alt="" class="img-fluid">
+                    {% else %}
+                        <img src="{{ asset('build/image_not_available.png') }}" alt="" class="img-fluid">
                     {% endif %}
-
                 </div>
-
-                <div class="col-lg-5 sidebar ftco-animate">
-                    <div class="sidebar-box ftco-animate">
-                        <div class="categories">
-                            <h3 class="heading-2">Infos pratiques</h3>
-                            {% if workshop.workshopInfos %}
-                            <li>
-                                {% for location in workshop.workshopInfos.location %}
-                                    {{ location.name }} |
-                                {% endfor %}
-                            </li>
-                            <li>De {{ workshop.workshopinfos.startAt|format_datetime('none', 'short',locale='fr') }} à {{ workshop.workshopinfos.stopAt|format_datetime('none', 'short',locale='fr') }}</li>
-                            <li>{{ workshop.workshopinfos.price|format_currency('EUR') }} TTC</li>
-                            <li>Animé par {{ workshop.workshopinfos.animator }}</li>
-                            {% else %}
-                            <li>Pas d'infos pour le moment</li>
-                            {% endif %}
-                        </div>
+                <div class="col-md-6">
+                        <h2 style="border-bottom: solid 1px black;">{{ product.title }} existe</h1>
+                    <div class="categories mt-3">
+                        {% if product.online %}<li><a href="#">En ligne<span>{{ product.onlinePrice|format_currency('EUR') }}</span></a></li>{% endif %}
+                        {% if product.visio %}<li><a href="#">Par visioconférence<span>{{ product.visioPrice|format_currency('EUR') }}</span></a></li>{% endif %}
+                        {% if product.present %}<li><a href="#">En présentiel<span>{{ product.presentPrice|format_currency('EUR') }}</span></a></li>{% endif %}
+                        {% if product.rdv %}<li><a href="#">Sur rendez-vous<span>Contactez nous</span></a></li>{% endif %}
                     </div>
-
-                    <div class="sidebar-box ftco-animate">
-                        <h3 class="heading-2">Prochaines sessions</h3>
-                        {% if events %}
-                            {% for event in events %}
-                                {% if event.active %}
-                                <div class="block-21 mb-4 d-flex">
-                                    <div class="text">
-                                        <div class="meta">
-                                            <span class="icon-calendar"></span>
-                                                {% if event.startDate != event.endDate %}
-                                                    Du {{ event.startDate|format_datetime('medium', 'none',locale='fr') }} au {{ event.endDate|format_datetime('medium', 'none',locale='fr') }} |
-                                                {% else %}
-                                                    Le {{ event.startDate|format_datetime('medium', 'none',locale='fr') }}
-                                                {% endif %}
-                                            <br>
-                                            <span class="icon-map-marker"></span>
-                                            {{ event.location }}
-                                            <br>
-                                            <a href="{{ path('front_registration', {'event_uid': event.uid}) }}" class="btn btn-primary">Inscriptions</a>
-                                        </div>
-                                    </div>
-                                </div>
-                                {% endif %}
-                            {% endfor %}
-                        {% else %}
-                            <div class="block-21 mb-4 d-flex">
-                                <div class="text">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6 mt-5 pr-5">
+                    <h2>Description</h2>
+                    <div class="text">
+                        {{ product.description|raw }}
+                    </div>
+                </div>
+                <div class="col-md-6 mt-5">
+                    <h2>Prochaines sessions</h2>
+                    <ul class="comment-list">
+                    {% for event in product.events %}
+                        {% if ((event.present and event.product.present) or (not event.present and event.product.visio)) and event.active %}
+                            <li class="comment">
+                                <div class="comment-body">
                                     <div class="meta">
-                                       Pas de session pour le moment
+                                        <div class="tagcloud mt-2">
+                                            {{ event.present ? '<span>Présentiel</span>' : '<span>Visioconférence</span>' }}
+                                        </div>
+                                        <span class="icon-calendar"></span> {{ event.startDate|format_datetime('medium', 'none',locale='fr') }}
+                                        {% if event.location %}<i class="fa-solid fa-location-dot"></i> {{ event.location }}{% endif %}
                                     </div>
+                                    <p>{{ event.duration }}</p>
+                                    <p><a href="{{ path('app_cart_add', {'uid': event.uid }) }}" class="btn btn-primary">Ajouter au panier</a></p>
                                 </div>
-                            </div>
+                            </li>
                         {% endif %}
-                    </div>
-
-
+                    {% else %}
+                        <ul class="comment-list">
+                            <li class="comment">
+                                <div class="comment-body">
+                                    <div class="meta">🕰️ 😌</div>
+                                    <p>Pas de session planifiée pour le moment</p>
+                                </div>
+                            </li>
+                        </ul>
+                    {% endfor %}
+                    </ul>
                 </div>
-
             </div>
         </div>
     </section> <!-- .section -->

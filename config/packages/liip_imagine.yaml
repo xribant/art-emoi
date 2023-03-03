@@ -12,6 +12,12 @@ liip_imagine:
         relative_resize:
           heighten: 300
 
+    product_front_resize:
+      quality: 75
+      filters:
+        relative_resize:
+          heighten: 400
+
     workshop_jacket:
       quality: 75
       filters:

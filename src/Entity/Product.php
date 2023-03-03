@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\ProductRepository;
 use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\HttpFoundation\File\File;
@@ -74,23 +76,6 @@ class Product
      * @Assert\NotBlank(message="Merci de sélectionner un public")
      */
     private $public;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotBlank(message="Merci d'entrer une date de début")
-     */
-    private $start_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Assert\NotBlank(message="Merci d'entrer une date de fin")
-     */
-    private $end_at;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $nbr_sessions;
 
     /**
      * @ORM\Column(type="float", nullable=true)
@@ -170,15 +155,16 @@ class Product
     private $active;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="product")
      */
-    private $present_location;
+    private $events;
 
     public function __construct()
     {
         $this->created_at = new DateTime();
         $this->updated_at = new DateTime();
         $this->uid = uniqid();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -290,42 +276,6 @@ class Product
     public function setPublic(string $public): self
     {
         $this->public = $public;
-
-        return $this;
-    }
-
-    public function getStartAt(): ?\DateTimeInterface
-    {
-        return $this->start_at;
-    }
-
-    public function setStartAt(?\DateTimeInterface $start_at): self
-    {
-        $this->start_at = $start_at;
-
-        return $this;
-    }
-
-    public function getEndAt(): ?\DateTimeInterface
-    {
-        return $this->end_at;
-    }
-
-    public function setEndAt(?\DateTimeInterface $end_at): self
-    {
-        $this->end_at = $end_at;
-
-        return $this;
-    }
-
-    public function getNbrSessions(): ?string
-    {
-        return $this->nbr_sessions;
-    }
-
-    public function setNbrSessions(?string $nbr_sessions): self
-    {
-        $this->nbr_sessions = $nbr_sessions;
 
         return $this;
     }
@@ -498,14 +448,32 @@ class Product
         return $this;
     }
 
-    public function getPresentLocation(): ?string
+    /**
+     * @return Collection<int, Event>
+     */
+    public function getEvents(): Collection
     {
-        return $this->present_location;
+        return $this->events;
     }
 
-    public function setPresentLocation(?string $present_location): self
+    public function addEvent(Event $event): self
     {
-        $this->present_location = $present_location;
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setProduct($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->removeElement($event)) {
+            // set the owning side to null (unless already changed)
+            if ($event->getProduct() === $this) {
+                $event->setProduct(null);
+            }
+        }
 
         return $this;
     }
