@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Order;
 use App\Form\OrderType;
+use App\Repository\CustomerRepository;
 use App\Repository\OrderRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,6 +19,17 @@ class OrderController extends AbstractController
     {
         return $this->render('admin/order/index.html.twig', [
             'orders' => $orderRepository->findAll(),
+            'active_menu' => 'orders'
+        ]);
+    }
+
+    #[Route('/customer/{id}', name: 'app_customer_order_index', methods: ['GET'])]
+    public function indexByCustomer(OrderRepository $orderRepository, CustomerRepository $customerRepository, $id): Response
+    {
+        $customer = $customerRepository->findOneBy(['id' => $id]);
+
+        return $this->render('admin/order/index.html.twig', [
+            'orders' => $orderRepository->findByCustomer($customer),
             'active_menu' => 'orders'
         ]);
     }

@@ -11,7 +11,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-content">
-                            <table id="adminUsers-table" class="table">
+                            <table id="customer-table" class="table">
                                 <thead>
                                     <th>#</th>
                                     <th>Nom</th>
@@ -25,26 +25,28 @@
                                     <th><th>
                                 </thead>
                                 <tbody>
-                                {% for customer in customers %}
-                                <tr>
-                                    <td>{{ loop.index }}</td>
-                                    <td>{{ customer.name }}</td>
-                                    <td>{{ customer.email }}</td>
-                                    <td>{{ customer.address }}</td>
-                                    <td>{{ customer.zipCode }}</td>
-                                    <td>{{ customer.city }}</td>
-                                    <td>{{ customer.country }}</td>
-                                    <td>{{ customer.phone }}</td>
-                                    <td>{{ customer.createdAt|format_datetime('medium', 'medium',locale='fr') }}</td>
-                                    <td>
-                                        <button class="btn btn-sm btn-primary">Commandes</button>
-                                    </td>
-                                </tr>
-                                {% else %}
+                                
+                                    {% for customer in customers %}
                                     <tr>
-                                        <td colspan="10">Pas de clients</td>
+                                        <td>{{ loop.index }}</td>
+                                        <td>{{ customer.name }}</td>
+                                        <td>{{ customer.email }}</td>
+                                        <td>{{ customer.address }}</td>
+                                        <td>{{ customer.zipCode }}</td>
+                                        <td>{{ customer.city }}</td>
+                                        <td>{{ customer.country }}</td>
+                                        <td>{{ customer.phone }}</td>
+                                        <td>{{ customer.createdAt|format_datetime('medium', 'medium',locale='fr') }}</td>
+                                        <td>
+                                            <a class="btn btn-sm btn-primary" href="{{ path('app_customer_order_index', {'id': customer.id }) }}"><i class="ti-shopping-cart-full"></i> Achats</button>
+                                        </td>
                                     </tr>
-                                {% endfor %}
+                                    {% else %}
+                                        <tr>
+                                            <td colspan="10">Pas de clients</td>
+                                        </tr>
+                                    {% endfor %}
+                                
                                 </tbody>
                             </table>
                         </div>
@@ -53,4 +55,38 @@
             </div> <!-- end row -->
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+<script>
+    var $table = $('#customer-table');
+
+    $table.bootstrapTable({
+	    toolbar: ".toolbar",
+        clickToSelect: true,
+        showRefresh: true,
+        search: true,
+        showToggle: true,
+        showColumns: true,
+        pagination: true,
+        searchAlign: 'left',
+        pageSize: 8,
+        clickToSelect: false,
+        pageList: [8,10,25,50,100],
+
+        formatShowingRows: function(pageFrom, pageTo, totalRows){
+            //do nothing here, we don't want to show the text "showing x of y from..."
+        },
+        formatRecordsPerPage: function(pageNumber){
+            return pageNumber + " rows visible";
+        },
+        icons: {
+            refresh: 'fa fa-refresh',
+            toggle: 'fa fa-th-list',
+            columns: 'fa fa-columns',
+            detailOpen: 'fa fa-plus-circle',
+            detailClose: 'ti-close'
+        }
+    });
+</script>
 {% endblock %}
